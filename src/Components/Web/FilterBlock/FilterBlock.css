@@ -1,0 +1,71 @@
+
+.container .row {
+    padding: 0;
+  }
+.row {margin:0;}
+
+  /* Bên trên */
+  .top-filter{
+  height:80px;
+  line-height: 70px;
+
+  padding: 0 0;
+  }
+  .top-filter a{
+  text-align: center;
+  }
+  .top-left{
+    width: 70%;
+    min-height:34px;
+    line-height:36px;
+    margin-top:10px;
+    float: left;
+  }
+  .zoom img {
+    max-height: 45px;
+    max-width: 200px;
+
+    -webkit-transition: all 2s ease;
+    -moz-transition: all 2s ease;
+    -ms-transition: all 2s ease;
+    transition: all 2s ease;
+
+    overflow: hidden;
+    padding: 0 35px;
+    margin-top: 10px;
+  }
+  .zoom img:hover {
+      transform: scale(1.5);}
+
+
+/* Bên dưới */
+  .top-all{
+    border-top: 1px solid rgba(0, 0, 0, 0.85);
+    height:60px;
+    padding: 0 0;
+  }
+  .top-right,.top-left{
+  padding: 0 0;
+  line-height:36px;
+  margin-top:10px;
+  } 
+  .top-left {
+    width: 870px;
+    display: inline-block;
+  }
+  .top-right {
+  width: 300px;
+  display: inline-block;
+  text-align: center;
+    
+  }
+  
+  .top-right a:hover {
+    color: #33c9dc;
+  }
+  .top-left a {
+    padding: 0 15px;
+  }
+  .top-left a:hover {
+    color: #33c9dc;
+  }
