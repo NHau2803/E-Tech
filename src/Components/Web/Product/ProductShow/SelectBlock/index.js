@@ -1,7 +1,44 @@
+// import { useEffect } from "react"
 import ProductBlock from "../ProductBlock"
+// import Slider from "react-slick"
 
 const SelectBlock = props => {
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    }
     const { selectBlockTitle, products } = props
+    // useEffect(() => {
+    //     new slick({
+    //         // normal options...
+    //         infinite: false,
+
+    //         // the magic
+    //         responsive: [
+    //             {
+    //                 breakpoint: 1024,
+    //                 settings: {
+    //                     slidesToShow: 3,
+    //                     infinite: true
+    //                 }
+    //             },
+    //             {
+    //                 breakpoint: 600,
+    //                 settings: {
+    //                     slidesToShow: 2,
+    //                     dots: true
+    //                 }
+    //             },
+    //             {
+    //                 breakpoint: 300,
+    //                 settings: "unslick" // destroys slick
+    //             }
+    //         ]
+    //     })
+    // })
     return (
         <div className="section">
             <div className="container">

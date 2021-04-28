@@ -609,6 +609,16 @@ exports.RENDER_HOME = [
                 rom: "SSD 512GB",
                 guarantee: 12,
                 price: "12.690.000₫"
+            },
+            {
+                id: 5,
+                name: "Laptop Asus 08 (JDC123)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 4GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "12.690.000₫"
             }
         ]
     }
