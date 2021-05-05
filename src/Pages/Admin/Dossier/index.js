@@ -22,7 +22,9 @@ const DossierData = () => {
     const [form] = Form.useForm()
     const [data, setData] = useState(DOSSIER_DATA)
     const [editingKey, setEditingKey] = useState("")
+
     const match = useRouteMatch()
+
     // ---------------------even---------------------
 
     const cancel = () => {
@@ -44,18 +46,21 @@ const DossierData = () => {
     // ---------------------table---------------------
     const columns = [
         {
+            id: 1,
             title: "Tên sản phẩm",
             dataIndex: "name",
             width: "12%"
         },
         {
+            id: 2,
             title: "Hãng",
             dataIndex: "brand",
             filters: BRAND_LAPTOP_FILTER,
             onFilter: (value, record) => record.brand.includes(value),
-            width: "5%"
+            width: "8%"
         },
         {
+            id: 3,
             title: "Vi xử lí",
             dataIndex: "cpu",
             filters: SPEC_VALUE_LAPTOP_SCREEN_FILTER,
@@ -63,34 +68,42 @@ const DossierData = () => {
             width: "8%"
         },
         {
+            id: 4,
             title: "Ram",
             dataIndex: "ram",
             filters: SPEC_VALUE_LAPTOP_RAM_FILTER,
             onFilter: (value, record) => record.ram.includes(value),
-            width: "5%"
+            width: "6%"
         },
         {
+            id: 5,
             title: "Lưu trữ",
             dataIndex: "rom",
             width: "8%"
         },
         {
+            id: 6,
             title: "Mô tả sản phẩm",
             dataIndex: "shortDescription"
             // with: "10%"
         },
         {
+            id: 7,
             title: "Chức năng",
             dataIndex: "action",
+            width: "12%",
             render: (value, record) => (
                 <Space size={"small"}>
-                    <Link to={`${match.url}/update/${record.id}`}>
+                    <Link
+                        to={`${match.url}/update/${record.id}`}
+                        key={record.id}
+                    >
                         <Button type="primary" icon={<FormOutlined />}></Button>
                     </Link>
-                    <Link to={`/${record.id}`}>
+                    <Link to={`/${record.id}`} key={record.id}>
                         <Button icon={<FileSearchOutlined />}></Button>
                     </Link>
-                    <Link to={`/${record.id}`}>
+                    <Link to={`/${record.id}`} key={record.id}>
                         <Button
                             danger
                             icon={<DeleteOutlined />}
@@ -107,16 +120,10 @@ const DossierData = () => {
 
     return (
         <Layout className="site-layout">
-            {/* <Header
-                className="site-layout-background"
-                style={{ padding: 0, height: "30px" }}
-            /> */}
             <BreadcrumbField list={["ADMIN", "LAPTOP"]} />
             <Content
                 style={{
-                    margin: "24px 16px 0",
-                    overflow: "initial",
-                    paddingLeft: "10px"
+                    overflow: "initial"
                 }}
             >
                 <Button
@@ -125,29 +132,26 @@ const DossierData = () => {
                     icon={<ReloadOutlined />}
                 />
                 <Search
-                    placeholder="input search text"
+                    placeholder="Tìm kiếm tên sản phẩm"
                     style={{ width: 200, marginLeft: 5 }}
                     onSearch={value => console.log(value)}
                 />
-                <div
-                    className="site-layout-background"
-                    style={{ textAlign: "center" }}
-                >
-                    <Form form={form} component={false}>
-                        <Table
-                            bordered
-                            dataSource={data}
-                            columns={columns}
-                            //rowClassName="editable-row"
-                            onChange={onChange}
-                            pagination={{
-                                current: 1,
-                                pageSize: 3
-                            }}
-                            // footer={() => "Footer"}
-                        />
-                    </Form>
-                </div>
+
+                <Form form={form} component={false}>
+                    <Table
+                        bordered
+                        dataSource={data}
+                        columns={columns}
+                        //rowClassName="editable-row"
+                        onChange={onChange}
+                        pagination={{
+                            current: 1,
+                            pageSize: 6
+                        }}
+                        //scroll={{ y: 500 }}
+                        // footer={() => "Footer"}
+                    />
+                </Form>
             </Content>
         </Layout>
     )

@@ -1,4 +1,6 @@
-// ---------------------------ADMIN-----------------------------//
+// ---------------------------ADMIN TYPE-----------------------------//
+
+const { default: ex } = require("API/ProductAPI")
 
 exports.TYPE_CUSTOM_FIELD = {
     INPUT: "Input",
@@ -6,7 +8,22 @@ exports.TYPE_CUSTOM_FIELD = {
     INPUT_NUMBER: "InputNumber"
 }
 
-exports.TYPE_PRODUCT = [
+exports.TYPE_ADMIN_PAGE = {
+    ADD_EDIT: "AddEdit",
+    DOSSIER: "Dossier"
+}
+
+exports.TYPE_PRODUCT = {
+    PHONE: "PHONE",
+    LAPTOP: "LAPTOP",
+    ACCESSORIES: "ACCESSORIES",
+    MOUSE: "MOUSE",
+    KEYBOARD: "KEYBOARD",
+    LISTEN: "LISTEN"
+}
+
+// ---------------------------ADMIN RENDER-----------------------------//
+exports.TYPE_PRODUCT_RENDER = [
     { id: 1, title: "Điện thoại" },
     { id: 2, title: "Laptop" },
     { id: 3, title: "Phụ kiện" },
@@ -14,7 +31,6 @@ exports.TYPE_PRODUCT = [
     { id: 5, title: "Bàn phím" },
     { id: 6, title: "Tay nghe" }
 ]
-
 exports.BRAND_PHONE = [
     { id: 1, title: "VSMART" },
     { id: 2, title: "IPHONE" },
@@ -23,7 +39,6 @@ exports.BRAND_PHONE = [
     { id: 5, title: "XIAOMI" },
     { id: 6, title: "SONY" }
 ]
-
 exports.BRAND_LAPTOP = [
     { id: 1, title: "MACBOOK" },
     { id: 2, title: "LEVONO" },
@@ -32,7 +47,6 @@ exports.BRAND_LAPTOP = [
     { id: 5, title: "HP" },
     { id: 6, title: "LG" }
 ]
-
 exports.SPEC_VALUE_LAPTOP_CPU = [
     { id: 1, title: "Intel Pentium, N6000, 1.10 GHz" },
     { id: 2, title: "Intel Core i3-10110U" },
@@ -44,13 +58,11 @@ exports.SPEC_VALUE_LAPTOP_CPU = [
     { id: 8, title: "Intel Core i5 Ice Lake, 1035G4, 1.10 GHz" },
     {
         id: 9,
-        title:
-            "Intel Core i5-7200U ( 2.5 GHz - 3.1 GHz / 3MB / 2 nhân, 4 luồng )"
+        title: "Intel Core i5-7200U 2.5 GHz - 3.1 GHz 3MB 2 nhân, 4 luồng "
     },
     {
         id: 10,
-        title:
-            "Intel Core i5-8250U ( 1.6 GHz - 3.4 GHz / 6MB / 4 nhân, 8 luồng )"
+        title: "Intel Core i5-8250U 1.6 GHz - 3.4 GHz 6MB 4 nhân 8 luồng )"
     },
     { id: 11, title: "Intel Core i5 Coffee Lake, 8265U, 1.60 GHz" },
     { id: 12, title: "Intel Core i5 Coffee Lake, 9300H, 2.40 GHz" },
@@ -298,6 +310,93 @@ exports.SPEC_VALUE_LAPTOP_SCREEN_FILTER = [
     { value: "15.6 inch", text: "15.6 inch" }
 ]
 
+// ---------------------------ADMIN INITIAL VALUES DEFAULT-----------------------------//
+exports.INITIAL_VALUES_DEFAULT = {
+    info: {
+        id: 0,
+        brand_id: 0,
+        description: "",
+        guarantee: 12,
+        name: "",
+        price: 0,
+        type_id: 0
+    },
+    image: {
+        img1: "",
+        img2: "",
+        img3: ""
+    }
+}
+
+exports.INITIAL_VALUES_LAPTOP_DEFAULT = {
+    battery_id: 0,
+    cpu_id: 0,
+    gpu_id: 0,
+    os_id: 0,
+    port_id: 0,
+    ram_id: 0,
+    rom_id: 0,
+    screen_id: 0,
+    size_id: 0,
+    weight_id: 0
+}
+
+// ---------------------------ADMIN API POST-----------------------------//
+exports.DATA_POST = {
+    info: {
+        id: 12,
+        brand_id: 4,
+        description: "ABC",
+        guarantee: 24,
+        name: "Laptop Lenovo ThinkBook 15IIL i3",
+        price: 15399000,
+        type_id: 2
+    },
+    laptop: {
+        battery_id: 2,
+        cpu_id: 6,
+        gpu_id: 2,
+        os_id: 3,
+        port_id: 2,
+        ram_id: 1,
+        rom_id: 2,
+        screen_id: 2,
+        size_id: 2,
+        weight_id: 2
+    },
+    image: {
+        img1: "link1",
+        img2: "link2",
+        img3: "link3"
+    }
+}
+
+exports.DATA_CREATE = {
+    info: {
+        name: "LAP_TEST_2",
+        description: "description 1",
+        guarantee: 24,
+        price: 120000,
+        brand_id: 2,
+        type_id: 1
+    },
+    laptop: {
+        cpu_id: 1,
+        gpu_id: 1,
+        ram_id: 1,
+        size_id: 1,
+        rom_id: 1,
+        screen_id: 1,
+        port_id: 2,
+        os_id: 1,
+        battery_id: 1,
+        weight_id: 1
+    },
+    image: {
+        img1: "IMG 1",
+        img2: "IMG 2"
+    }
+}
 // ---------------------------WEB-----------------------------//
 
 exports.PATH_BRAND = {
@@ -522,7 +621,7 @@ exports.NAV_MAP = [
 exports.RENDER_HOME = [
     {
         id: 1,
-        title: "Dell",
+        title: "Latop bán chạy",
         results: [
             {
                 id: 4,
@@ -568,7 +667,7 @@ exports.RENDER_HOME = [
     },
     {
         id: 2,
-        title: "Asus",
+        title: "Laptop đáng mua",
         results: [
             {
                 id: 1,
@@ -619,6 +718,82 @@ exports.RENDER_HOME = [
                 rom: "SSD 512GB",
                 guarantee: 12,
                 price: "12.690.000₫"
+            },
+            {
+                id: 6,
+                name: "Laptop Asus 08 (JDC123)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 4GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "12.690.000₫"
+            },
+            {
+                id: 7,
+                name: "Laptop Asus 08 (JDC123)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 4GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "12.690.000₫"
+            },
+            {
+                id: 8,
+                name: "Laptop Asus 08 (JDC123)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 4GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "12.690.000₫"
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "Dòng máy Levono",
+        results: [
+            {
+                id: 4,
+                name: "Laptop Dell (999099ET)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 8GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "11.690.000₫"
+            },
+            {
+                id: 5,
+                name: "Laptop Dell (999099ET)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 4GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "7.390.000₫ "
+            },
+            {
+                id: 6,
+                name: "Laptop Dell 02 (785914ET)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 4GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "11.690.000₫"
+            },
+            {
+                id: 7,
+                name: "Laptop Dell 02 (785914ET)",
+                image:
+                    "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
+                ram: "RAM 4GB",
+                rom: "SSD 512GB",
+                guarantee: 12,
+                price: "11.690.000₫"
             }
         ]
     }
@@ -694,8 +869,7 @@ exports.DOSSIER_DATA = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription:
-            "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở hữu thiết kế từ kim loại toát lên vẻ sang trọng, sắc sảo, cấu hình lí tưởng cho học tập, trình duyệt web khi trang bị bộ vi xử lý Intel thế hệ thứ 10 mới và ổ cứng SSD cực nhanh."
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 2,
@@ -705,8 +879,7 @@ exports.DOSSIER_DATA = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription:
-            "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở hữu thiết kế từ kim loại toát lên vẻ sang trọng, sắc sảo, cấu hình lí tưởng cho học tập, trình duyệt web khi trang bị bộ vi xử lý Intel thế hệ thứ 10 mới và ổ cứng SSD cực nhanh."
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 3,
@@ -716,8 +889,7 @@ exports.DOSSIER_DATA = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription:
-            "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở hữu thiết kế từ kim loại toát lên vẻ sang trọng, sắc sảo, cấu hình lí tưởng cho học tập, trình duyệt web khi trang bị bộ vi xử lý Intel thế hệ thứ 10 mới và ổ cứng SSD cực nhanh."
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 4,
@@ -727,8 +899,7 @@ exports.DOSSIER_DATA = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription:
-            "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở hữu thiết kế từ kim loại toát lên vẻ sang trọng, sắc sảo, cấu hình lí tưởng cho học tập, trình duyệt web khi trang bị bộ vi xử lý Intel thế hệ thứ 10 mới và ổ cứng SSD cực nhanh."
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 5,
@@ -738,8 +909,7 @@ exports.DOSSIER_DATA = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription:
-            "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở hữu thiết kế từ kim loại toát lên vẻ sang trọng, sắc sảo, cấu hình lí tưởng cho học tập, trình duyệt web khi trang bị bộ vi xử lý Intel thế hệ thứ 10 mới và ổ cứng SSD cực nhanh."
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 6,
@@ -749,8 +919,27 @@ exports.DOSSIER_DATA = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription:
-            "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở hữu thiết kế từ kim loại toát lên vẻ sang trọng, sắc sảo, cấu hình lí tưởng cho học tập, trình duyệt web khi trang bị bộ vi xử lý Intel thế hệ thứ 10 mới và ổ cứng SSD cực nhanh."
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+    },
+    {
+        id: 7,
+        brand: "LEVONO",
+        name: "Laptop Lenovo ThinkBook 15IIL i3",
+        cpu: "Intel 5011",
+        ram: "4 GB",
+        rom: "SSD 512",
+        screen: "15.6 inch",
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+    },
+    {
+        id: 8,
+        brand: "LEVONO",
+        name: "Laptop Lenovo ThinkBook 15IIL i3",
+        cpu: "Intel 5011",
+        ram: "4 GB",
+        rom: "SSD 512",
+        screen: "15.6 inch",
+        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     }
 ]
 

@@ -3,7 +3,7 @@ import queryString from "query-string"
 
 const axiosClient = axios.create({
     baseURL: `${process.env.BASE_API}:${process.env.PORT}`,
-    timeout: 1000,
+    timeout: 2000,
     headers: { "content-type": "application/json" },
     paramsSerializer: param => queryString.stringifyUrl(param)
 })

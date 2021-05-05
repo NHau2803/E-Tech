@@ -1,31 +1,50 @@
-import Layout from "antd/lib/layout/layout"
-import DashboardComponent from "Components/Admin/Common/Dashboard"
-import FooterComponent from "Components/Admin/Common/Footer"
+import { render } from "@testing-library/react"
 import LoaderComponent from "Components/Web/Common/Loader"
 import NotFoundComponent from "Components/Web/Common/NotFound"
-import AddEditPage from "Pages/Admin/AddEdit"
-import DossierData from "Pages/Admin/Dossier"
-import Test from "Pages/Admin/Test"
-import { Suspense } from "react"
-import { BrowserRouter, Route, Switch, useRouteMatch } from "react-router-dom"
-
+import { TYPE_ADMIN_PAGE } from "Constants/Data"
+import React, { Suspense } from "react"
+import { Route, Switch, useRouteMatch } from "react-router-dom"
+const AdminPage = React.lazy(() => import("../../Pages/Admin"))
 const RouteAdmin = () => {
     const match = useRouteMatch()
     return (
         <div>
+            <Suspense fallback={() => render(<LoaderComponent />)}></Suspense>
             <Switch>
-                {/* <Route exact path={match.url} component={() => <h1>a</h1>} />
                 <Route
-                    exact
                     path={`${match.url}/laptop`}
-                    component={() => <h1>b</h1>}
-                /> */}
-                <Route
-                    path={`${match.url}`}
                     render={() => {
-                        return <Test />
+                        return (
+                            <AdminPage
+                                typePage={TYPE_ADMIN_PAGE.DOSSIER}
+                                selectedKey={"0"}
+                            />
+                        )
                     }}
                 />
+                <Route
+                    path={`${match.url}/add`}
+                    render={() => {
+                        return (
+                            <AdminPage
+                                typePage={TYPE_ADMIN_PAGE.ADD_EDIT}
+                                selectedKey={"1"}
+                            />
+                        )
+                    }}
+                />
+                <Route
+                    path={`${match.url}/update/:productId`}
+                    render={() => {
+                        return (
+                            <AdminPage
+                                typePage={TYPE_ADMIN_PAGE.ADD_EDIT}
+                                selectedKey={"1"}
+                            />
+                        )
+                    }}
+                />
+                <Route component={NotFoundComponent} />
             </Switch>
         </div>
     )

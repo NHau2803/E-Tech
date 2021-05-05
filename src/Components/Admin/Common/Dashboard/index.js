@@ -1,48 +1,15 @@
 import { FormOutlined, LaptopOutlined } from "@ant-design/icons"
 import { Menu, Layout } from "antd"
+import { MENU } from "Constants/List"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 const { Sider } = Layout
-const arrMenu = [
-    {
-        icon: <LaptopOutlined />,
-        name: "Laptop",
-        link: "/admin"
-    },
-    // {
-    //     icon: <BarChartOutlined />,
-    //     name: "Statistic",
-    //     link: "/admin/statistic"
-    // },
-    // {
-    //     icon: <UserOutlined />,
-    //     name: "User",
-    //     link: "/admin/user"
-    // },
-    {
-        icon: <FormOutlined />,
-        name: "Add New",
-        link: "/admin"
-    }
-]
-const DashboardComponent = () => {
-    const [menu, setMenu] = useState(arrMenu)
-    const [onCollapse, setOnCollapse] = useState(true)
-    const collapsed = () => {
-        setOnCollapse(!onCollapse)
-    }
+
+const DashboardComponent = props => {
+    const { toggle, selectedKey } = props
+
     return (
-        <Sider
-            collapsible
-            collapsed={() => onCollapse}
-            onCollapse={collapsed}
-            style={{
-                overflow: "auto",
-                height: "100vh",
-                position: "fixed",
-                left: 0
-            }}
-        >
+        <Sider collapsed={toggle}>
             <div
                 className="logo"
                 style={{
@@ -56,11 +23,17 @@ const DashboardComponent = () => {
             >
                 E-Tech
             </div>
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={["4"]}>
-                {menu.map((element, index) => {
+            <Menu
+                theme="dark"
+                mode="inline"
+                defaultSelectedKeys={["0"]}
+                selectedKeys={[selectedKey]}
+                style={{ height: "690px" }}
+            >
+                {MENU.map((item, index) => {
                     return (
-                        <Menu.Item key={index} icon={element.icon}>
-                            <Link to={element.link}>{element.name}</Link>
+                        <Menu.Item key={index} icon={item.icon}>
+                            <Link to={item.link}>{item.name}</Link>
                         </Menu.Item>
                     )
                 })}

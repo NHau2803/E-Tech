@@ -1,13 +1,86 @@
 import axiosClient from "./ClientAxios"
 
-class ExSample {
-    constructor(url) {
-        this.url = url
+const ProductAPI = {
+    // search: async params => {
+    //     try {
+    //         const url = urlApi.BASE_URL_ADMIN + "/student/search"
+    //         let result = await handleApi(await axios.get(url))
+    //         console.log(result)
+    //         return result
+    //     } catch (error) {
+    //         return {
+    //             result: null,
+    //             success: false,
+    //             errorMessage: "Sorry, Server Connection Problem!"
+    //         }
+    //     }
+    // },
+
+    // find: async id => {
+    //     try {
+    //         const url = urlApi.BASE_URL_STUDENT + `/${id}`
+    //         return await handleApi(await axios.get(url))
+    //     } catch (error) {
+    //         return {
+    //             result: null,
+    //             success: false,
+    //             errorMessage: "Sorry, Server Connection Problem!"
+    //         }
+    //     }
+    // },
+
+    // info: async id => {
+    //     try {
+    //         const url = urlApi.BASE_URL_STUDENT + `/${id}/info`
+    //         return await handleApi(await axios.get(url))
+    //     } catch (error) {
+    //         return {
+    //             result: null,
+    //             success: false,
+    //             errorMessage: "Sorry, Server Connection Problem!"
+    //         }
+    //     }
+    // },
+
+    create: async data => {
+        try {
+            const url = "http://87a2eb745ed8.ngrok.io/products/laptop/create"
+            return axiosClient.post(url, data)
+        } catch (error) {
+            return {
+                result: null,
+                success: false,
+                errorMessage: "Sorry, Server Connection Problem!"
+            }
+        }
     }
-    getAll(data) {
-        const res = axiosClient.get(this.url, data)
-        return res
-    }
+
+    // update: async (id, student) => {
+    //     try {
+    //         const url = urlApi.BASE_URL_STUDENT + `/${id}`
+    //         return await handleApi(await axios.post(url, student))
+    //     } catch (error) {
+    //         return {
+    //             result: null,
+    //             success: false,
+    //             errorMessage: "Sorry, Server Connection Problem!"
+    //         }
+    //     }
+    // },
+
+    // delete: async id => {
+    //     try {
+    //         const url = urlApi.BASE_URL_ADMIN + `/student/${id}/delete`
+    //         console.log(url)
+    //         return await handleApi(await axios.post(url, id))
+    //     } catch (error) {
+    //         return {
+    //             result: null,
+    //             success: false,
+    //             errorMessage: "Sorry, Server Connection Problem!"
+    //         }
+    //     }
+    // }
 }
-const ex = new ExSample("/ex")
-export default ex
+
+export default ProductAPI
