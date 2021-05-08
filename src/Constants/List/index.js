@@ -10,7 +10,7 @@ export const MENU = [
         id: 0,
         icon: <LaptopOutlined />,
         name: "Laptop",
-        link: "/admin/laptop"
+        link: "/admin/laptops"
     },
     {
         id: 1,

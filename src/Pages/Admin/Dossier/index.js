@@ -4,12 +4,14 @@ import {
     FormOutlined,
     ReloadOutlined
 } from "@ant-design/icons"
-import { Layout, Table, Form, Space, Button } from "antd"
+import { Layout, Table, Form, Space, Button, message, notification } from "antd"
 import Search from "antd/lib/input/Search"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
+import MessageField from "Components/Admin/CustomFields/Message"
 import {
     BRAND_LAPTOP_FILTER,
     DOSSIER_DATA,
+    SPEC_VALUE_LAPTOP_RAM,
     SPEC_VALUE_LAPTOP_RAM_FILTER,
     SPEC_VALUE_LAPTOP_SCREEN_FILTER
 } from "Constants/Data"
@@ -42,6 +44,7 @@ const DossierData = () => {
     const handleDelete = key => {
         //Call api delete data
         console.log(key)
+        return <MessageField />
     }
     // ---------------------table---------------------
     const columns = [
@@ -71,8 +74,8 @@ const DossierData = () => {
             id: 4,
             title: "Ram",
             dataIndex: "ram",
-            filters: SPEC_VALUE_LAPTOP_RAM_FILTER,
-            onFilter: (value, record) => record.ram.includes(value),
+            filters: SPEC_VALUE_LAPTOP_RAM,
+            onFilter: (id, record) => record.ram.includes(id),
             width: "6%"
         },
         {
@@ -95,7 +98,7 @@ const DossierData = () => {
             render: (value, record) => (
                 <Space size={"small"}>
                     <Link
-                        to={`${match.url}/update/${record.id}`}
+                        to={`${match.url.slice(0, -1)}/${record.id}`}
                         key={record.id}
                     >
                         <Button type="primary" icon={<FormOutlined />}></Button>
@@ -118,6 +121,14 @@ const DossierData = () => {
         console.log("params", pagination, filters, sorter, extra)
     }
 
+    const openNotification = (title, message) => {
+        notification.open({
+            message: title,
+            description: message,
+            title
+        })
+    }
+
     return (
         <Layout className="site-layout">
             <BreadcrumbField list={["ADMIN", "LAPTOP"]} />
@@ -130,6 +141,7 @@ const DossierData = () => {
                     type="primary"
                     style={{ marginBottom: 5, width: 80 }}
                     icon={<ReloadOutlined />}
+                    onClick={() => openNotification()}
                 />
                 <Search
                     placeholder="Tìm kiếm tên sản phẩm"

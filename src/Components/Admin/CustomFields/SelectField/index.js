@@ -1,7 +1,14 @@
 import { Form, Select } from "antd"
 
 const SelectField = props => {
-    const { name, label, initialValue, rules, options } = props
+    const {
+        name,
+        label,
+        initialValue,
+        rules,
+        options,
+        disabled = false
+    } = props
 
     return (
         <Form.Item
@@ -11,6 +18,7 @@ const SelectField = props => {
             initialValue={initialValue}
         >
             <Select
+                disabled={disabled}
                 showSearch
                 optionFilterProp="children"
                 filterOption={(input, option) =>
@@ -27,7 +35,7 @@ const SelectField = props => {
             >
                 {options.map(item => (
                     <Select.Option key={item.id} value={item.id}>
-                        {item.title}
+                        {item.value}
                     </Select.Option>
                 ))}
             </Select>

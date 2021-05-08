@@ -1,5 +1,10 @@
-import { CloseOutlined, LinkOutlined, SaveOutlined } from "@ant-design/icons"
-import { Form, Button, Space, Row, Col } from "antd"
+import {
+    BankFilled,
+    CloseOutlined,
+    LinkOutlined,
+    SaveOutlined
+} from "@ant-design/icons"
+import { Form, Button, Space, Row, Col, notification } from "antd"
 import { useForm } from "antd/lib/form/Form"
 import ProductAPI from "API/ProductAPI"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
@@ -7,14 +12,20 @@ import InputField from "Components/Admin/CustomFields/InputField"
 import SelectField from "Components/Admin/CustomFields/SelectField"
 import useFormData from "Components/Admin/UseData/UseFormData"
 import {
-    DATA_CREATE,
-    INITIAL_VALUES_DEFAULT,
-    INITIAL_VALUES_LAPTOP_DEFAULT,
-    TYPE_ADMIN_PAGE
+    BRAND_HARD_DRIVE,
+    SPEC_VALUE_HARD_DRIVE_CACHE,
+    SPEC_VALUE_HARD_DRIVE_CAPACITY,
+    SPEC_VALUE_HARD_DRIVE_CONNECT,
+    SPEC_VALUE_HARD_DRIVE_DIMENSION,
+    SPEC_VALUE_HARD_DRIVE_READ_SPEED,
+    SPEC_VALUE_HARD_DRIVE_RECORD_SPEED,
+    SPEC_VALUE_HARD_DRIVE_ROTATION_SPEED,
+    SPEC_VALUE_HARD_DRIVE_TYPE,
+    TYPE_ADMIN_PAGE,
+    TYPE_HARD_DRIVE
 } from "Constants/Data"
 import {
     BRAND_LAPTOP,
-    DATA_POST,
     SPEC_VALUE_LAPTOP_BATTERY,
     SPEC_VALUE_LAPTOP_CPU,
     SPEC_VALUE_LAPTOP_GPU,
@@ -32,6 +43,7 @@ import {
 import { VALIDATE_MESSAGES } from "Constants/Validate"
 import { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router-dom"
+import { checkHardDiveType } from "Utils/CheckType"
 import "./AddEditPage.css"
 const axios = require("axios")
 
@@ -41,9 +53,9 @@ const layout = {
 }
 
 const AddEditPage = props => {
-    const { productId } = useParams()
+    const { productId, productType } = useParams()
+    console.log("🚀 ~ file: index.js ~ line 45 ~ productType", productType)
     const isAddMode = !productId
-
     const history = useHistory()
     const [form] = Form.useForm()
 
@@ -51,29 +63,252 @@ const AddEditPage = props => {
         info,
         spec,
         image,
+        notify,
+        setNotify,
         reLoadInitialValue,
-        handleInputChange
-    } = useFormData(isAddMode, TYPE_PRODUCT.LAPTOP, productId)
+        handleInputChange,
+        changeInitialValueSpec
+    } = useFormData(isAddMode, productType, productId)
     console.log("🚀 ~ file: index.js ~ line 69 ~ image", image)
     console.log("🚀 ~ file: index.js ~ line 69 ~ spec", spec)
     console.log("🚀 ~ file: index.js ~ line 69 ~ info", info)
 
+    //---------------------------HANDLE RELOAD INITIAL VALUE WHEN UPDATE---------------------
+    // todo: reload when state have data from api. Because render firstly initialValue = "" => need reload
     useEffect(() => {
         form.resetFields()
+        // Number(info.type_id) === 2
+        //     ? setType(TYPE_PRODUCT.LAPTOP)
+        //     : console.log(TYPE_PRODUCT.PHONE)
     }, [reLoadInitialValue])
 
-    // if (info) {
-    //     form.resetFields()
-    //     console.log("🚀 ~ file: index.js ~ line 61 ~ info", info)
-    // }
+    //---------------------------HANDLE RELOAD INITIAL VALUE WHEN ADD---------------------
+    // todo: reload data of spec when change type
+    useEffect(() => {
+        changeInitialValueSpec()
+    }, [info.type_id])
+
+    const openNotification = (type, title, message) => {
+        notification[type]({
+            message: title,
+            description: message,
+            title
+        })
+    }
 
     const onFinish = values => {
         const create = { info, spec, image }
         console.log("🚀 ~ file: index.js ~ line 68 ~ create", create)
-
+        openNotification(notify.type, notify.title, notify.message)
         // ProductAPI.create(create).then(res => {
         //     console.log(res)
         // })
+
+        // axios
+        //     .post("http://11e359a2e597.ngrok.io/api/products/create", create)
+        //     .then(res => console.log(res))
+    }
+
+    //------------------------HANDLE RENDER------------------------
+    const handleRenderSpec = () => {
+        if (isAddMode && info !== undefined) {
+            switch (info.type_id) {
+                case 2:
+                    return renderSpecLaptop()
+                case 3:
+                    return renderSpecHardDrive()
+                default:
+                    break
+            }
+        } else {
+            switch (productType) {
+                case TYPE_PRODUCT.LAPTOP:
+                    return renderSpecLaptop()
+                case TYPE_PRODUCT.HARD_DRIVE:
+                    return renderSpecHardDrive()
+                default:
+                    break
+            }
+        }
+    }
+
+    const handleRenderBrand = () => {
+        if (isAddMode && info !== undefined) {
+            switch (info.type_id) {
+                case 2:
+                    return BRAND_LAPTOP
+                case 3:
+                    return BRAND_HARD_DRIVE
+                default:
+                    break
+            }
+        } else {
+            switch (productType) {
+                case TYPE_PRODUCT.LAPTOP:
+                    return BRAND_LAPTOP
+                case TYPE_PRODUCT.HARD_DRIVE:
+                    return BRAND_HARD_DRIVE
+                default:
+                    break
+            }
+        }
+    }
+
+    //------------------------COMPONENT RENDER---------------------
+    const renderSpecLaptop = () => {
+        return (
+            <Col span={12}>
+                <SelectField
+                    name={"cpu_id"}
+                    label={"Vi xử lí"}
+                    initialValue={spec.cpu_id || ""}
+                    options={SPEC_VALUE_LAPTOP_CPU}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"ram_id"}
+                    label={"Ram"}
+                    initialValue={spec.ram_id || ""}
+                    options={SPEC_VALUE_LAPTOP_RAM}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"rom_id"}
+                    label={"Lưu trữ"}
+                    initialValue={spec.rom_id || ""}
+                    options={SPEC_VALUE_LAPTOP_ROM}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"gpu_id"}
+                    label={"Card đồ họa"}
+                    initialValue={spec.gpu_id || ""}
+                    options={SPEC_VALUE_LAPTOP_GPU}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"screen_id"}
+                    label={"Kích thướt màn hình"}
+                    initialValue={spec.screen_id || ""}
+                    options={SPEC_VALUE_LAPTOP_SCREEN}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"port_id"}
+                    label={"Kết nối chính"}
+                    initialValue={spec.port_id || ""}
+                    options={SPEC_VALUE_LAPTOP_PORT}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"battery_id"}
+                    label={"PIN"}
+                    initialValue={spec.battery_id || ""}
+                    options={SPEC_VALUE_LAPTOP_BATTERY}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"weight_id"}
+                    label={"Trọng lượng"}
+                    initialValue={spec.weight_id || ""}
+                    options={SPEC_VALUE_LAPTOP_WEIGHT}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"size_id"}
+                    label={"Kích thước"}
+                    initialValue={spec.size_id || ""}
+                    options={SPEC_VALUE_LAPTOP_SIZE}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"os_id"}
+                    label={"Hệ điều hành"}
+                    initialValue={spec.os_id || ""}
+                    options={SPEC_VALUE_LAPTOP_OS}
+                    rules={[{ required: true }]}
+                />
+            </Col>
+        )
+    }
+
+    const renderSpecHardDrive = () => {
+        return (
+            <Col span={12}>
+                <SelectField
+                    name={"hard_drive_type_id"}
+                    label={"Kiểu ổ cứng"}
+                    initialValue={
+                        !isAddMode ? spec.hard_drive_type_id || "" : ""
+                    }
+                    options={SPEC_VALUE_HARD_DRIVE_TYPE}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"capacity_id"}
+                    label={"Dung lượng"}
+                    initialValue={!isAddMode ? spec.capacity_id || "" : ""}
+                    options={SPEC_VALUE_HARD_DRIVE_CAPACITY}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"connect_id"}
+                    label={"Kết nối"}
+                    initialValue={!isAddMode ? spec.connect_id || "" : ""}
+                    options={SPEC_VALUE_HARD_DRIVE_CONNECT}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"dimension_id"}
+                    label={"Kích thướt"}
+                    initialValue={!isAddMode ? spec.dimension_id || "" : ""}
+                    options={SPEC_VALUE_HARD_DRIVE_DIMENSION}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"read_speed_id"}
+                    label={"Tốc độ đọc"}
+                    initialValue={!isAddMode ? spec.read_speed_id || "" : ""}
+                    options={SPEC_VALUE_HARD_DRIVE_READ_SPEED}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"record_speed_id"}
+                    label={"Tốc độ ghi"}
+                    initialValue={!isAddMode ? spec.record_speed_id || "" : ""}
+                    options={SPEC_VALUE_HARD_DRIVE_RECORD_SPEED}
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"rotation_speed_id"}
+                    label={"Tốc độ quay"}
+                    initialValue={
+                        !isAddMode ? spec.rotation_speed_id || "" : ""
+                    }
+                    options={SPEC_VALUE_HARD_DRIVE_ROTATION_SPEED}
+                    rules={[{ required: true }]}
+                    disabled={
+                        checkHardDiveType(spec.hard_drive_type_id) ===
+                        TYPE_HARD_DRIVE.IS_SSD
+                            ? true
+                            : false
+                    }
+                />
+                <SelectField
+                    name={"cache_id"}
+                    label={"Bộ nhớm đệm"}
+                    initialValue={!isAddMode ? spec.cache_id || "" : ""}
+                    options={SPEC_VALUE_HARD_DRIVE_CACHE}
+                    rules={[{ required: true }]}
+                    disabled={
+                        checkHardDiveType(spec.hard_drive_type_id) ===
+                        TYPE_HARD_DRIVE.IS_SSD
+                            ? true
+                            : false
+                    }
+                />
+            </Col>
+        )
     }
 
     return (
@@ -91,13 +326,13 @@ const AddEditPage = props => {
                 onFieldsChange={(_, allFields) => {
                     handleInputChange(allFields)
                 }}
-                // initialValues={info}
             >
                 <Row>
                     <Col span={12}>
                         <SelectField
                             name={"type_id"}
                             label={"Loại sản phẩm"}
+                            disabled={!isAddMode ? true : false}
                             initialValue={info.type_id || ""}
                             options={TYPE_PRODUCT_RENDER}
                             rules={[{ required: true }]}
@@ -106,7 +341,14 @@ const AddEditPage = props => {
                             name={"brand_id"}
                             label={"Hãng sản phẩm"}
                             initialValue={info.brand_id || ""}
-                            options={BRAND_LAPTOP}
+                            options={
+                                // productType === TYPE_PRODUCT.LAPTOP
+                                //     ? BRAND_LAPTOP
+                                //     : productType === TYPE_PRODUCT.HARD_DRIVE
+                                //     ? BRAND_HARD_DRIVE
+                                //     : []
+                                handleRenderBrand()
+                            }
                             rules={[{ required: true }]}
                         />
                         <InputField
@@ -172,78 +414,8 @@ const AddEditPage = props => {
                             }
                         />
                     </Col>
-                    <Col span={12}>
-                        <SelectField
-                            name={"cpu_id"}
-                            label={"Vi xử lí"}
-                            initialValue={spec.cpu_id || ""}
-                            options={SPEC_VALUE_LAPTOP_CPU}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"ram_id"}
-                            label={"Ram"}
-                            initialValue={spec.ram_id || ""}
-                            options={SPEC_VALUE_LAPTOP_RAM}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"rom_id"}
-                            label={"Lưu trữ"}
-                            initialValue={spec.rom_id || ""}
-                            options={SPEC_VALUE_LAPTOP_ROM}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"gpu_id"}
-                            label={"Card đồ họa"}
-                            initialValue={spec.gpu_id || ""}
-                            options={SPEC_VALUE_LAPTOP_GPU}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"screen_id"}
-                            label={"Kích thướt màn hình"}
-                            initialValue={spec.screen_id || ""}
-                            options={SPEC_VALUE_LAPTOP_SCREEN}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"port_id"}
-                            label={"Kết nối chính"}
-                            initialValue={spec.port_id || ""}
-                            options={SPEC_VALUE_LAPTOP_PORT}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"battery_id"}
-                            label={"PIN"}
-                            initialValue={spec.battery_id || ""}
-                            options={SPEC_VALUE_LAPTOP_BATTERY}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"weight_id"}
-                            label={"Trọng lượng"}
-                            initialValue={spec.weight_id || ""}
-                            options={SPEC_VALUE_LAPTOP_WEIGHT}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"size_id"}
-                            label={"Kích thước"}
-                            initialValue={spec.size_id || ""}
-                            options={SPEC_VALUE_LAPTOP_SIZE}
-                            rules={[{ required: true }]}
-                        />
-                        <SelectField
-                            name={"os_id"}
-                            label={"Hệ điều hành"}
-                            initialValue={spec.os_id || ""}
-                            options={SPEC_VALUE_LAPTOP_OS}
-                            rules={[{ required: true }]}
-                        />
-                    </Col>
+                    {/* render col right */}
+                    {handleRenderSpec()}
                     <Row
                         style={{
                             width: "100%",

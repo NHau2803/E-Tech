@@ -3,25 +3,25 @@ import {
     INITIAL_VALUES_DEFAULT,
     TYPE_PRODUCT,
     INITIAL_VALUES_LAPTOP_DEFAULT,
-    DATA_POST
+    DATA_POST_LAPTOP,
+    DATA_POST_HARD_DRIVE,
+    INITIAL_VALUES_HARD_DRIVE_DEFAULT
 } from "Constants/Data"
 const useFormData = (isAddMode, type, productId) => {
-    console.log("useFormData")
-
-    const checkType = () => {
-        switch (type) {
-            case TYPE_PRODUCT.LAPTOP:
-                return INITIAL_VALUES_LAPTOP_DEFAULT
-            default:
-                break
-        }
-    }
-    const [info, setInfo] = useState(isAddMode ? INITIAL_VALUES_DEFAULT : [])
-    const [spec, setSpec] = useState(isAddMode ? checkType : [])
+    const [info, setInfo] = useState(
+        isAddMode ? INITIAL_VALUES_DEFAULT.info : []
+    )
+    const [spec, setSpec] = useState([])
     const [image, setImage] = useState(
         isAddMode ? INITIAL_VALUES_DEFAULT.image : []
     )
     const [reLoadInitialValue, setReLoadInitialValue] = useState(false)
+    const [notify, setNotify] = useState({
+        isOpen: false,
+        title: "Thông báo",
+        message: "Cập nhật thành công",
+        type: "success"
+    })
 
     //const [errors, setErrors] = useState({})
     // const [notify, setNotify] = useState({
@@ -34,6 +34,8 @@ const useFormData = (isAddMode, type, productId) => {
     useEffect(() => {
         if (isAddMode) {
             console.log("add mode!")
+            setSpec(INITIAL_VALUES_LAPTOP_DEFAULT)
+            setReLoadInitialValue(true)
         } else {
             // const setValueOjb = (result, funcGetObj) => {
             //     if (result.errorMessage === null) {
@@ -88,10 +90,21 @@ const useFormData = (isAddMode, type, productId) => {
             // }
             // getInfo()
 
-            setInfo(DATA_POST.info)
-            setImage(DATA_POST.image)
-            setSpec(DATA_POST.laptop)
-            setReLoadInitialValue(!reLoadInitialValue)
+            switch (type) {
+                case TYPE_PRODUCT.LAPTOP:
+                    setInfo(DATA_POST_LAPTOP.info)
+                    setImage(DATA_POST_LAPTOP.image)
+                    setSpec(DATA_POST_LAPTOP.spec)
+                    break
+                case TYPE_PRODUCT.HARD_DRIVE:
+                    setInfo(DATA_POST_HARD_DRIVE.info)
+                    setImage(DATA_POST_HARD_DRIVE.image)
+                    setSpec(DATA_POST_HARD_DRIVE.spec)
+                    break
+                default:
+                    break
+            }
+            setReLoadInitialValue(true)
         }
     }, [])
 
@@ -115,6 +128,22 @@ const useFormData = (isAddMode, type, productId) => {
         })
     }
 
+    const changeInitialValueSpec = () => {
+        if (isAddMode && info !== undefined) {
+            switch (info.type_id) {
+                case 2:
+                    setSpec(INITIAL_VALUES_LAPTOP_DEFAULT)
+
+                    break
+                case 3:
+                    setSpec(INITIAL_VALUES_HARD_DRIVE_DEFAULT)
+                    break
+                default:
+                    break
+            }
+        }
+    }
+
     // const onReset = () => {
     //     setValues(INITIAL_VALUES_DEFAULT)
     //     setErrors({})
@@ -124,9 +153,12 @@ const useFormData = (isAddMode, type, productId) => {
         info,
         spec,
         image,
+        notify,
+        setNotify,
         reLoadInitialValue,
         setReLoadInitialValue,
-        handleInputChange
+        handleInputChange,
+        changeInitialValueSpec
     }
 }
 export default useFormData

@@ -43,9 +43,27 @@ const ProductAPI = {
     // },
 
     create: async data => {
+        console.log(
+            "🚀 ~ file: ProductAPI.js ~ line 46 ~ data",
+            JSON.stringify(data)
+        )
         try {
-            const url = "http://87a2eb745ed8.ngrok.io/products/laptop/create"
+            const url = "http://11e359a2e597.ngrok.io/api/products/create"
             return axiosClient.post(url, data)
+        } catch (error) {
+            console.log("ABC" + error)
+            return {
+                result: null,
+                success: false,
+                errorMessage: "Sorry, Server Connection Problem!"
+            }
+        }
+    },
+
+    search: async params => {
+        try {
+            const url = "http://11e359a2e597.ngrok.io/api/products/create/p"
+            return axiosClient.get(url, params)
         } catch (error) {
             return {
                 result: null,

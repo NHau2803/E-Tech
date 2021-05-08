@@ -12,17 +12,7 @@ const RouteAdmin = () => {
             <Suspense fallback={() => render(<LoaderComponent />)}></Suspense>
             <Switch>
                 <Route
-                    path={`${match.url}/laptop`}
-                    render={() => {
-                        return (
-                            <AdminPage
-                                typePage={TYPE_ADMIN_PAGE.DOSSIER}
-                                selectedKey={"0"}
-                            />
-                        )
-                    }}
-                />
-                <Route
+                    exact
                     path={`${match.url}/add`}
                     render={() => {
                         return (
@@ -34,7 +24,19 @@ const RouteAdmin = () => {
                     }}
                 />
                 <Route
-                    path={`${match.url}/update/:productId`}
+                    exact
+                    path={`${match.url}/:productType`}
+                    render={() => {
+                        return (
+                            <AdminPage
+                                typePage={TYPE_ADMIN_PAGE.DOSSIER}
+                                selectedKey={"0"}
+                            />
+                        )
+                    }}
+                />
+                <Route
+                    path={`${match.url}/:productType/:productId`}
                     render={() => {
                         return (
                             <AdminPage
