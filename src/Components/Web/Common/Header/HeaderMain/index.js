@@ -1,6 +1,7 @@
 import CartComponent from "Components/Web/Cart"
 import { PATH } from "Constants/Path"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 const HeaderMain = () => {
     const [toggleCart, setToggleCart] = useState(false)
@@ -11,14 +12,14 @@ const HeaderMain = () => {
                 <div className="container">
                     <div className="pull-left">
                         <div className="header-logo">
-                            <a className="logo" href={PATH.HOME}>
+                            <Link className="logo" to={PATH.HOME}>
                                 <img
                                     alt="Logo"
                                     src={
                                         "https://drive.google.com/uc?export=view&id=1Efe_zTMed_8-Ix0fgfbKVLXwtxdVb3UX"
                                     }
                                 ></img>
-                            </a>
+                            </Link>
                         </div>
 
                         <div className="header-search">
@@ -65,37 +66,37 @@ const HeaderMain = () => {
                                         {/* &emsp;<i className="fa fa-caret-down"></i> */}
                                     </strong>
                                 </div>
-                                <a href={PATH.LOGIN}>Đăng nhập</a>
+                                <Link to={PATH.LOGIN}>Đăng nhập</Link>
                                 <ul className="custom-menu">
                                     <li>
-                                        <a href="/#">
+                                        <Link to="/#">
                                             <i className="fa fa-user-o"></i>
                                             Tài khoản của bạn
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="/#">
+                                        <Link to="/#">
                                             <i className="fa fa-heart-o"></i>
                                             Sản phẩm yêu thích
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href={PATH.SIGNUP}>
+                                        <Link to={PATH.SIGNUP}>
                                             <i className="fa fa-user-plus"></i>{" "}
                                             Tạo tài khoản
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="/#">
+                                        <Link to="/#">
                                             <i className="fa fa-unlock-alt"></i>{" "}
                                             Đăng nhập
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="/#">
+                                        <Link to="/#">
                                             <i className="fa fa-unlock-alt"></i>{" "}
                                             Đăng xuất
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </li>

@@ -545,152 +545,159 @@ exports.PATH_PRICE = {
 }
 
 const NAV_MAP_LI_MID = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "LEVONO", link: "/laptop-gamming/LEVONO" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "LEVONO", link: "/laptop-gamming/LEVONO" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_LOW = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_MINCE = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_vpMID = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "LEVONO", link: "/laptop-gamming/LEVONO" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "LEVONO", link: "/laptop-gamming/LEVONO" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_vpLOW = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_vpMINCE = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_dhMID = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "LEVONO", link: "/laptop-gamming/LEVONO" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "LEVONO", link: "/laptop-gamming/LEVONO" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_dhLOW = [
-    { id: 1, value: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_dhSUPER = [
-    { id: 1, value: "THINKPAD", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, value: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, value: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, value: "ACER", link: "/laptop-gamming/ACER" }
+    { id: 1, title: "THINKPAD", link: "/laptop-gamming/tam-trung/THINKPAD" },
+    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
+    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
+    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
 ]
-
 const NAV_MAP_LI_HDD = [
-    { id: 1, value: "WD", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "Seagate", link: "/laptop-gamming/LEVONO" },
-    { id: 3, value: "Trên 8TB", link: "/laptop-gamming/DELL" }
+    { id: 1, title: "WD", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "Seagate", link: "/laptop-gamming/LEVONO" },
+    { id: 3, title: "Trên 8TB", link: "/laptop-gamming/DELL" }
 ]
 const NAV_MAP_LI_SSD = [
-    { id: 1, value: "2.5' SATA 3", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, value: "M.2 SATA 3", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "M.2 PCIe", link: "/laptop-gamming/DELL" }
+    { id: 1, title: "2.5' SATA 3", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 2, title: "M.2 SATA 3", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "M.2 PCIe", link: "/laptop-gamming/DELL" }
 ]
-
 const NAV_MAP_LI_OCdidong = [
-    { id: 1, value: "WD", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, value: "Sandisk", link: "/laptop-gamming/MAC" },
-    { id: 3, value: "Seagate", link: "/laptop-gamming/DELL" }
+    { id: 1, title: "WD", link: "/laptop-gamming/tam-trung/THINKPAD" },
+    { id: 2, title: "Sandisk", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "Seagate", link: "/laptop-gamming/DELL" }
 ]
-
+const NAV_MAP_LI_chuotkoday = [
+    { id: 1, title: "Logitech", link: "/laptop-gamming/tam-trung/THINKPAD" },
+    { id: 2, title: "Razer", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "Corsair", link: "/laptop-gamming/DELL" }
+]
+const NAV_MAP_LI_chuotcoday = [
+    { id: 1, title: "Logitech", link: "/laptop-gamming/tam-trung/THINKPAD" },
+    { id: 2, title: "Razer", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "Corsair", link: "/laptop-gamming/DELL" }
+]
+const NAV_MAP_LI_phimco = [
+    { id: 1, title: "Logitech", link: "/laptop-gamming/tam-trung/THINKPAD" },
+    { id: 2, title: "Razer", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "Corsair", link: "/laptop-gamming/DELL" }
+]
+const NAV_MAP_LI_phimgiaco = [
+    { id: 1, title: "Asus", link: "/laptop-gamming/tam-trung/THINKPAD" },
+    { id: 2, title: "Cerberus", link: "/laptop-gamming/MAC" },
+    { id: 3, title: "Logitech", link: "/laptop-gamming/DELL" }
+]
 const NAV_MAP_COL = [
     {
         id: 1,
-        value: "Gaming Tầm Trung",
+        title: "Gaming Tầm Trung",
         link: "/laptop-gamming/tam-trung",
         nav_map_li: NAV_MAP_LI_MID
     },
     {
         id: 2,
-        value: "Gaming Cao Cấp",
+        title: "Gaming Cao Cấp",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_LOW
     },
     {
         id: 3,
-        value: "Gaming Mỏng Nhẹ",
+        title: "Gaming Mỏng Nhẹ",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_MINCE
     }
 ]
-
 const NAV_MAP_vpCOL = [
     {
         id: 1,
-        value: "Văn Phòng Tầm Trung",
+        title: "Văn Phòng Tầm Trung",
         link: "/laptop-gamming/tam-trung",
         nav_map_li: NAV_MAP_LI_vpMID
     },
     {
         id: 2,
-        value: "Văn Phòng Cao Cấp",
+        title: "Văn Phòng Cao Cấp",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_vpLOW
     },
     {
         id: 3,
-        value: "Văn Phòng Mỏng Nhẹ",
+        title: "Văn Phòng Mỏng Nhẹ",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_vpMINCE
     }
 ]
-
 const NAV_MAP_dhCOL = [
     {
         id: 1,
-        value: "Đồ Họa Tầm Trung",
+        title: "Đồ Họa Tầm Trung",
         link: "/laptop-gamming/tam-trung",
         nav_map_li: NAV_MAP_LI_dhMID
     },
     {
         id: 2,
-        value: "Đồ Họa Cao Cấp",
+        title: "Đồ Họa Cao Cấp",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_dhLOW
     },
     {
         id: 3,
-        value: "Đồ Họa Siêu Cao Cấp",
+        title: "Đồ Họa Siêu Cao Cấp",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_dhSUPER
     }
@@ -698,55 +705,95 @@ const NAV_MAP_dhCOL = [
 const NAV_MAP_HARD = [
     {
         id: 1,
-        value: "Ổ Cứng HDD",
+        title: "Ổ Cứng HDD",
         link: "/laptop-gamming/tam-trung",
         nav_map_li: NAV_MAP_LI_HDD
     },
     {
         id: 2,
-        value: "Ổ Cứng SSD",
+        title: "Ổ Cứng SSD",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_SSD
     },
     {
         id: 3,
-        value: "Ổ Cứng Di Động",
+        title: "Ổ Cứng Di Động",
         link: "/laptop-gamming/cao-cap",
         nav_map_li: NAV_MAP_LI_OCdidong
     }
 ]
-
+const NAV_MAP_Keyboard = [
+    {
+        id: 1,
+        title: "Bàn Phím Cơ",
+        link: "/laptop-gamming/tam-trung",
+        nav_map_li: NAV_MAP_LI_phimco
+    },
+    {
+        id: 2,
+        title: "Bàn Phím Giả Cơ",
+        link: "/laptop-gamming/cao-cap",
+        nav_map_li: NAV_MAP_LI_phimgiaco
+    }
+]
+const NAV_MAP_Mouse = [
+    {
+        id: 1,
+        title: "Chuột Không Dây",
+        link: "/laptop-gamming/tam-trung",
+        nav_map_li: NAV_MAP_LI_chuotcoday
+    },
+    {
+        id: 2,
+        title: "Chuột Có Dây",
+        link: "/laptop-gamming/cao-cap",
+        nav_map_li: NAV_MAP_LI_chuotkoday
+    }
+]
 exports.NAV_MAP = [
     {
         id: 1,
-        value: "Laptop Gaming",
+        title: "Laptop Gaming",
         link: "/laptop-gaming",
         nav_map_col: NAV_MAP_COL
     },
     {
         id: 2,
-        value: "Laptop Văn Phòng",
+        title: "Laptop Văn Phòng",
         link: "/laptop-officetel",
         nav_map_col: NAV_MAP_vpCOL
     },
     {
         id: 3,
-        value: "Laptop Đồ Họa",
+        title: "Laptop Đồ Họa",
         link: "/laptop-officetel",
         nav_map_col: NAV_MAP_dhCOL
     },
     {
         id: 4,
-        value: "Ổ Cứng",
+        title: "Ổ Cứng",
         link: "/laptop-officetel",
         nav_map_col: NAV_MAP_HARD
+    },
+    {
+        id: 5,
+        title: "Chuột",
+        link: "/laptop-officetel",
+        nav_map_col: NAV_MAP_Mouse
+    },
+    {
+        id: 6,
+        title: "Bàn Phím",
+        link: "/laptop-officetel",
+        nav_map_col: NAV_MAP_Keyboard
     }
 ]
 
+// ---------------------------RENDER-----------------------------//
 exports.RENDER_HOME = [
     {
         id: 1,
-        value: "Latop bán chạy",
+        title: "Latop bán chạy",
         results: [
             {
                 id: 4,
@@ -792,7 +839,7 @@ exports.RENDER_HOME = [
     },
     {
         id: 2,
-        value: "Laptop đáng mua",
+        title: "Laptop đáng mua",
         results: [
             {
                 id: 1,
@@ -878,7 +925,7 @@ exports.RENDER_HOME = [
     },
     {
         id: 3,
-        value: "Dòng máy Levono",
+        title: "Dòng máy Levono",
         results: [
             {
                 id: 4,

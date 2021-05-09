@@ -15,7 +15,6 @@ const HomePage = () => {
     return (
         <div>
             <HeaderBanner />
-            <BenefitComponent />
             {RENDER_HOME.map(item => {
                 return (
                     <SelectBlock
@@ -25,6 +24,7 @@ const HomePage = () => {
                     />
                 )
             })}
+            <BenefitComponent />
         </div>
     )
 }

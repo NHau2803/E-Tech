@@ -30,7 +30,7 @@ const FooterComponent = props => {
                                 <li>
                                     <a href="/#">GỌI KỸ THUẬT: 0944448888</a>
                                 </li>
-                                <p>(07:30am - 22:00pm)</p>
+                                {/* <p>(07:30am - 22:00pm)</p> */}
                             </ul>
                         </div>
                     </div>

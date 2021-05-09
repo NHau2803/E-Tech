@@ -1,5 +1,6 @@
 import { RENDER_CART } from "Constants/Data"
 import { PATH } from "Constants/Path"
+import { Link } from "react-router-dom"
 
 const CartComponent = () => {
     return (
@@ -20,9 +21,11 @@ const CartComponent = () => {
                                                     </span> */}
                                     </h3>
                                     <h2 className="product-name">
-                                        <a href={`${PATH.LAPTOP}/${item.name}`}>
+                                        <Link
+                                            to={`${PATH.LAPTOP}/${item.name}`}
+                                        >
                                             {item.name}
-                                        </a>
+                                        </Link>
                                     </h2>
                                 </div>
                                 <button className="cancel-btn">
@@ -33,9 +36,9 @@ const CartComponent = () => {
                     )
                 })}
                 <div className="shopping-cart-btns">
-                    <a href={"/etech/checkout"} className="primary-btn">
+                    <Link to={"/etech/checkout"} className="primary-btn">
                         Checkout <i className="fa fa-arrow-circle-right"></i>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

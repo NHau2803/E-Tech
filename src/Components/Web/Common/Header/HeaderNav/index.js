@@ -89,8 +89,8 @@ const HeaderNav = props => {
                                     </li>
                                 )
                             })}
-                            <li>
-                                {/* <div className="row hidden-sm hidden-xs">
+                            {/* <li>
+                                <div className="row hidden-sm hidden-xs">
                                     <div className="col-md-12">
                                         <hr></hr>
                                         <a
@@ -103,9 +103,9 @@ const HeaderNav = props => {
                                             ></img>
                                         </a>
                                     </div>
-                                </div> */}
+                                </div>
                                 QC
-                            </li>
+                            </li> */}
                         </ul>
                     </div>
 

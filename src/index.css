@@ -553,7 +553,7 @@ textarea.input {
 
 .category-nav .category-list>li>a {
   display: block;
-  padding: 15px;
+  padding: 13.7px;
   text-transform: uppercase;
 }
 
@@ -797,7 +797,7 @@ textarea.input {
 .banner {
   display: block;
   position: relative;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .banner>img {
