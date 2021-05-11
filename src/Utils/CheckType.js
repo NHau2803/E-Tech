@@ -8,3 +8,15 @@ export const checkHardDiveType = hard_drive_type_id => {
     }
     return TYPE_HARD_DRIVE.IS_SSD
 }
+
+// export const checkNumber = val => {
+//     if (typeof Number(val) === "number") {
+//         console.log(
+//             "🚀 ~ file: CheckType.js ~ line 14 ~ typeof Number(val)",
+//             typeof Number(val)
+//         )
+
+//         return true
+//     }
+//     return false
+// }

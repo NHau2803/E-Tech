@@ -1,9 +1,11 @@
 import React from "react"
-const axios = require("axios")
 const TestAPI = () => {
+    var axios = require("axios")
     const getBreeds = () => {
         try {
-            return axios.get("http://91110936de25.ngrok.io/laptop/create")
+            return axios.get(
+                "http://090f15fa7f2e.ngrok.io/api/products/laptop/23"
+            )
         } catch (error) {
             console.error(error)
         }
@@ -20,6 +22,63 @@ const TestAPI = () => {
     }
 
     countBreeds()
+    //
+    // var data = JSON.stringify({
+    //     info: {
+    //         name: "Bug bug bug tránh raaaa",
+    //         description: "description 1",
+    //         guarantee: 24,
+    //         price: 120000,
+    //         brand_id: 2,
+    //         type_id: 1
+    //     },
+    //     spec: {
+    //         cpu_id: 1,
+    //         gpu_id: 1,
+    //         ram_id: 1,
+    //         size_id: 1,
+    //         rom_id: 1,
+    //         screen_id: 1,
+    //         port_id: 2,
+    //         os_id: 1,
+    //         battery_id: 1,
+    //         weight_id: 1
+    //     },
+    //     images: { img1: "IMG 1", img2: "IMG 2" }
+    // })
+
+    // var config = {
+    //     method: "post",
+    //     url: "http://090f15fa7f2e.ngrok.io/api/products/create",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     },
+    //     data: data
+    // }
+
+    // axios(config)
+    //     .then(function (response) {
+    //         console.log(JSON.stringify(response.data))
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error)
+    //     })
+
+    // var axios = require("axios")
+
+    // var config = {
+    //     method: "get",
+    //     url: "http://090f15fa7f2e.ngrok.io/api/products/laptop/23",
+    //     headers: {}
+    // }
+
+    // axios(config)
+    //     .then(function (response) {
+    //         console.log(JSON.stringify(response.data))
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error)
+    //     })
     return (
         <div>
             <h1>TEST API</h1>

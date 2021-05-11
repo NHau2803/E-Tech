@@ -45,7 +45,8 @@ const HeaderMain = () => {
                     <div className="pull-right">
                         <ul className="header-btns">
                             <li
-                                onClick={() => setToggle(!toggle)}
+                                onMouseEnter={() => setToggle(true)}
+                                onMouseLeave={() => setToggle(false)}
                                 className={
                                     toggle
                                         ? "header-account dropdown default-dropdown open"
@@ -77,7 +78,7 @@ const HeaderMain = () => {
                                     <li>
                                         <Link to="/#">
                                             <i className="fa fa-heart-o"></i>
-                                            Sản phẩm yêu thích
+                                            Yêu thích
                                         </Link>
                                     </li>
                                     <li>
@@ -102,7 +103,8 @@ const HeaderMain = () => {
                             </li>
 
                             <li
-                                onClick={() => setToggleCart(!toggleCart)}
+                                onMouseEnter={() => setToggleCart(true)}
+                                onMouseLeave={() => setToggleCart(false)}
                                 className={
                                     toggleCart
                                         ? "header-cart dropdown default-dropdown open"

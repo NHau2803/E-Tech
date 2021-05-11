@@ -7,6 +7,8 @@ import React, { Suspense } from "react"
 import { Route, Switch, useRouteMatch } from "react-router"
 import { PATH } from "Constants/Path"
 import { render } from "@testing-library/react"
+import AboutPage from "Pages/Web/About"
+import { BackTop } from "antd"
 
 const HomePage = React.lazy(() => import("../../Pages/Web/Home"))
 const ProductDetailPage = React.lazy(() =>
@@ -22,9 +24,7 @@ const RouteWeb = () => {
         <div>
             <Suspense fallback={() => render(<LoaderComponent />)}>
                 <HeaderMain />
-                <HeaderNav
-                    isOpen={String(window.location.pathname) === PATH.HOME}
-                />
+                <HeaderNav />
                 <Switch>
                     <Route
                         exact
@@ -34,23 +34,31 @@ const RouteWeb = () => {
                         }}
                     />
                     <Route
+                        exact
+                        path={`${match.url}/about`}
+                        render={() => {
+                            return <AboutPage />
+                        }}
+                    />
+                    <Route
                         path={`${match.url}/checkout`}
                         render={() => {
                             return <CheckOut />
                         }}
                     />
                     <Route
-                        path={`${match.url}/laptop/:name`}
+                        path={`${match.url}/:productType/:productId`}
                         render={() => {
                             return <ProductDetailPage />
                         }}
                     />
                     <Route
-                        path={`${match.url}/laptop`}
+                        path={`${match.url}/:productType`}
                         render={() => {
                             return <ProductFilter />
                         }}
                     />
+
                     <Route
                         render={() => {
                             return <NotFoundComponent />
@@ -63,6 +71,7 @@ const RouteWeb = () => {
                     }
                 />
             </Suspense>
+            <BackTop></BackTop>
         </div>
     )
 }

@@ -2,9 +2,9 @@ import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
 
 const ProductBlock = props => {
-    const { image, name, guarantee, price, ram, rom, valueSale } = props
+    const { id, image, name, guarantee, price, ram, rom, valueSale } = props
     return (
-        <Link to={`${PATH.LAPTOP}/${name}`}>
+        <Link to={`${PATH.LAPTOP}/${id}`}>
             <div className="col-md-3 col-sm-6 col-xs-6">
                 <div className="product product-single">
                     <div className="product-thumb">
@@ -26,12 +26,12 @@ const ProductBlock = props => {
                     </div>
                     <div className="product-body">
                         <h2 className="product-name">
-                            <a
-                                href={`${PATH.LAPTOP}/${name}`}
+                            <Link
+                                to={`${PATH.LAPTOP}/${id}`}
                                 className="product-name link"
                             >
                                 {name}
-                            </a>
+                            </Link>
                         </h2>
                         <p>
                             {ram} | {rom} <br></br>

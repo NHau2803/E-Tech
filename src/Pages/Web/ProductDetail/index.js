@@ -1,3 +1,5 @@
+import LaptopAPI from "API/Laptop"
+import ProductsAPI from "API/Products"
 import FooterComponent from "Components/Web/Common/Footer"
 import HeaderMain from "Components/Web/Common/Header/HeaderMain"
 import HeaderNav from "Components/Web/Common/Header/HeaderNav"
@@ -5,20 +7,34 @@ import ProductDetail from "Components/Web/Product/ProductDetail"
 import ProductViewImage from "Components/Web/Product/ProductDetail/ProductViewImage"
 import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
 import ProductTab from "Components/Web/Product/ProductTab"
-import { RENDER_HOME, RENDER_LAPTOP_DETAIL } from "Constants/Data"
-import { useParams } from "react-router"
+import { RENDER_HOME, RENDER_LAPTOP_DETAIL, TYPE_PRODUCT } from "Constants/Data"
+import { useEffect, useState } from "react"
+import { useHistory, useParams } from "react-router"
+import { checkNumber } from "Utils/CheckType"
 
 // const ProductDetail = React.lazy(() =>
 //     import("../../../Components/Web/Product/ProductDetail")
 // )
 
 const ProductDetailPage = props => {
-    const { id, name } = props
-    const params = useParams()
+    const { productType, productId } = useParams()
+    const history = useHistory()
+    const redirectNotFound = () => history.push("/not-found")
+    const [productDetail, setProductDetail] = useState({})
+    console.log("🚀 ~ file: index.js ~ line 24 ~ productDetail", productDetail)
 
-    // print params to console
-    console.log(params)
-
+    useEffect(() => {
+        if (
+            !isNaN(productId) &&
+            Object.values(TYPE_PRODUCT).includes(productType)
+        ) {
+            ProductsAPI.getProductDetail(productType, productId).then(res =>
+                setProductDetail(res)
+            )
+        } else {
+            redirectNotFound()
+        }
+    }, [productId])
     return (
         <div>
             <div className="section">
@@ -26,13 +42,22 @@ const ProductDetailPage = props => {
                     <div className="row">
                         <div className="product product-details clearfix">
                             <ProductViewImage
-                                images={RENDER_LAPTOP_DETAIL.images}
+                                images={
+                                    productDetail.images ||
+                                    RENDER_LAPTOP_DETAIL.images
+                                }
                             />
                             <ProductDetail
-                                detail={RENDER_LAPTOP_DETAIL.detail}
+                                detail={
+                                    productDetail.info ||
+                                    RENDER_LAPTOP_DETAIL.info
+                                }
                             />
                             <ProductTab
-                                description={RENDER_LAPTOP_DETAIL.description}
+                                description={
+                                    productDetail.description ||
+                                    RENDER_LAPTOP_DETAIL.description
+                                }
                             />
                         </div>
                     </div>

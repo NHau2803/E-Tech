@@ -1,5 +1,5 @@
 import { Image } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./ProductViewImage.css"
 import { MAINVIEW } from "Constants/Data"
 
@@ -20,10 +20,15 @@ const ProductViewImage = props => {
     //     imagesEntriesTest
     // )
     // const [linkImg, setLinkImg] = useState(imagesTest.img2)
-    const [linkImg, setLinkImg] = useState(images[0].img)
+    const [linkImg, setLinkImg] = useState("")
+
+    useEffect(() => {
+        setLinkImg(images[0].img)
+    }, [images])
 
     const onShow = id => {
-        setLinkImg(images[id].img)
+        let index = images.findIndex(x => x.id === id)
+        setLinkImg(images[Number(index)].img)
         //const imagesEntriesTest = Object.entries(imagesTest)
     }
 

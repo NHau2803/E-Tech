@@ -11,6 +11,11 @@ const SelectBlock = props => {
         slidesToScroll: 1
     }
     const { selectBlockTitle, products } = props
+    console.log(
+        "🚀 ~ file: index.js ~ line 14 ~ selectBlockTitle, products",
+        selectBlockTitle,
+        products
+    )
     // useEffect(() => {
     //     new slick({
     //         // normal options...
@@ -53,6 +58,7 @@ const SelectBlock = props => {
                         return (
                             <ProductBlock
                                 key={item.id}
+                                id={item.id}
                                 image={item.image}
                                 name={item.name}
                                 ram={item.ram}

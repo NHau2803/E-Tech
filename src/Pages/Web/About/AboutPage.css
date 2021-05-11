@@ -1,0 +1,17 @@
+.container-about >p{
+    margin: auto;
+    width: 80%;
+    font-size: 20px;
+    padding: 10px;
+}
+.container-about >h2{
+    margin: auto;
+    width: 80%;
+    font-size: 20px;
+    padding: 10px;
+}
+.container-about img{
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}

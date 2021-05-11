@@ -28,6 +28,7 @@ exports.TYPE_HARD_DRIVE = {
 }
 
 // ---------------------------ADMIN RENDER-----------------------------//
+exports.LIST_RENDER_DEFAULT = [{ id: 1, value: "" }]
 //--LAP--
 exports.TYPE_PRODUCT_RENDER = [
     { id: 1, value: "Điện thoại" },
@@ -642,7 +643,7 @@ const NAV_MAP_LI_phimgiaco = [
     { id: 2, title: "Cerberus", link: "/laptop-gamming/MAC" },
     { id: 3, title: "Logitech", link: "/laptop-gamming/DELL" }
 ]
-const NAV_MAP_COL = [
+exports.NAV_MAP_COL = [
     {
         id: 1,
         title: "Gaming Tầm Trung",
@@ -662,7 +663,7 @@ const NAV_MAP_COL = [
         nav_map_li: NAV_MAP_LI_MINCE
     }
 ]
-const NAV_MAP_vpCOL = [
+exports.NAV_MAP_vpCOL = [
     {
         id: 1,
         title: "Văn Phòng Tầm Trung",
@@ -682,7 +683,7 @@ const NAV_MAP_vpCOL = [
         nav_map_li: NAV_MAP_LI_vpMINCE
     }
 ]
-const NAV_MAP_dhCOL = [
+exports.NAV_MAP_dhCOL = [
     {
         id: 1,
         title: "Đồ Họa Tầm Trung",
@@ -702,7 +703,7 @@ const NAV_MAP_dhCOL = [
         nav_map_li: NAV_MAP_LI_dhSUPER
     }
 ]
-const NAV_MAP_HARD = [
+exports.NAV_MAP_HARD = [
     {
         id: 1,
         title: "Ổ Cứng HDD",
@@ -722,7 +723,7 @@ const NAV_MAP_HARD = [
         nav_map_li: NAV_MAP_LI_OCdidong
     }
 ]
-const NAV_MAP_Keyboard = [
+exports.NAV_MAP_Keyboard = [
     {
         id: 1,
         title: "Bàn Phím Cơ",
@@ -736,7 +737,7 @@ const NAV_MAP_Keyboard = [
         nav_map_li: NAV_MAP_LI_phimgiaco
     }
 ]
-const NAV_MAP_Mouse = [
+exports.NAV_MAP_Mouse = [
     {
         id: 1,
         title: "Chuột Không Dây",
@@ -750,50 +751,12 @@ const NAV_MAP_Mouse = [
         nav_map_li: NAV_MAP_LI_chuotkoday
     }
 ]
-exports.NAV_MAP = [
-    {
-        id: 1,
-        title: "Laptop Gaming",
-        link: "/laptop-gaming",
-        nav_map_col: NAV_MAP_COL
-    },
-    {
-        id: 2,
-        title: "Laptop Văn Phòng",
-        link: "/laptop-officetel",
-        nav_map_col: NAV_MAP_vpCOL
-    },
-    {
-        id: 3,
-        title: "Laptop Đồ Họa",
-        link: "/laptop-officetel",
-        nav_map_col: NAV_MAP_dhCOL
-    },
-    {
-        id: 4,
-        title: "Ổ Cứng",
-        link: "/laptop-officetel",
-        nav_map_col: NAV_MAP_HARD
-    },
-    {
-        id: 5,
-        title: "Chuột",
-        link: "/laptop-officetel",
-        nav_map_col: NAV_MAP_Mouse
-    },
-    {
-        id: 6,
-        title: "Bàn Phím",
-        link: "/laptop-officetel",
-        nav_map_col: NAV_MAP_Keyboard
-    }
-]
 
 // ---------------------------RENDER-----------------------------//
 exports.RENDER_HOME = [
     {
         id: 1,
-        title: "Latop bán chạy",
+        brand: "Latop bán chạy",
         results: [
             {
                 id: 4,
@@ -839,7 +802,7 @@ exports.RENDER_HOME = [
     },
     {
         id: 2,
-        title: "Laptop đáng mua",
+        brand: "Laptop đáng mua",
         results: [
             {
                 id: 1,
@@ -925,7 +888,7 @@ exports.RENDER_HOME = [
     },
     {
         id: 3,
-        title: "Dòng máy Levono",
+        brand: "Dòng máy Levono",
         results: [
             {
                 id: 4,
@@ -975,22 +938,22 @@ exports.RENDER_LAPTOP_DETAIL = {
     id: 5,
     images: [
         {
-            id: 0,
+            id: 16,
             img:
                 "https://cdn.tgdd.vn/Products/Images/44/216292/lenovo-ideapad-s145-15iil-i3-1005g1-4gb-256gb-win1-2-org.jpg"
         },
         {
-            id: 1,
+            id: 17,
             img:
                 "https://cdn.tgdd.vn/Products/Images/44/216292/lenovo-ideapad-s145-15iil-i3-1005g1-4gb-256gb-win1-1-org.jpg"
         },
         {
-            id: 2,
+            id: 18,
             img:
                 "https://cdn.tgdd.vn/Products/Images/44/216292/lenovo-ideapad-s145-15iil-i3-1005g1-4gb-256gb-win1-6-org.jpg"
         }
     ],
-    detail: {
+    info: {
         name: "Levono Think 15 (Chính hãng)",
         price: "11.690.000₫",
         cpu: "Intel Core i5 Coffee Lake, 9300H, 2.40 GHz",

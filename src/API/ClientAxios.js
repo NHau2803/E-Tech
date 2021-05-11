@@ -4,12 +4,12 @@ import queryString from "query-string"
 const axiosClient = axios.create({
     // baseURL: `${process.env.BASE_API}:${process.env.PORT}`,
     // timeout: 2000,
-    withCredentials: false,
-    headers: {
-        "Content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    }
+    // withCredentials: false,
+    // headers: {
+    //     "Content-type": "application/json",
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+    // }
     // paramsSerializer: param => queryString.stringifyUrl(param)
 })
 

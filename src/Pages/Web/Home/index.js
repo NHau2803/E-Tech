@@ -1,15 +1,18 @@
 import ProductAPI from "API/ProductAPI"
+import RenderWeb from "API/RenderWeb"
 import BenefitComponent from "Components/Web/Benefit"
 import HeaderBanner from "Components/Web/Common/Header/HeaderBanner"
 import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
 import { RENDER_HOME } from "Constants/Data"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+console.log("🚀 ~ file: index.js ~ line 7 ~ RENDER_HOME", RENDER_HOME)
 
 const HomePage = () => {
+    const [product, setProduct] = useState({})
+    console.log("🚀 ~ file: index.js ~ line 11 ~ HomePage ~ product", product)
+
     useEffect(() => {
-        ProductAPI.search().then(res => {
-            console.log(res)
-        })
+        RenderWeb.get().then(res => setProduct(res))
     }, [])
 
     return (
@@ -19,7 +22,7 @@ const HomePage = () => {
                 return (
                     <SelectBlock
                         key={item.id}
-                        selectBlockTitle={item.title}
+                        selectBlockTitle={item.brand}
                         products={item.results}
                     />
                 )

@@ -46,7 +46,11 @@ const RouteAdmin = () => {
                         )
                     }}
                 />
-                <Route component={NotFoundComponent} />
+                <Route
+                    render={props => (
+                        <NotFoundComponent {...props} isFull={true} />
+                    )}
+                />
             </Switch>
         </div>
     )

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const FooterComponent = props => {
     const { logo } = props
     return (
@@ -42,19 +44,19 @@ const FooterComponent = props => {
                             <h3 className="footer-header">Về etech</h3>
                             <ul className="list-links">
                                 <li>
-                                    <a href="/#">GiỚI THIỆU</a>
+                                    <Link to="/etech/about">GiỚI THIỆU</Link>
                                 </li>
                                 <li>
-                                    <a href="/#">TUYỂN DỤNG</a>
+                                    <Link to="/#">TUYỂN DỤNG</Link>
                                 </li>
                                 <li>
-                                    <a href="/#">CHÍNH SÁCH</a>
+                                    <Link to="/#">CHÍNH SÁCH</Link>
                                 </li>
                                 <li>
-                                    <a href="/#">CÂU HỎI THƯỜNG GẶP</a>
+                                    <Link to="/#">CÂU HỎI THƯỜNG GẶP</Link>
                                 </li>
                                 <li>
-                                    <a href="/#">TÌM SHOP(5)</a>
+                                    <Link to="/#">TÌM SHOP(5)</Link>
                                 </li>
                             </ul>
                         </div>

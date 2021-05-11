@@ -6,12 +6,16 @@ import {
 } from "@ant-design/icons"
 import { Form, Button, Space, Row, Col, notification } from "antd"
 import { useForm } from "antd/lib/form/Form"
+import axiosClient from "API/ClientAxios"
+import GetOptionsAPI from "API/GetOptions"
+import LaptopAPI from "API/Laptop"
 import ProductAPI from "API/ProductAPI"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import InputField from "Components/Admin/CustomFields/InputField"
 import SelectField from "Components/Admin/CustomFields/SelectField"
 import useFormData from "Components/Admin/UseData/UseFormData"
 import {
+    LIST_RENDER_DEFAULT,
     BRAND_HARD_DRIVE,
     SPEC_VALUE_HARD_DRIVE_CACHE,
     SPEC_VALUE_HARD_DRIVE_CAPACITY,
@@ -44,6 +48,8 @@ import { VALIDATE_MESSAGES } from "Constants/Validate"
 import { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router-dom"
 import { checkHardDiveType } from "Utils/CheckType"
+import { getOptionsLocalStorage } from "Utils/Converter"
+import saveOptionsFromAPI from "Utils/SaveToLocalStorage"
 import "./AddEditPage.css"
 const axios = require("axios")
 
@@ -54,7 +60,6 @@ const layout = {
 
 const AddEditPage = props => {
     const { productId, productType } = useParams()
-    console.log("🚀 ~ file: index.js ~ line 45 ~ productType", productType)
     const isAddMode = !productId
     const history = useHistory()
     const [form] = Form.useForm()
@@ -69,17 +74,19 @@ const AddEditPage = props => {
         handleInputChange,
         changeInitialValueSpec
     } = useFormData(isAddMode, productType, productId)
-    console.log("🚀 ~ file: index.js ~ line 69 ~ image", image)
-    console.log("🚀 ~ file: index.js ~ line 69 ~ spec", spec)
-    console.log("🚀 ~ file: index.js ~ line 69 ~ info", info)
+    // console.log("🚀 ~ file: index.js ~ line 69 ~ image", image)
+    // console.log("🚀 ~ file: index.js ~ line 69 ~ spec", spec)
+    // console.log("🚀 ~ file: index.js ~ line 69 ~ info", info)
+
+    //---------------------------SAVE OPTIONS-----------------------------------------------
+    useEffect(() => {
+        saveOptionsFromAPI()
+    }, [])
 
     //---------------------------HANDLE RELOAD INITIAL VALUE WHEN UPDATE---------------------
     // todo: reload when state have data from api. Because render firstly initialValue = "" => need reload
     useEffect(() => {
         form.resetFields()
-        // Number(info.type_id) === 2
-        //     ? setType(TYPE_PRODUCT.LAPTOP)
-        //     : console.log(TYPE_PRODUCT.PHONE)
     }, [reLoadInitialValue])
 
     //---------------------------HANDLE RELOAD INITIAL VALUE WHEN ADD---------------------
@@ -103,55 +110,9 @@ const AddEditPage = props => {
         // ProductAPI.create(create).then(res => {
         //     console.log(res)
         // })
-
-        // axios
-        //     .post("http://11e359a2e597.ngrok.io/api/products/create", create)
-        //     .then(res => console.log(res))
-    }
-
-    //------------------------HANDLE RENDER------------------------
-    const handleRenderSpec = () => {
-        if (isAddMode && info !== undefined) {
-            switch (info.type_id) {
-                case 2:
-                    return renderSpecLaptop()
-                case 3:
-                    return renderSpecHardDrive()
-                default:
-                    break
-            }
-        } else {
-            switch (productType) {
-                case TYPE_PRODUCT.LAPTOP:
-                    return renderSpecLaptop()
-                case TYPE_PRODUCT.HARD_DRIVE:
-                    return renderSpecHardDrive()
-                default:
-                    break
-            }
-        }
-    }
-
-    const handleRenderBrand = () => {
-        if (isAddMode && info !== undefined) {
-            switch (info.type_id) {
-                case 2:
-                    return BRAND_LAPTOP
-                case 3:
-                    return BRAND_HARD_DRIVE
-                default:
-                    break
-            }
-        } else {
-            switch (productType) {
-                case TYPE_PRODUCT.LAPTOP:
-                    return BRAND_LAPTOP
-                case TYPE_PRODUCT.HARD_DRIVE:
-                    return BRAND_HARD_DRIVE
-                default:
-                    break
-            }
-        }
+        // LaptopAPI.create(create).then(res => {
+        //     console.log(res)
+        // })
     }
 
     //------------------------COMPONENT RENDER---------------------
@@ -162,70 +123,100 @@ const AddEditPage = props => {
                     name={"cpu_id"}
                     label={"Vi xử lí"}
                     initialValue={spec.cpu_id || ""}
-                    options={SPEC_VALUE_LAPTOP_CPU}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_CPU") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"ram_id"}
                     label={"Ram"}
                     initialValue={spec.ram_id || ""}
-                    options={SPEC_VALUE_LAPTOP_RAM}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_RAM") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"rom_id"}
                     label={"Lưu trữ"}
                     initialValue={spec.rom_id || ""}
-                    options={SPEC_VALUE_LAPTOP_ROM}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_ROM") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"gpu_id"}
                     label={"Card đồ họa"}
                     initialValue={spec.gpu_id || ""}
-                    options={SPEC_VALUE_LAPTOP_GPU}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_GPU") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"screen_id"}
                     label={"Kích thướt màn hình"}
                     initialValue={spec.screen_id || ""}
-                    options={SPEC_VALUE_LAPTOP_SCREEN}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_SCREEN") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"port_id"}
                     label={"Kết nối chính"}
                     initialValue={spec.port_id || ""}
-                    options={SPEC_VALUE_LAPTOP_PORT}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_PORT") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"battery_id"}
                     label={"PIN"}
                     initialValue={spec.battery_id || ""}
-                    options={SPEC_VALUE_LAPTOP_BATTERY}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_BATTERY") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"weight_id"}
                     label={"Trọng lượng"}
                     initialValue={spec.weight_id || ""}
-                    options={SPEC_VALUE_LAPTOP_WEIGHT}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_WEIGHT") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"size_id"}
                     label={"Kích thước"}
                     initialValue={spec.size_id || ""}
-                    options={SPEC_VALUE_LAPTOP_SIZE}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_SIZE") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"os_id"}
                     label={"Hệ điều hành"}
                     initialValue={spec.os_id || ""}
-                    options={SPEC_VALUE_LAPTOP_OS}
+                    options={
+                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_OS") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
             </Col>
@@ -311,6 +302,51 @@ const AddEditPage = props => {
         )
     }
 
+    //------------------------HANDLE RENDER------------------------
+    const handleRenderSpec = () => {
+        if (isAddMode && info !== undefined) {
+            switch (info.type_id) {
+                case 2:
+                    return renderSpecLaptop()
+                case 3:
+                    return renderSpecHardDrive()
+                default:
+                    break
+            }
+        } else {
+            switch (productType) {
+                case TYPE_PRODUCT.LAPTOP:
+                    return renderSpecLaptop()
+                case TYPE_PRODUCT.HARD_DRIVE:
+                    return renderSpecHardDrive()
+                default:
+                    break
+            }
+        }
+    }
+
+    const handleRenderBrand = () => {
+        if (isAddMode && info !== undefined) {
+            switch (info.type_id) {
+                case 2:
+                    return getOptionsLocalStorage("BRAND_LAPTOP")
+                case 3:
+                    return getOptionsLocalStorage("BRAND_HARD_DRIVE")
+                default:
+                    break
+            }
+        } else {
+            switch (productType) {
+                case TYPE_PRODUCT.LAPTOP:
+                    return getOptionsLocalStorage("BRAND_LAPTOP")
+                case TYPE_PRODUCT.HARD_DRIVE:
+                    return getOptionsLocalStorage("BRAND_HARD_DRIVE")
+                default:
+                    break
+            }
+        }
+    }
+
     return (
         <div>
             <BreadcrumbField list={["ADMIN", "POST"]} />
@@ -334,21 +370,17 @@ const AddEditPage = props => {
                             label={"Loại sản phẩm"}
                             disabled={!isAddMode ? true : false}
                             initialValue={info.type_id || ""}
-                            options={TYPE_PRODUCT_RENDER}
+                            options={
+                                getOptionsLocalStorage("TYPE_PRODUCT_RENDER") ||
+                                LIST_RENDER_DEFAULT
+                            }
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"brand_id"}
                             label={"Hãng sản phẩm"}
                             initialValue={info.brand_id || ""}
-                            options={
-                                // productType === TYPE_PRODUCT.LAPTOP
-                                //     ? BRAND_LAPTOP
-                                //     : productType === TYPE_PRODUCT.HARD_DRIVE
-                                //     ? BRAND_HARD_DRIVE
-                                //     : []
-                                handleRenderBrand()
-                            }
+                            options={handleRenderBrand() || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <InputField

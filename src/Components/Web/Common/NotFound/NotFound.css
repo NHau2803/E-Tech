@@ -17,7 +17,7 @@
 }
 .container_status a{
     text-decoration: none;
-    background: #e55039aa;
+    background: #33c9dc;
     color: #fff;
     padding: 12px 24px;
     display: inline-block;
@@ -29,7 +29,7 @@
 
 }
 .container_status a:hover{
-    background: #e55039;
+    background: #343434;
     opacity: 1;
     /* border: 1px solid springgreen; */
 }

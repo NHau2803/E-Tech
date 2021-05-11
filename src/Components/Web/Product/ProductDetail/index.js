@@ -1,3 +1,4 @@
+import { changePriceToVND } from "Utils/Converter"
 import ProductSpec from "./ProductSpec"
 
 const ProductDetail = props => {
@@ -11,7 +12,7 @@ const ProductDetail = props => {
                 </div> */}
                 <h2 className="product-name">{detail.name}</h2>
                 <h3 className="product-price">
-                    {detail.price}
+                    {changePriceToVND(detail.price)}
                     {/* <del className="product-old-price">12.490.000 ₫</del> */}
                 </h3>
                 <div>
@@ -24,9 +25,10 @@ const ProductDetail = props => {
                     </div>
                     <a href="/#">8 Đánh giá / Thêm đánh giá</a>
                 </div>
+                {/* change product type */}
                 <ProductSpec detail={detail} />
                 <div className="product-options">
-                    <ul className="color-option">
+                    {/* <ul className="color-option">
                         <li>
                             <span className="text-uppercase">Màu sắc:</span>
                         </li>
@@ -36,7 +38,7 @@ const ProductDetail = props => {
                         <li>
                             <a href={"/#"} style={{ background: "#000" }}></a>
                         </li>
-                    </ul>
+                    </ul> */}
                 </div>
 
                 <div className="product-btns">

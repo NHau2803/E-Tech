@@ -19,8 +19,8 @@ const useFormData = (isAddMode, type, productId) => {
     const [notify, setNotify] = useState({
         isOpen: false,
         title: "Thông báo",
-        message: "Cập nhật thành công",
-        type: "success"
+        message: "Thêm thành công",
+        type: "info"
     })
 
     //const [errors, setErrors] = useState({})

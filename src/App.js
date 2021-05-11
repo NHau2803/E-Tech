@@ -7,12 +7,12 @@ import {
 import { Suspense } from "react"
 import RouteWeb from "Routes/Web"
 // import RouteAdmin from "Routes/Admin"
-import NotFoundComponent from "Components/Web/Common/NotFound"
 import LoaderComponent from "Components/Web/Common/Loader"
 import LoginPage from "Pages/Common/LoginPage"
 import SignupPage from "Pages/Common/SignUp"
 import RouteAdmin from "Routes/Admin"
 import TestAPI from "Pages/Admin/Test"
+import NotFoundComponent from "Components/Web/Common/NotFound"
 function App() {
     return (
         <div>
@@ -25,7 +25,11 @@ function App() {
                         <Route path="/admin" component={RouteAdmin} />
                         <Route path="/etech" component={RouteWeb} />
                         <Route path="/test-api" component={TestAPI} />
-                        <Route component={NotFoundComponent} />
+                        <Route
+                            render={props => (
+                                <NotFoundComponent {...props} isFull={true} />
+                            )}
+                        />
                     </Switch>
                 </Router>
             </Suspense>
