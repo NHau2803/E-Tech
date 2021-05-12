@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react"
+import { BackTop } from "antd"
 import LoaderComponent from "Components/Web/Common/Loader"
 import NotFoundComponent from "Components/Web/Common/NotFound"
 import { TYPE_ADMIN_PAGE } from "Constants/Data"
@@ -52,6 +53,7 @@ const RouteAdmin = () => {
                     )}
                 />
             </Switch>
+            <BackTop />
         </div>
     )
 }

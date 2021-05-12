@@ -65,6 +65,7 @@ const AddEditPage = props => {
     const [form] = Form.useForm()
 
     const {
+        listOptions,
         info,
         spec,
         image,
@@ -74,14 +75,16 @@ const AddEditPage = props => {
         handleInputChange,
         changeInitialValueSpec
     } = useFormData(isAddMode, productType, productId)
+    console.log("🚀 ~ file: index.js ~ line 78 ~ listOptions", listOptions)
     // console.log("🚀 ~ file: index.js ~ line 69 ~ image", image)
     // console.log("🚀 ~ file: index.js ~ line 69 ~ spec", spec)
     // console.log("🚀 ~ file: index.js ~ line 69 ~ info", info)
 
     //---------------------------SAVE OPTIONS-----------------------------------------------
-    useEffect(() => {
-        saveOptionsFromAPI()
-    }, [])
+    // useEffect(() => {
+    //     saveOptionsFromAPI()
+
+    // }, [])
 
     //---------------------------HANDLE RELOAD INITIAL VALUE WHEN UPDATE---------------------
     // todo: reload when state have data from api. Because render firstly initialValue = "" => need reload
@@ -114,7 +117,6 @@ const AddEditPage = props => {
         //     console.log(res)
         // })
     }
-
     //------------------------COMPONENT RENDER---------------------
     const renderSpecLaptop = () => {
         return (
@@ -123,106 +125,75 @@ const AddEditPage = props => {
                     name={"cpu_id"}
                     label={"Vi xử lí"}
                     initialValue={spec.cpu_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_CPU") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.cpus || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"ram_id"}
                     label={"Ram"}
                     initialValue={spec.ram_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_RAM") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.rams || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"rom_id"}
                     label={"Lưu trữ"}
                     initialValue={spec.rom_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_ROM") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.roms || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"gpu_id"}
                     label={"Card đồ họa"}
                     initialValue={spec.gpu_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_GPU") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.gpus || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"screen_id"}
                     label={"Kích thướt màn hình"}
                     initialValue={spec.screen_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_SCREEN") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.screens || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"port_id"}
                     label={"Kết nối chính"}
                     initialValue={spec.port_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_PORT") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.ports || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"battery_id"}
                     label={"PIN"}
                     initialValue={spec.battery_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_BATTERY") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.batteries || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"weight_id"}
                     label={"Trọng lượng"}
                     initialValue={spec.weight_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_WEIGHT") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.weights || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"size_id"}
                     label={"Kích thước"}
                     initialValue={spec.size_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_SIZE") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.sizes || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"os_id"}
                     label={"Hệ điều hành"}
                     initialValue={spec.os_id || ""}
-                    options={
-                        getOptionsLocalStorage("SPEC_VALUE_LAPTOP_OS") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={listOptions.os || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
             </Col>
         )
     }
-
     const renderSpecHardDrive = () => {
         return (
             <Col span={12}>

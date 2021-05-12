@@ -5,20 +5,31 @@ import HeaderBanner from "Components/Web/Common/Header/HeaderBanner"
 import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
 import { RENDER_HOME } from "Constants/Data"
 import { useEffect, useState } from "react"
-console.log("🚀 ~ file: index.js ~ line 7 ~ RENDER_HOME", RENDER_HOME)
+import { emptyItemInLocalStorage } from "Utils/checkItemLocalStorage"
+import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
 
 const HomePage = () => {
-    const [product, setProduct] = useState({})
-    console.log("🚀 ~ file: index.js ~ line 11 ~ HomePage ~ product", product)
+    const isEmptyItemInLocalStorage = emptyItemInLocalStorage("productList")
+    const [productList, setProductList] = useState(
+        getOptionsLocalStorage("productList") || []
+    )
 
     useEffect(() => {
-        RenderWeb.get().then(res => setProduct(res))
+        window.scrollTo(0, 0)
+        if (isEmptyItemInLocalStorage) {
+            RenderWeb.get().then(res => {
+                setProductList(res)
+                setOptionsLocalStorage("productList", res)
+            })
+        }
+
+        //
     }, [])
 
     return (
         <div>
             <HeaderBanner />
-            {RENDER_HOME.map(item => {
+            {productList.map(item => {
                 return (
                     <SelectBlock
                         key={item.id}

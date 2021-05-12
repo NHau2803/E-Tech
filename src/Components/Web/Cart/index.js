@@ -1,3 +1,4 @@
+import { ArrowRightOutlined, RightCircleOutlined } from "@ant-design/icons"
 import { RENDER_CART } from "Constants/Data"
 import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
@@ -37,7 +38,8 @@ const CartComponent = () => {
                 })}
                 <div className="shopping-cart-btns">
                     <Link to={"/etech/checkout"} className="primary-btn">
-                        Checkout <i className="fa fa-arrow-circle-right"></i>
+                        Xem giỏ hàng &thinsp;
+                        <RightCircleOutlined />
                     </Link>
                 </div>
             </div>

@@ -1,49 +1,11 @@
 // import { useEffect } from "react"
+import { changePriceToVND } from "Utils/Converter"
 import ProductBlock from "../ProductBlock"
 // import Slider from "react-slick"
 
 const SelectBlock = props => {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1
-    }
     const { selectBlockTitle, products } = props
-    console.log(
-        "🚀 ~ file: index.js ~ line 14 ~ selectBlockTitle, products",
-        selectBlockTitle,
-        products
-    )
-    // useEffect(() => {
-    //     new slick({
-    //         // normal options...
-    //         infinite: false,
 
-    //         // the magic
-    //         responsive: [
-    //             {
-    //                 breakpoint: 1024,
-    //                 settings: {
-    //                     slidesToShow: 3,
-    //                     infinite: true
-    //                 }
-    //             },
-    //             {
-    //                 breakpoint: 600,
-    //                 settings: {
-    //                     slidesToShow: 2,
-    //                     dots: true
-    //                 }
-    //             },
-    //             {
-    //                 breakpoint: 300,
-    //                 settings: "unslick" // destroys slick
-    //             }
-    //         ]
-    //     })
-    // })
     return (
         <div className="section">
             <div className="container">
@@ -63,7 +25,7 @@ const SelectBlock = props => {
                                 name={item.name}
                                 ram={item.ram}
                                 rom={item.rom}
-                                price={item.price}
+                                price={changePriceToVND(item.price)}
                                 guarantee={item.guarantee}
                                 valueSale={"-10%"}
                             />

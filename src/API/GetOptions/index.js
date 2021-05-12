@@ -3,7 +3,7 @@ import axiosClient from "API/ClientAxios"
 const GetOptionsAPI = {
     get: async => {
         try {
-            const url = "http://790c7601baf3.ngrok.io/api/products/create"
+            const url = "http://925f37a952cb.ngrok.io/api/products/create"
             return axiosClient.get(url)
         } catch (error) {
             return {

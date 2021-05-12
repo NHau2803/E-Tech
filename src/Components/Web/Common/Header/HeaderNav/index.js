@@ -1,3 +1,4 @@
+import { PhoneFilled, PhoneOutlined } from "@ant-design/icons"
 import {
     NAV_MAP_COL,
     NAV_MAP_vpCOL,
@@ -433,12 +434,11 @@ const HeaderNav = props => {
                                 <Link to="/etech/about">Giới Thiệu</Link>
                             </li>
                             <li>
-                                <p style={{ color: "white" }}>
-                                    TƯ VẤN MUA HÀNG &emsp;
-                                    <Link to="/#" style={{ color: "#33c9dc" }}>
-                                        0944445555
-                                    </Link>
-                                </p>
+                                <Link to="/#" style={{ color: "#33c9dc" }}>
+                                    HOSTLINE &thinsp;
+                                    <PhoneOutlined />
+                                    0944445555
+                                </Link>
                             </li>
                         </ul>
                     </div>

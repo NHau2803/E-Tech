@@ -20,10 +20,10 @@ const LaptopAPI = {
         }
     },
 
-    search: async params => {
+    getForUpdate: async id => {
         try {
-            const url = ""
-            return axiosClient.get(url, params)
+            const url = "http://925f37a952cb.ngrok.io/api/products/update/" + id
+            return axiosClient.get(url)
         } catch (error) {
             return {
                 result: null,

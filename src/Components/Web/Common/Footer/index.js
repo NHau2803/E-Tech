@@ -1,3 +1,9 @@
+import {
+    FacebookFilled,
+    MailFilled,
+    MailOutlined,
+    PhoneOutlined
+} from "@ant-design/icons"
 import { Link } from "react-router-dom"
 
 const FooterComponent = props => {
@@ -13,7 +19,10 @@ const FooterComponent = props => {
                             </a>
                         </div>
 
-                        <p>NHÀ TUI BA ĐỜI BÁN UY TÍNH, ĐẾN ĐỜI TUI THÌ...</p>
+                        <p>
+                            Chuyên môn - Thân thiện - Chân thành - Nhiệt huyết -
+                            Công nghệ.
+                        </p>
                     </div>
 
                     <div className="col-md-3 col-sm-6 col-xs-6">
@@ -21,16 +30,28 @@ const FooterComponent = props => {
                             <h3 className="footer-header">HỖ TRỢ KHÁCH HÀNG</h3>
                             <ul className="list-links">
                                 <li>
-                                    <a href="/#">GỌI MUA HÀNG: 0944445555</a>
+                                    <a href="/#">
+                                        GỌI MUA HÀNG: <PhoneOutlined />
+                                        0944445555
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="/#">GỌI BẢO HÀNH: 0944446666</a>
+                                    <a href="/#">
+                                        GỌI BẢO HÀNH: <PhoneOutlined />
+                                        0944446666
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="/#">GỌI KHIẾU NẠI: 0944447777</a>
+                                    <a href="/#">
+                                        GỌI KHIẾU NẠI: <PhoneOutlined />
+                                        0944447777
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="/#">GỌI KỸ THUẬT: 0944448888</a>
+                                    <a href="/#">
+                                        GỌI KỸ THUẬT: <PhoneOutlined />
+                                        0944448888
+                                    </a>
                                 </li>
                                 {/* <p>(07:30am - 22:00pm)</p> */}
                             </ul>
@@ -50,7 +71,9 @@ const FooterComponent = props => {
                                     <Link to="/#">TUYỂN DỤNG</Link>
                                 </li>
                                 <li>
-                                    <Link to="/#">CHÍNH SÁCH</Link>
+                                    <Link to="/etech/policy-transport">
+                                        CHÍNH SÁCH VẬN CHUYỂN
+                                    </Link>
                                 </li>
                                 <li>
                                     <Link to="/#">CÂU HỎI THƯỜNG GẶP</Link>
@@ -69,7 +92,7 @@ const FooterComponent = props => {
                             </h3>
                             <ul className="list-links">
                                 <li>
-                                    <a href="/#">HỢP TÁCH DOANH NGHIỆP</a>
+                                    <a href="/#">HỢP TÁC DOANH NGHIỆP</a>
                                 </li>
                             </ul>
                             <br />
@@ -79,20 +102,18 @@ const FooterComponent = props => {
                             <ul className="footer-social">
                                 <li>
                                     <a href="/#">
-                                        <i className="fa fa-facebook" />
-                                        <b>/etshop</b>
+                                        <FacebookFilled
+                                            style={{ fontSize: "20px" }}
+                                        />
+                                        <b>/etech</b>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/#">
-                                        <i
-                                            className="fa fa-email"
-                                            style={{
-                                                //fontSize: 15,
-                                                color: "blue"
-                                            }}
+                                        <MailFilled
+                                            style={{ fontSize: "20px" }}
                                         />
-                                        <b>@/etshop@gmail.com</b>
+                                        <b>/etech@contact.com</b>
                                     </a>
                                 </li>
                             </ul>

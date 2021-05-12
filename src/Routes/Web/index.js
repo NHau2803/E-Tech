@@ -3,12 +3,13 @@ import HeaderMain from "Components/Web/Common/Header/HeaderMain"
 import LoaderComponent from "Components/Web/Common/Loader"
 import NotFoundComponent from "Components/Web/Common/NotFound"
 import HeaderNav from "Components/Web/Common/Header/HeaderNav"
-import React, { Suspense } from "react"
+import React, { Suspense, useEffect } from "react"
 import { Route, Switch, useRouteMatch } from "react-router"
 import { PATH } from "Constants/Path"
 import { render } from "@testing-library/react"
 import AboutPage from "Pages/Web/About"
 import { BackTop } from "antd"
+import PolicyTransport from "Pages/Web/Policy/Transport"
 
 const HomePage = React.lazy(() => import("../../Pages/Web/Home"))
 const ProductDetailPage = React.lazy(() =>
@@ -19,7 +20,6 @@ const ProductFilter = React.lazy(() => import("../../Pages/Web/ProductFilter"))
 
 const RouteWeb = () => {
     const match = useRouteMatch()
-
     return (
         <div>
             <Suspense fallback={() => render(<LoaderComponent />)}>
@@ -38,6 +38,13 @@ const RouteWeb = () => {
                         path={`${match.url}/about`}
                         render={() => {
                             return <AboutPage />
+                        }}
+                    />
+                    <Route
+                        exact
+                        path={`${match.url}/policy-transport`}
+                        render={() => {
+                            return <PolicyTransport />
                         }}
                     />
                     <Route
@@ -71,7 +78,7 @@ const RouteWeb = () => {
                     }
                 />
             </Suspense>
-            <BackTop></BackTop>
+            <BackTop />
         </div>
     )
 }

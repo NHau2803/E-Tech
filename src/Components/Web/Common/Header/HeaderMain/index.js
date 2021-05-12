@@ -1,3 +1,12 @@
+import {
+    HeartOutlined,
+    LoginOutlined,
+    PhoneOutlined,
+    PoweroffOutlined,
+    ShoppingCartOutlined,
+    UserAddOutlined,
+    UserOutlined
+} from "@ant-design/icons"
 import CartComponent from "Components/Web/Cart"
 import { PATH } from "Constants/Path"
 import { useState } from "react"
@@ -24,18 +33,12 @@ const HeaderMain = () => {
 
                         <div className="header-search">
                             <form>
-                                <button className="search-btn">
-                                    <i className="fa fa-search"></i>
-                                </button>
                                 <input
                                     className="input search-input"
                                     type="text"
-                                    placeholder="Enter your keyword"
+                                    placeholder="Tìm sản phẩm..."
                                 />
-                                <select className="input search-categories">
-                                    <option value="0">Laptop</option>
-                                    <option value="1">Phụ kiện</option>
-                                </select>
+
                                 <button className="search-btn">
                                     <i className="fa fa-search"></i>
                                 </button>
@@ -60,7 +63,7 @@ const HeaderMain = () => {
                                     aria-expanded={toggle ? "false" : "true"}
                                 >
                                     <div className="header-btns-icon">
-                                        <i className="fa fa-user-o"></i>
+                                        <UserOutlined />
                                     </div>
                                     <strong className="text-uppercase">
                                         Tài Khoản
@@ -71,31 +74,61 @@ const HeaderMain = () => {
                                 <ul className="custom-menu">
                                     <li>
                                         <Link to="/#">
-                                            <i className="fa fa-user-o"></i>
+                                            <UserOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
                                             Tài khoản của bạn
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="/#">
-                                            <i className="fa fa-heart-o"></i>
+                                            <HeartOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
                                             Yêu thích
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to={PATH.SIGNUP}>
-                                            <i className="fa fa-user-plus"></i>{" "}
+                                            <UserAddOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
                                             Tạo tài khoản
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="/#">
-                                            <i className="fa fa-unlock-alt"></i>{" "}
+                                            <LoginOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
                                             Đăng nhập
                                         </Link>
                                     </li>
                                     <li>
                                         <Link to="/#">
-                                            <i className="fa fa-unlock-alt"></i>{" "}
+                                            <PoweroffOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
                                             Đăng xuất
                                         </Link>
                                     </li>
@@ -119,7 +152,7 @@ const HeaderMain = () => {
                                     }
                                 >
                                     <div className="header-btns-icon">
-                                        <i className="fa fa-shopping-cart"></i>
+                                        <ShoppingCartOutlined />
                                         <span className="qty">3</span>
                                     </div>
                                     <strong className="text-uppercase">

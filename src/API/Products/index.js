@@ -4,7 +4,7 @@ const ProductsAPI = {
     getProductDetail: async (productType, productId) => {
         try {
             const url =
-                "http://790c7601baf3.ngrok.io/api/products/" +
+                "http://925f37a952cb.ngrok.io/api/products/" +
                 productType +
                 "/" +
                 productId

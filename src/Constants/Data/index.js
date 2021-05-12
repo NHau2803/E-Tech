@@ -28,7 +28,7 @@ exports.TYPE_HARD_DRIVE = {
 }
 
 // ---------------------------ADMIN RENDER-----------------------------//
-exports.LIST_RENDER_DEFAULT = [{ id: 1, value: "" }]
+exports.LIST_RENDER_DEFAULT = []
 //--LAP--
 exports.TYPE_PRODUCT_RENDER = [
     { id: 1, value: "Điện thoại" },
@@ -523,8 +523,25 @@ exports.DATA_CREATE_LAPTOP = {
         img2: "IMG 2"
     }
 }
-// ---------------------------WEB-----------------------------//
+// ---------------------------WEB FILTER-----------------------------//
 
+exports.BRAND_LAPTOP_FILTER_WEB = [
+    { id: 1, value: "MACBOOK", active: false },
+    { id: 2, value: "LEVONO", active: false },
+    { id: 3, value: "DELL", active: false },
+    { id: 4, value: "ASUS", active: false },
+    { id: 5, value: "HP", active: false },
+    { id: 6, value: "LG", active: false }
+]
+exports.PATH_PRICE_FILTER_WEB = [
+    { id: 1, text: "Dưới 5 triệu", value: "0-5", active: false },
+    { id: 2, text: "Dưới 10 triệu", value: "0-10", active: false },
+    { id: 3, text: "10 - 15 triệu", value: "10-15", active: false },
+    { id: 4, text: "15 - 20 triệu", value: "15-20", active: false },
+    { id: 5, text: "20 - 25 triệu", value: "20-25", active: false },
+    { id: 6, text: "Trên 25 triệu", value: "25-100", active: false }
+]
+// ---------------------------WEB-----------------------------//
 exports.PATH_BRAND = {
     ASUS: "/products/laptop/asus",
     HP: "/products/laptop/hp",

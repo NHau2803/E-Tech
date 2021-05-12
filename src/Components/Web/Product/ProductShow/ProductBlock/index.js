@@ -1,8 +1,10 @@
 import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
+import { changePriceToVND } from "Utils/Converter"
 
 const ProductBlock = props => {
     const { id, image, name, guarantee, price, ram, rom, valueSale } = props
+    // console.log("🚀 ~ file: index.js ~ line 6 ~ price", changePriceToVND(price))
     return (
         <Link to={`${PATH.LAPTOP}/${id}`}>
             <div className="col-md-3 col-sm-6 col-xs-6">

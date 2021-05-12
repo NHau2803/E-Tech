@@ -7,7 +7,12 @@ import {
     DATA_POST_HARD_DRIVE,
     INITIAL_VALUES_HARD_DRIVE_DEFAULT
 } from "Constants/Data"
+import GetOptionsAPI from "API/GetOptions"
+import LaptopAPI from "API/Laptop"
+import { useHistory } from "react-router"
 const useFormData = (isAddMode, type, productId) => {
+    const history = useHistory()
+    const redirectNotFound = () => history.push("/not-found")
     const [info, setInfo] = useState(
         isAddMode ? INITIAL_VALUES_DEFAULT.info : []
     )
@@ -15,6 +20,7 @@ const useFormData = (isAddMode, type, productId) => {
     const [image, setImage] = useState(
         isAddMode ? INITIAL_VALUES_DEFAULT.image : []
     )
+    const [listOptions, setListOptions] = useState([])
     const [reLoadInitialValue, setReLoadInitialValue] = useState(false)
     const [notify, setNotify] = useState({
         isOpen: false,
@@ -34,77 +40,34 @@ const useFormData = (isAddMode, type, productId) => {
     useEffect(() => {
         if (isAddMode) {
             console.log("add mode!")
+            GetOptionsAPI.get().then(res => setListOptions(res))
             setSpec(INITIAL_VALUES_LAPTOP_DEFAULT)
             setReLoadInitialValue(true)
         } else {
-            // const setValueOjb = (result, funcGetObj) => {
-            //     if (result.errorMessage === null) {
-            //         let object = funcGetObj(result.result)
-            //         console.log(object)
-            //         setValues(object)
-            //     } else {
-            //         setValues(INITIAL_VALUES_DEFAULT)
-            //         setNotify({
-            //             isOpen: true,
-            //             message: result.errorMessage,
-            //             type: "error"
-            //         })
-            //         setNotFound(true)
-            //     }
-            // }
-            // const getInfo = async () => {
-            //     console.log(type)
-            //     switch (type) {
-            //         case TYPE.STUDENT:
-            //             const studentResult = await studentApi.find(id)
-            //             setValueOjb(studentResult, getStudentObject)
-            //             break
-            //         case TYPE.TEACHER:
-            //             const teacherResult = await teacherApi.find(id)
-            //             setValueOjb(teacherResult, getTeacherObject)
-            //             break
-            //         case TYPE.TEAM:
-            //             const teamResult = await teamApi.find(id)
-            //             setValueOjb(teamResult, getTeamObject)
-            //             break
-            //         case TYPE.TOPIC:
-            //             const topicResult = await topicApi.find(id)
-            //             setValueOjb(topicResult, getTopicObject)
-            //             break
-            //         case TYPE.ACCOUNT:
-            //             setValues({
-            //                 username: "",
-            //                 passwordOld: "",
-            //                 passwordNew: "",
-            //                 passwordConfirm: ""
-            //             })
-            //             break
-            //         // case TYPE.DEADLINE:
-            //         //     setValues(initialFValuesDeadlinesDefault)
-            //         //     break;
-            //         default:
-            //             setValues([])
-            //             setNotFound(true)
-            //             break
-            //     }
-            // }
-            // getInfo()
+            if (!isNaN(productId)) {
+                switch (type) {
+                    case TYPE_PRODUCT.LAPTOP:
+                        // LaptopAPI.getForUpdate(productId).then(res => {
+                        //     console.log(res)
 
-            switch (type) {
-                case TYPE_PRODUCT.LAPTOP:
-                    setInfo(DATA_POST_LAPTOP.info)
-                    setImage(DATA_POST_LAPTOP.image)
-                    setSpec(DATA_POST_LAPTOP.spec)
-                    break
-                case TYPE_PRODUCT.HARD_DRIVE:
-                    setInfo(DATA_POST_HARD_DRIVE.info)
-                    setImage(DATA_POST_HARD_DRIVE.image)
-                    setSpec(DATA_POST_HARD_DRIVE.spec)
-                    break
-                default:
-                    break
+                        // })
+                        setInfo(DATA_POST_LAPTOP.info)
+                        setImage(DATA_POST_LAPTOP.image)
+                        setSpec(DATA_POST_LAPTOP.spec)
+
+                        break
+                    case TYPE_PRODUCT.HARD_DRIVE:
+                        setInfo(DATA_POST_HARD_DRIVE.info)
+                        setImage(DATA_POST_HARD_DRIVE.image)
+                        setSpec(DATA_POST_HARD_DRIVE.spec)
+                        break
+                    default:
+                        break
+                }
+                setReLoadInitialValue(true)
+            } else {
+                redirectNotFound()
             }
-            setReLoadInitialValue(true)
         }
     }, [])
 
@@ -150,6 +113,7 @@ const useFormData = (isAddMode, type, productId) => {
     // }
 
     return {
+        listOptions,
         info,
         spec,
         image,

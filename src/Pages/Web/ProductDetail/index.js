@@ -1,5 +1,6 @@
 import LaptopAPI from "API/Laptop"
 import ProductsAPI from "API/Products"
+import RenderWeb from "API/RenderWeb"
 import FooterComponent from "Components/Web/Common/Footer"
 import HeaderMain from "Components/Web/Common/Header/HeaderMain"
 import HeaderNav from "Components/Web/Common/Header/HeaderNav"
@@ -21,9 +22,17 @@ const ProductDetailPage = props => {
     const history = useHistory()
     const redirectNotFound = () => history.push("/not-found")
     const [productDetail, setProductDetail] = useState({})
-    console.log("🚀 ~ file: index.js ~ line 24 ~ productDetail", productDetail)
+    // console.log("🚀 ~ file: index.js ~ line 24 ~ productDetail", productDetail)
+
+    const [product, setProduct] = useState([])
+    // console.log("🚀 ~ file: index.js ~ line 11 ~ HomePage ~ product", product)
 
     useEffect(() => {
+        RenderWeb.get().then(res => setProduct(res))
+    }, [])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
         if (
             !isNaN(productId) &&
             Object.values(TYPE_PRODUCT).includes(productType)
@@ -63,11 +72,11 @@ const ProductDetailPage = props => {
                     </div>
                 </div>
             </div>
-            {RENDER_HOME.map(item => {
+            {product.map(item => {
                 return (
                     <SelectBlock
                         key={item.id}
-                        selectBlockTitle={item.title}
+                        selectBlockTitle={item.brand}
                         products={item.results}
                     />
                 )

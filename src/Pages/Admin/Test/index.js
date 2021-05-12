@@ -3,9 +3,10 @@ const TestAPI = () => {
     var axios = require("axios")
     const getBreeds = () => {
         try {
-            return axios.get(
-                "http://090f15fa7f2e.ngrok.io/api/products/laptop/23"
-            )
+            return axios.post("http://925f37a952cb.ngrok.io/api/login", {
+                email: "admin@etech.com",
+                password: "admin123456"
+            })
         } catch (error) {
             console.error(error)
         }
