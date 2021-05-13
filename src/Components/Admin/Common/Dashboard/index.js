@@ -1,12 +1,11 @@
-import { FormOutlined, LaptopOutlined } from "@ant-design/icons"
 import { Menu, Layout } from "antd"
 import { MENU } from "Constants/List"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 const { Sider } = Layout
 
 const DashboardComponent = props => {
-    const { toggle, selectedKey } = props
+    const { toggle } = props
 
     return (
         <Sider collapsed={toggle}>
@@ -27,7 +26,7 @@ const DashboardComponent = props => {
                 theme="dark"
                 mode="inline"
                 defaultSelectedKeys={["0"]}
-                selectedKeys={[selectedKey]}
+                // selectedKeys={[selectedKey]}
                 style={{ height: "690px" }}
             >
                 {MENU.map((item, index) => {

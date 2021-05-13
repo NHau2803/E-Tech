@@ -125,70 +125,70 @@ const AddEditPage = props => {
                     name={"cpu_id"}
                     label={"Vi xử lí"}
                     initialValue={spec.cpu_id || ""}
-                    options={listOptions.cpus || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_CPU || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"ram_id"}
                     label={"Ram"}
                     initialValue={spec.ram_id || ""}
-                    options={listOptions.rams || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_RAM || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"rom_id"}
                     label={"Lưu trữ"}
                     initialValue={spec.rom_id || ""}
-                    options={listOptions.roms || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_ROM || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"gpu_id"}
                     label={"Card đồ họa"}
                     initialValue={spec.gpu_id || ""}
-                    options={listOptions.gpus || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_GPU || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"screen_id"}
                     label={"Kích thướt màn hình"}
                     initialValue={spec.screen_id || ""}
-                    options={listOptions.screens || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_SCREEN || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"port_id"}
                     label={"Kết nối chính"}
                     initialValue={spec.port_id || ""}
-                    options={listOptions.ports || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_PORT || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"battery_id"}
                     label={"PIN"}
                     initialValue={spec.battery_id || ""}
-                    options={listOptions.batteries || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_BATTERY || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"weight_id"}
                     label={"Trọng lượng"}
                     initialValue={spec.weight_id || ""}
-                    options={listOptions.weights || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_WEIGHT || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"size_id"}
                     label={"Kích thước"}
                     initialValue={spec.size_id || ""}
-                    options={listOptions.sizes || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_SIZE || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"os_id"}
                     label={"Hệ điều hành"}
                     initialValue={spec.os_id || ""}
-                    options={listOptions.os || LIST_RENDER_DEFAULT}
+                    options={SPEC_VALUE_LAPTOP_OS || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
             </Col>

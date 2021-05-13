@@ -5,7 +5,8 @@ import {
     INITIAL_VALUES_LAPTOP_DEFAULT,
     DATA_POST_LAPTOP,
     DATA_POST_HARD_DRIVE,
-    INITIAL_VALUES_HARD_DRIVE_DEFAULT
+    INITIAL_VALUES_HARD_DRIVE_DEFAULT,
+    SPEC_VALUE_LAPTOP_CPU
 } from "Constants/Data"
 import GetOptionsAPI from "API/GetOptions"
 import LaptopAPI from "API/Laptop"
@@ -40,7 +41,9 @@ const useFormData = (isAddMode, type, productId) => {
     useEffect(() => {
         if (isAddMode) {
             console.log("add mode!")
-            GetOptionsAPI.get().then(res => setListOptions(res))
+            // GetOptionsAPI.get()
+            //     .then(res => setListOptions(res))
+            //     .catch(err => setListOptions([ cpus: SPEC_VALUE_LAPTOP_CPU ]))
             setSpec(INITIAL_VALUES_LAPTOP_DEFAULT)
             setReLoadInitialValue(true)
         } else {

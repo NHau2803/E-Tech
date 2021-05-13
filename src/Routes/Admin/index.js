@@ -16,35 +16,20 @@ const RouteAdmin = () => {
                     exact
                     path={`${match.url}/add`}
                     render={() => {
-                        return (
-                            <AdminPage
-                                typePage={TYPE_ADMIN_PAGE.ADD_EDIT}
-                                selectedKey={"1"}
-                            />
-                        )
+                        return <AdminPage typePage={TYPE_ADMIN_PAGE.ADD_EDIT} />
                     }}
                 />
                 <Route
                     exact
                     path={`${match.url}/:productType`}
                     render={() => {
-                        return (
-                            <AdminPage
-                                typePage={TYPE_ADMIN_PAGE.DOSSIER}
-                                selectedKey={"0"}
-                            />
-                        )
+                        return <AdminPage typePage={TYPE_ADMIN_PAGE.DOSSIER} />
                     }}
                 />
                 <Route
                     path={`${match.url}/:productType/:productId`}
                     render={() => {
-                        return (
-                            <AdminPage
-                                typePage={TYPE_ADMIN_PAGE.ADD_EDIT}
-                                selectedKey={"1"}
-                            />
-                        )
+                        return <AdminPage typePage={TYPE_ADMIN_PAGE.ADD_EDIT} />
                     }}
                 />
                 <Route

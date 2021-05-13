@@ -38,21 +38,15 @@ exports.TYPE_PRODUCT_RENDER = [
     { id: 5, value: "Bàn phím" },
     { id: 6, value: "Tay nghe" }
 ]
-exports.BRAND_PHONE = [
-    { id: 1, value: "VSMART" },
-    { id: 2, value: "IPHONE" },
-    { id: 3, value: "SAMSUNG" },
-    { id: 4, value: "OPPO" },
-    { id: 5, value: "XIAOMI" },
-    { id: 6, value: "SONY" }
-]
+
 exports.BRAND_LAPTOP = [
     { id: 1, value: "MACBOOK" },
     { id: 2, value: "LEVONO" },
     { id: 3, value: "DELL" },
     { id: 4, value: "ASUS" },
     { id: 5, value: "HP" },
-    { id: 6, value: "LG" }
+    { id: 6, value: "LG" },
+    { id: 7, value: "MSI" }
 ]
 exports.SPEC_VALUE_LAPTOP_CPU = [
     { id: 1, value: "Intel Pentium, N6000, 1.10 GHz" },
@@ -330,10 +324,10 @@ exports.SPEC_VALUE_HARD_DRIVE_CONNECT = [
     { id: 9, value: "Ethernet" }
 ]
 exports.SPEC_VALUE_HARD_DRIVE_CAPACITY = [
-    { id: 1, value: "120 GB" },
-    { id: 2, value: "128 GB" },
-    { id: 3, value: "256 GB" },
-    { id: 4, value: "500 GB" },
+    { id: 1, value: "120GB" },
+    { id: 2, value: "128GB" },
+    { id: 3, value: "256GB" },
+    { id: 4, value: "500GB" },
     { id: 5, value: "1 TB" },
     { id: 6, value: "2 TB" },
     { id: 7, value: "4 TB" },
@@ -384,7 +378,8 @@ exports.BRAND_LAPTOP_FILTER = [
     { value: "DELL", text: "DELL" },
     { value: "ASUS", text: "ASUS" },
     { value: "HP", text: "HP" },
-    { value: "LG", text: "LG" }
+    { value: "LG", text: "LG" },
+    { value: "MSI", text: "MSI" }
 ]
 
 exports.SPEC_VALUE_LAPTOP_RAM_FILTER = [
@@ -443,7 +438,7 @@ exports.INITIAL_VALUES_HARD_DRIVE_DEFAULT = {
 // ---------------------------ADMIN API POST-----------------------------//
 exports.DATA_POST_LAPTOP = {
     info: {
-        id: 12,
+        id: 0,
         brand_id: 4,
         description: "ABC",
         guarantee: 24,
@@ -472,7 +467,7 @@ exports.DATA_POST_LAPTOP = {
 
 exports.DATA_POST_HARD_DRIVE = {
     info: {
-        id: 14,
+        id: 0,
         brand_id: 4,
         description: "ABC",
         guarantee: 24,
@@ -524,7 +519,7 @@ exports.DATA_CREATE_LAPTOP = {
     }
 }
 // ---------------------------WEB FILTER-----------------------------//
-
+//laptop
 exports.BRAND_LAPTOP_FILTER_WEB = [
     { id: 1, value: "MACBOOK", active: false },
     { id: 2, value: "LEVONO", active: false },
@@ -533,14 +528,62 @@ exports.BRAND_LAPTOP_FILTER_WEB = [
     { id: 5, value: "HP", active: false },
     { id: 6, value: "LG", active: false }
 ]
-exports.PATH_PRICE_FILTER_WEB = [
-    { id: 1, text: "Dưới 5 triệu", value: "0-5", active: false },
-    { id: 2, text: "Dưới 10 triệu", value: "0-10", active: false },
-    { id: 3, text: "10 - 15 triệu", value: "10-15", active: false },
-    { id: 4, text: "15 - 20 triệu", value: "15-20", active: false },
-    { id: 5, text: "20 - 25 triệu", value: "20-25", active: false },
-    { id: 6, text: "Trên 25 triệu", value: "25-100", active: false }
+exports.RAM_LAPTOP_FILTER_WEB = [
+    { id: 1, value: "4GB", active: false },
+    { id: 2, value: "8GB", active: false },
+    { id: 3, value: "16GB", active: false },
+    { id: 4, value: "32GB", active: false }
 ]
+exports.SCREEN_LAPTOP_FILTER_WEB = [
+    { id: 1, value: "13.3''", active: false },
+    { id: 2, value: "13.4''", active: false },
+    { id: 3, value: "14''", active: false },
+    { id: 4, value: "15.6''", active: false },
+    { id: 5, value: "17''", active: false }
+]
+//hard-drive
+exports.CONNECT_LAPTOP_FILTER_WEB = [
+    { id: 1, value: "USB Type C", active: false },
+    { id: 2, value: "USB 3.0", active: false },
+    { id: 3, value: "USB 3.2", active: false },
+    { id: 4, value: "M.2 SATA", active: false },
+    { id: 5, value: "SATA 3'", active: false },
+    { id: 6, value: "PCI e", active: false }
+]
+exports.BRAND_HARD_DRIVE_FILTER_WEB = [
+    { id: 1, value: "SAMSUNG", active: false },
+    { id: 2, value: "KINGSTON", active: false },
+    { id: 3, value: "KINGMAX", active: false },
+    { id: 4, value: "SANDISK", active: false },
+    { id: 5, value: "LACIE", active: false },
+    { id: 6, value: "TRANCEND", active: false },
+    { id: 7, value: "CRUCIAL", active: false },
+    { id: 8, value: "SEAGATE", active: false }
+]
+exports.CAPACITY_HARD_DRIVE_FILTER_WEB = [
+    { id: 1, value: "120GB", active: false },
+    { id: 2, value: "128GB", active: false },
+    { id: 3, value: "256GB", active: false },
+    { id: 4, value: "500GB", active: false },
+    { id: 5, value: "1TB", active: false },
+    { id: 6, value: "2TB", active: false },
+    { id: 7, value: "4TB", active: false },
+    { id: 8, value: "6TB", active: false }
+]
+// exports.PRICE_LAPTOP_FILTER_WEB = [
+//     { id: 1, text: "Dưới 5 triệu", value: "0-5000", active: false },
+//     { id: 2, text: "Dưới 10 triệu", value: "0-10", active: false },
+//     { id: 3, text: "10 - 15 triệu", value: "10-15", active: false },
+//     { id: 4, text: "15 - 20 triệu", value: "15-20", active: false },
+//     { id: 5, text: "20 - 25 triệu", value: "20-25", active: false },
+//     { id: 6, text: "Trên 25 triệu", value: "25-100", active: false }
+// ]
+// exports.PRICE_HARD_DEVICE_FILTER_WEB = [
+//     { id: 1, text: "Dưới 500 ngàn", value: "0-5", active: false },
+//     { id: 2, text: "500 - 1 triệu", value: "0-10", active: false },
+//     { id: 3, text: "1 - 2 triệu", value: "10-15", active: false },
+//     { id: 4, text: "Trên 2 triệu", value: "15-20", active: false }
+// ]
 // ---------------------------WEB-----------------------------//
 exports.PATH_BRAND = {
     ASUS: "/products/laptop/asus",
@@ -1012,7 +1055,7 @@ exports.RENDER_CART = [
     }
 ]
 
-exports.DOSSIER_DATA = [
+exports.DOSSIER_DATA_LAPTOP = [
     {
         id: 1,
         brand: "LEVONO",
@@ -1092,6 +1135,41 @@ exports.DOSSIER_DATA = [
         rom: "SSD 512",
         screen: "15.6 inch",
         shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+    }
+]
+
+exports.DOSSIER_DATA_HARD_DEVICE = [
+    {
+        id: 1,
+        brand: "SAMSUNG",
+        name: "Ổ CỨNG 01",
+        hard_drive_type: "SSD",
+        capacity: "512GB",
+        shortDescription: "Là ổ cứng ..."
+    },
+    {
+        id: 2,
+        brand: "SANDISK",
+        name: "Ổ CỨNG 02",
+        hard_drive_type: "SSD",
+        capacity: "512GB",
+        shortDescription: "Là ổ cứng ..."
+    },
+    {
+        id: 3,
+        brand: "KINGMAX",
+        name: "Ổ CỨNG 03",
+        hard_drive_type: "HHD",
+        capacity: "4T",
+        shortDescription: "Là ổ cứng ..."
+    },
+    {
+        id: 4,
+        brand: "SANDISK",
+        name: "Ổ CỨNG 04",
+        hard_drive_type: "SSD",
+        capacity: "512GB",
+        shortDescription: "Là ổ cứng ..."
     }
 ]
 

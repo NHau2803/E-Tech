@@ -10,12 +10,12 @@ import "./AdminPage.css"
 const { Header, Content } = Layout
 
 const AdminPage = props => {
-    const { typePage, selectedKey } = props
+    const { typePage } = props
     const [toggle, setToggle] = useState(false)
 
     return (
         <Layout>
-            <DashboardComponent toggle={toggle} selectedKey={selectedKey} />
+            <DashboardComponent toggle={toggle} />
             <Layout className="site-layout">
                 <Header
                     className="site-layout-background"

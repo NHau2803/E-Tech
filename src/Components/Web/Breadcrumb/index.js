@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const BreadcrumbComponent = props => {
     const { pageName } = props
     return (
@@ -5,7 +7,7 @@ const BreadcrumbComponent = props => {
             <div class="container">
                 <ul class="breadcrumb">
                     <li>
-                        <a href={"/#"}>ETech</a>
+                        <Link to={"/etech"}>ETech</Link>
                     </li>
                     <li class="active">{pageName}</li>
                 </ul>

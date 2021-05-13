@@ -2,7 +2,8 @@ const {
     LaptopOutlined,
     FormOutlined,
     BarChartOutlined,
-    UserOutlined
+    UserOutlined,
+    HddOutlined
 } = require("@ant-design/icons")
 
 export const MENU = [
@@ -14,18 +15,24 @@ export const MENU = [
     },
     {
         id: 1,
+        icon: <HddOutlined />,
+        name: "Hard Drive",
+        link: "/admin/hard-drives"
+    },
+    {
+        id: 2,
         icon: <FormOutlined />,
         name: "Thêm mới",
         link: "/admin/add"
     },
     {
-        id: 2,
+        id: 3,
         icon: <BarChartOutlined />,
         name: "Statistic",
         link: "/admin/statistic"
     },
     {
-        id: 3,
+        id: 4,
         icon: <UserOutlined />,
         name: "User",
         link: "/admin/user"

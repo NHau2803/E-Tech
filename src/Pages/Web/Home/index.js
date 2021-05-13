@@ -9,27 +9,25 @@ import { emptyItemInLocalStorage } from "Utils/checkItemLocalStorage"
 import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
 
 const HomePage = () => {
-    const isEmptyItemInLocalStorage = emptyItemInLocalStorage("productList")
-    const [productList, setProductList] = useState(
-        getOptionsLocalStorage("productList") || []
-    )
+    // const isEmptyItemInLocalStorage = emptyItemInLocalStorage("productList")
+    const [productList, setProductList] = useState(RENDER_HOME)
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-        if (isEmptyItemInLocalStorage) {
-            RenderWeb.get().then(res => {
-                setProductList(res)
-                setOptionsLocalStorage("productList", res)
-            })
-        }
+    // useEffect(() => {
+    //     window.scrollTo(0, 0)
+    //     if (isEmptyItemInLocalStorage) {
+    //         RenderWeb.get().then(res => {
+    //             setProductList(res)
+    //             setOptionsLocalStorage("productList", res)
+    //         })
+    //     }
 
-        //
-    }, [])
+    //     //
+    // }, [])
 
     return (
         <div>
             <HeaderBanner />
-            {productList.map(item => {
+            {RENDER_HOME.map(item => {
                 return (
                     <SelectBlock
                         key={item.id}
