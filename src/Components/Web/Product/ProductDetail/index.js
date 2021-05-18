@@ -1,8 +1,25 @@
 import { changePriceToVND } from "Utils/Converter"
+import { handleSaveCartItem } from "Utils/localStorageFunctions"
 import ProductSpec from "./ProductSpec"
 
 const ProductDetail = props => {
-    const { detail } = props
+    const { detail, images, id } = props
+    console.log("🚀 ~ file: index.js ~ line 6 ~ images", images)
+    console.log("🚀 ~ file: index.js ~ line 6 ~ detail", detail)
+
+    const saveProductToLocalStorage = () => {
+        let cartItem = {
+            id: id,
+            image: images[0].img,
+            name: detail.name,
+            price: detail.price,
+            spec1: detail.ram,
+            spec2: detail.rom,
+            qty: 1
+        }
+        handleSaveCartItem(cartItem)
+    }
+
     return (
         <div className="col-md-6">
             <div className="product-body">
@@ -23,7 +40,7 @@ const ProductDetail = props => {
                         <i className="fa fa-star"></i>
                         <i className="fa fa-star-o empty"></i>
                     </div>
-                    <a href="/#">8 Đánh giá / Thêm đánh giá</a>
+                    <p>1 Đánh giá / Thêm đánh giá</p>
                 </div>
                 {/* change product type */}
                 <ProductSpec detail={detail} />
@@ -42,7 +59,11 @@ const ProductDetail = props => {
                 </div>
 
                 <div className="product-btns">
-                    <button className="primary-btn add-to-cart">
+                    <button
+                        className="primary-btn add-to-cart"
+                        disabled={id === 0 ? true : false}
+                        onClick={() => saveProductToLocalStorage()}
+                    >
                         <i className="fa fa-shopping-cart"></i> Thêm vào giỏ
                         hàng
                     </button>

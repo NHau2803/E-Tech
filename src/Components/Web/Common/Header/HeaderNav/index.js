@@ -424,14 +424,14 @@ const HeaderNav = props => {
                         </span>
                         <ul className="menu-list">
                             <li>
-                                <Link to="/etech">Trang Chủ</Link>
+                                <Link to={PATH.HOME}>Trang Chủ</Link>
                             </li>
 
                             <li>
                                 <Link to="/#">Khuyến Mãi</Link>
                             </li>
                             <li>
-                                <Link to="/etech/about">Giới Thiệu</Link>
+                                <Link to={PATH.ABOUT}>Giới Thiệu</Link>
                             </li>
                             <li>
                                 <Link to="/#" style={{ color: "#33c9dc" }}>

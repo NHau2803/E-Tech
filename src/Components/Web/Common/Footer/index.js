@@ -4,6 +4,7 @@ import {
     MailOutlined,
     PhoneOutlined
 } from "@ant-design/icons"
+import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
 
 const FooterComponent = props => {
@@ -65,13 +66,15 @@ const FooterComponent = props => {
                             <h3 className="footer-header">Về etech</h3>
                             <ul className="list-links">
                                 <li>
-                                    <Link to="/etech/about">GiỚI THIỆU</Link>
+                                    <Link to={PATH.ABOUT}>GiỚI THIỆU</Link>
                                 </li>
                                 <li>
-                                    <Link to="/#">TUYỂN DỤNG</Link>
+                                    <Link to={PATH.RECRUITMENT}>
+                                        TUYỂN DỤNG
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/etech/policy-transport">
+                                    <Link to={PATH.POLICY_TRANSPORT}>
                                         CHÍNH SÁCH VẬN CHUYỂN
                                     </Link>
                                 </li>

@@ -21,11 +21,11 @@ const SelectBlock = props => {
                             <ProductBlock
                                 key={item.id}
                                 id={item.id}
-                                image={item.image}
+                                image={item.images}
                                 name={item.name}
-                                ram={item.ram}
-                                rom={item.rom}
-                                price={changePriceToVND(item.price)}
+                                spec1={item.spec1}
+                                spec2={item.spec2}
+                                price={item.price}
                                 guarantee={item.guarantee}
                                 valueSale={"-10%"}
                             />

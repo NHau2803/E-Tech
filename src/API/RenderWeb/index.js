@@ -1,9 +1,10 @@
 import axiosClient from "API/ClientAxios"
+import { BASE_URL } from "API/URL"
 
 const RenderWeb = {
     get: async => {
         try {
-            const url = "http://925f37a952cb.ngrok.io/api"
+            const url = BASE_URL + "/api"
             return axiosClient.get(url)
         } catch (error) {
             return {

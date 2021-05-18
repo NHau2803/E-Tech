@@ -3,18 +3,53 @@ import {
     LoginOutlined,
     PhoneOutlined,
     PoweroffOutlined,
+    RightCircleOutlined,
     ShoppingCartOutlined,
     UserAddOutlined,
     UserOutlined
 } from "@ant-design/icons"
 import CartComponent from "Components/Web/Cart"
+import { RENDER_CART } from "Constants/Data"
 import { PATH } from "Constants/Path"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import {
+    changePriceToVND,
+    getOptionsLocalStorage,
+    setOptionsLocalStorage
+} from "Utils/Converter"
+import {
+    getQtyOfCartInLocalStorage,
+    getTotalPriceOfCartInLocalStorage,
+    removeCacheLocalStorage
+} from "Utils/localStorageFunctions"
 
 const HeaderMain = () => {
     const [toggleCart, setToggleCart] = useState(false)
     const [toggle, setToggle] = useState(false)
+    const [carts, setCarts] = useState(getOptionsLocalStorage("carts"))
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [countItem, setCountItem] = useState(0)
+
+    useEffect(() => {
+        setCarts(getOptionsLocalStorage("carts"))
+    }, [toggle])
+
+    useEffect(() => {
+        setOptionsLocalStorage("carts", carts)
+        setTotalPrice(getTotalPriceOfCartInLocalStorage())
+        setCountItem(getQtyOfCartInLocalStorage())
+    }, [carts])
+
+    const handleRemove = id => {
+        setCarts(carts.filter(item => item.id !== id))
+        setOptionsLocalStorage("carts", carts)
+    }
+
+    const logout = () => {
+        localStorage.clear()
+    }
+
     return (
         <header>
             <div id="header">
@@ -48,8 +83,13 @@ const HeaderMain = () => {
                     <div className="pull-right">
                         <ul className="header-btns">
                             <li
-                                onMouseEnter={() => setToggle(true)}
-                                onMouseLeave={() => setToggle(false)}
+                                onMouseEnter={() => {
+                                    setToggle(true)
+                                    console.log("a")
+                                }}
+                                onMouseLeave={() => {
+                                    setToggle(false)
+                                }}
                                 className={
                                     toggle
                                         ? "header-account dropdown default-dropdown open"
@@ -109,19 +149,7 @@ const HeaderMain = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/#">
-                                            <LoginOutlined
-                                                style={{
-                                                    marginRight: "15px",
-                                                    color:
-                                                        "var(--color-primary)"
-                                                }}
-                                            />
-                                            Đăng nhập
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/#">
+                                        <Link to="/#" onClick={() => logout()}>
                                             <PoweroffOutlined
                                                 style={{
                                                     marginRight: "15px",
@@ -150,18 +178,75 @@ const HeaderMain = () => {
                                     aria-expanded={
                                         toggleCart ? "true" : "false"
                                     }
+                                    style={{ width: "170px" }}
                                 >
                                     <div className="header-btns-icon">
                                         <ShoppingCartOutlined />
-                                        <span className="qty">3</span>
+                                        <span className="qty">{countItem}</span>
                                     </div>
                                     <strong className="text-uppercase">
                                         Giỏ Hàng
                                     </strong>
                                     <br></br>
-                                    <span>35.20$</span>
+                                    <span>{changePriceToVND(totalPrice)}</span>
                                 </div>
-                                <CartComponent />
+                                {/* <CartComponent/> */}
+                                <div className="custom-menu">
+                                    <div id="shopping-cart">
+                                        {carts.map(item => {
+                                            return (
+                                                <div
+                                                    className="shopping-cart-list"
+                                                    key={item.id}
+                                                >
+                                                    <div className="product product-widget">
+                                                        <div className="product-thumb">
+                                                            <img
+                                                                alt="Logo"
+                                                                src={item.image}
+                                                            ></img>
+                                                        </div>
+                                                        <div className="product-body">
+                                                            <h2 className="product-name">
+                                                                <Link
+                                                                    to={`${PATH.LAPTOP}/${item.id}`}
+                                                                >
+                                                                    {item.name}
+                                                                </Link>
+                                                            </h2>
+                                                            <p className="product-price">
+                                                                {changePriceToVND(
+                                                                    item.price
+                                                                )}
+                                                                {/* <span className="qty">x1</span> */}
+                                                            </p>
+                                                        </div>
+                                                        <button
+                                                            className="cancel-btn"
+                                                            onClick={() =>
+                                                                handleRemove(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                        >
+                                                            <i className="fa fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+                                        {/* Button => check out */}
+                                        <div className="shopping-cart-btns">
+                                            <Link
+                                                to={PATH.CHECK_OUT}
+                                                className="primary-btn"
+                                            >
+                                                Xem giỏ hàng &thinsp;
+                                                <RightCircleOutlined />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
 
                             <li className="nav-toggle">

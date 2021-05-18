@@ -1,13 +1,11 @@
 import axiosClient from "API/ClientAxios"
+import { BASE_URL } from "API/URL"
 
 const ProductsAPI = {
     getProductDetail: async (productType, productId) => {
         try {
             const url =
-                "http://925f37a952cb.ngrok.io/api/products/" +
-                productType +
-                "/" +
-                productId
+                BASE_URL + "/api/products/" + productType + "/get/" + productId
             return axiosClient.get(url)
         } catch (error) {
             return {

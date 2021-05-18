@@ -1,12 +1,12 @@
-import { SPEC_VALUE_HARD_DRIVE_TYPE, TYPE_HARD_DRIVE } from "Constants/Data"
+import { TYPE_DRIVE } from "Constants/Data"
 
 //update function  : https://www.tutorialrepublic.com/faq/how-to-check-if-an-array-includes-an-object-in-javascript.php
 
-export const checkHardDiveType = hard_drive_type_id => {
-    if (hard_drive_type_id === 1 || hard_drive_type_id === 3) {
-        return TYPE_HARD_DRIVE.IS_HHD
+export const checkDiveType = type_id => {
+    if (type_id === 1 || type_id === 3) {
+        return TYPE_DRIVE.IS_HHD
     }
-    return TYPE_HARD_DRIVE.IS_SSD
+    return TYPE_DRIVE.IS_SSD
 }
 
 // export const checkNumber = val => {

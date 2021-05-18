@@ -8,7 +8,11 @@ const ProductReviews = () => {
     const openMessage = () => {
         message.loading({ content: "Loading...", key })
         setTimeout(() => {
-            message.success({ content: "Xong !", key, duration: 2 })
+            message.success({
+                content: "Xin lỗi, tính năng comment đang cập nhật... !",
+                key,
+                duration: 2
+            })
         }, 1000)
     }
 
@@ -21,13 +25,13 @@ const ProductReviews = () => {
                             <div className="review-heading">
                                 <div>
                                     <a href="/#">
-                                        <i className="fa fa-user-o" /> John
+                                        <i className="fa fa-user-o" /> Chủ shop
                                     </a>
                                 </div>
                                 <div>
                                     <a href="/#">
-                                        <i className="fa fa-clock-o" /> 27 DEC
-                                        2017 / 8:0 PM
+                                        <i className="fa fa-clock-o" />{" "}
+                                        18/05/2021 09:49 PM
                                     </a>
                                 </div>
                                 <div className="review-rating pull-right">
@@ -39,19 +43,10 @@ const ProductReviews = () => {
                                 </div>
                             </div>
                             <div className="review-body">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna
-                                    aliqua.Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip
-                                    ex ea commodo consequat.Duis aute irure
-                                    dolor in reprehenderit in voluptate velit
-                                    esse cillum dolore eu fugiat nulla pariatur.
-                                </p>
+                                <p>Tất nhiên sản phẩm shop tui là nhất rồi!</p>
                             </div>
                         </div>
-                        <div className="single-review">
+                        {/* <div className="single-review">
                             <div className="review-heading">
                                 <div>
                                     <a href="/#">
@@ -110,14 +105,13 @@ const ProductReviews = () => {
                             <div className="review-body">
                                 <p></p>
                             </div>
-                        </div>
+                        </div> */}
 
-                        {/* next đánh giá */}
-                        <Pagination
+                        {/* <Pagination
                             style={{ textAlign: "center" }}
                             size="small"
                             total={50}
-                        />
+                        /> */}
                     </div>
                 </div>
 
@@ -145,11 +139,7 @@ const ProductReviews = () => {
                         <br />
 
                         {/* Nút Xác nhận bảng đáng giá */}
-                        <Button
-                            Type="submit"
-                            type="primary"
-                            onClick={openMessage}
-                        >
+                        <Button type="submit" onClick={openMessage}>
                             Xác Nhận
                         </Button>
                     </form>

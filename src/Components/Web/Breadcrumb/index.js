@@ -4,12 +4,12 @@ const BreadcrumbComponent = props => {
     const { pageName } = props
     return (
         <div id="breadcrumb">
-            <div class="container">
-                <ul class="breadcrumb">
+            <div className="container">
+                <ul className="breadcrumb">
                     <li>
                         <Link to={"/etech"}>ETech</Link>
                     </li>
-                    <li class="active">{pageName}</li>
+                    <li className="active">{pageName}</li>
                 </ul>
             </div>
         </div>

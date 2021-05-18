@@ -1,12 +1,27 @@
 import React from "react"
+import { BASE_URL } from "API/URL"
 const TestAPI = () => {
     var axios = require("axios")
     const getBreeds = () => {
+        // try {
+        //     return axios.post(BASE_URL + "/api/login", {
+        //         email: "admin@etech.com",
+        //         password: "admin123456"
+        //     })
+        // } catch (error) {
+        //     console.error(error)
+        // }
         try {
-            return axios.post("http://925f37a952cb.ngrok.io/api/login", {
-                email: "admin@etech.com",
-                password: "admin123456"
-            })
+            return axios.get(
+                "http://1e9b8772c042.ngrok.io/api/admin/products/index",
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "access_token"
+                        )}`
+                    }
+                }
+            )
         } catch (error) {
             console.error(error)
         }
@@ -15,7 +30,11 @@ const TestAPI = () => {
     const countBreeds = async () => {
         const breeds = getBreeds()
             .then(response => {
-                console.log(response)
+                console.log(
+                    "🚀 ~ file: index.js ~ line 30 ~ countBreeds ~ response",
+                    response
+                )
+                window.localStorage.setItem("access_token", response.data.token)
             })
             .catch(error => {
                 console.log(error)

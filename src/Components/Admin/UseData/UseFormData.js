@@ -4,12 +4,13 @@ import {
     TYPE_PRODUCT,
     INITIAL_VALUES_LAPTOP_DEFAULT,
     DATA_POST_LAPTOP,
-    DATA_POST_HARD_DRIVE,
-    INITIAL_VALUES_HARD_DRIVE_DEFAULT,
+    DATA_POST_DRIVE,
+    INITIAL_VALUES_DRIVE_DEFAULT,
     SPEC_VALUE_LAPTOP_CPU
 } from "Constants/Data"
 import GetOptionsAPI from "API/GetOptions"
 import LaptopAPI from "API/Laptop"
+import HardDriveAPI from "API/HardDrive"
 import { useHistory } from "react-router"
 const useFormData = (isAddMode, type, productId) => {
     const history = useHistory()
@@ -18,8 +19,8 @@ const useFormData = (isAddMode, type, productId) => {
         isAddMode ? INITIAL_VALUES_DEFAULT.info : []
     )
     const [spec, setSpec] = useState([])
-    const [image, setImage] = useState(
-        isAddMode ? INITIAL_VALUES_DEFAULT.image : []
+    const [imageList, setImageList] = useState(
+        isAddMode ? INITIAL_VALUES_DEFAULT.images : []
     )
     const [listOptions, setListOptions] = useState([])
     const [reLoadInitialValue, setReLoadInitialValue] = useState(false)
@@ -27,47 +28,54 @@ const useFormData = (isAddMode, type, productId) => {
         isOpen: false,
         title: "Thông báo",
         message: "Thêm thành công",
-        type: "info"
+        type: "success"
     })
-
-    //const [errors, setErrors] = useState({})
-    // const [notify, setNotify] = useState({
-    //     isOpen: false,
-    //     message: "",
-    //     type: ""
-    // })
-    // const [notFound, setNotFound] = useState(false)
 
     useEffect(() => {
         if (isAddMode) {
             console.log("add mode!")
-            // GetOptionsAPI.get()
-            //     .then(res => setListOptions(res))
-            //     .catch(err => setListOptions([ cpus: SPEC_VALUE_LAPTOP_CPU ]))
+            // GetOptionsAPI.getOptions("laptop").then(res => console.log(res))
+            // setListOptions([])
             setSpec(INITIAL_VALUES_LAPTOP_DEFAULT)
-            setReLoadInitialValue(true)
+            setReLoadInitialValue(!reLoadInitialValue)
         } else {
+            console.log("update mode!")
             if (!isNaN(productId)) {
                 switch (type) {
                     case TYPE_PRODUCT.LAPTOP:
-                        // LaptopAPI.getForUpdate(productId).then(res => {
-                        //     console.log(res)
-
-                        // })
-                        setInfo(DATA_POST_LAPTOP.info)
-                        setImage(DATA_POST_LAPTOP.image)
-                        setSpec(DATA_POST_LAPTOP.spec)
-
+                        LaptopAPI.getForUpdate(productId)
+                            .then(res => {
+                                console.log(
+                                    "🚀 ~ file: UseFormData.js ~ line 45 ~ LaptopAPI.getForUpdate ~ res",
+                                    res
+                                )
+                                if (res) {
+                                    setInfo(res.info)
+                                    setImageList(res.images)
+                                    setSpec(res.spec_id)
+                                }
+                            })
+                            .catch(err => {
+                                redirectNotFound()
+                            })
                         break
-                    case TYPE_PRODUCT.HARD_DRIVE:
-                        setInfo(DATA_POST_HARD_DRIVE.info)
-                        setImage(DATA_POST_HARD_DRIVE.image)
-                        setSpec(DATA_POST_HARD_DRIVE.spec)
+                    case TYPE_PRODUCT.DRIVE:
+                        HardDriveAPI.getForUpdate(productId).then(res => {
+                            console.log(
+                                "🚀 ~ file: UseFormData.js ~ line 45 ~ LaptopAPI.getForUpdate ~ res",
+                                res
+                            )
+                            if (res) {
+                                setInfo(res.info)
+                                setImageList(res.images)
+                                setSpec(res.spec_id)
+                            }
+                        })
                         break
                     default:
                         break
                 }
-                setReLoadInitialValue(true)
+                setReLoadInitialValue(!reLoadInitialValue)
             } else {
                 redirectNotFound()
             }
@@ -75,7 +83,7 @@ const useFormData = (isAddMode, type, productId) => {
     }, [])
 
     const handleInputChange = e => {
-        // console.log("🚀 ~ file: UseFormData.js ~ line 102 ~ useFormData ~ e", e)
+        // console.log("🚀 ~ file: UseFormData.js ~ line 72 ~ useFormData ~ e", e)
 
         e.forEach(element => {
             if (element.touched) {
@@ -87,8 +95,15 @@ const useFormData = (isAddMode, type, productId) => {
                 if (name in spec) {
                     setSpec({ ...spec, [name]: value })
                 }
-                if (name in image) {
-                    setImage({ ...image, [name]: value })
+                if (name in imageList || !isAddMode) {
+                    console.log(
+                        "🚀 ~ file: UseFormData.js ~ line 85 ~ useFormData ~ name",
+                        name
+                    )
+                    imageList.map(
+                        item => item.id === name && (item.img = value)
+                    )
+                    setImageList([...imageList], imageList)
                 }
             }
         })
@@ -97,17 +112,21 @@ const useFormData = (isAddMode, type, productId) => {
     const changeInitialValueSpec = () => {
         if (isAddMode && info !== undefined) {
             switch (info.type_id) {
-                case 2:
+                case 1:
                     setSpec(INITIAL_VALUES_LAPTOP_DEFAULT)
 
                     break
-                case 3:
-                    setSpec(INITIAL_VALUES_HARD_DRIVE_DEFAULT)
+                case 2:
+                    setSpec(INITIAL_VALUES_DRIVE_DEFAULT)
                     break
                 default:
                     break
             }
         }
+    }
+
+    const handleChooseIdSSD = () => {
+        setSpec({ ...((spec.rotation_id = 4), (spec.cache_id = 3)) })
     }
 
     // const onReset = () => {
@@ -119,13 +138,14 @@ const useFormData = (isAddMode, type, productId) => {
         listOptions,
         info,
         spec,
-        image,
+        imageList,
         notify,
         setNotify,
         reLoadInitialValue,
         setReLoadInitialValue,
         handleInputChange,
-        changeInitialValueSpec
+        changeInitialValueSpec,
+        handleChooseIdSSD
     }
 }
 export default useFormData

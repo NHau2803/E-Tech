@@ -1,17 +1,19 @@
 import axiosClient from "API/ClientAxios"
+import { BASE_URL } from "API/URL"
+import { getOptionsLocalStorage } from "Utils/Converter"
 
 const LaptopAPI = {
-    create: async data => {
-        console.log(
-            "🚀 ~ file: LaptopAPI.js ~ line 46 ~ data",
-            JSON.stringify(data)
-        )
+    getForUpdate: async id => {
         try {
-            const url =
-                "http://http://413440c72cd7.ngrok.io/api/products/laptop/create"
-            return axiosClient.post(url, data)
+            const url = BASE_URL + "/api/admin/products/laptop/update/" + id
+            return axiosClient.get(url, {
+                headers: {
+                    Authorization: `Bearer ${getOptionsLocalStorage(
+                        "access_token"
+                    )}`
+                }
+            })
         } catch (error) {
-            console.log("ABC" + error)
             return {
                 result: null,
                 success: false,
@@ -19,11 +21,52 @@ const LaptopAPI = {
             }
         }
     },
-
-    getForUpdate: async id => {
+    getList: async id => {
         try {
-            const url = "http://925f37a952cb.ngrok.io/api/products/update/" + id
-            return axiosClient.get(url)
+            const url = BASE_URL + "/api/admin/products/laptop/index"
+            return axiosClient.get(url, {
+                headers: {
+                    Authorization: `Bearer ${getOptionsLocalStorage(
+                        "access_token"
+                    )}`
+                }
+            })
+        } catch (error) {
+            return {
+                result: null,
+                success: false,
+                errorMessage: "Sorry, Server Connection Problem!"
+            }
+        }
+    },
+    create: async data => {
+        try {
+            const url = BASE_URL + "/api/admin/products/laptop/create"
+            return axiosClient.post(url, data, {
+                headers: {
+                    Authorization: `Bearer ${getOptionsLocalStorage(
+                        "access_token"
+                    )}`
+                }
+            })
+        } catch (error) {
+            return {
+                result: null,
+                success: false,
+                errorMessage: "Sorry, Server Connection Problem!"
+            }
+        }
+    },
+    update: async data => {
+        try {
+            const url = BASE_URL + "/api/admin/products/laptop/update"
+            return axiosClient.post(url, data, {
+                headers: {
+                    Authorization: `Bearer ${getOptionsLocalStorage(
+                        "access_token"
+                    )}`
+                }
+            })
         } catch (error) {
             return {
                 result: null,

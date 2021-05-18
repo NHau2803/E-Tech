@@ -1,10 +1,18 @@
 import axiosClient from "API/ClientAxios"
+import { BASE_URL } from "API/URL"
+import { getOptionsLocalStorage } from "Utils/Converter"
 
 const GetOptionsAPI = {
-    get: async => {
+    getOptions: () => {
         try {
-            const url = "http://925f37a952cb.ngrok.io/api/products/create"
-            return axiosClient.get(url)
+            const url = BASE_URL + "/api/admin/products/spec_list"
+            return axiosClient.get(url, {
+                headers: {
+                    Authorization: `Bearer ${getOptionsLocalStorage(
+                        "access_token"
+                    )}`
+                }
+            })
         } catch (error) {
             return {
                 result: null,

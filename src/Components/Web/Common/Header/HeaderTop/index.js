@@ -1,9 +1,19 @@
+import { useEffect, useState } from "react"
+import { getOptionsLocalStorage } from "Utils/Converter"
+import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
+
 const HeaderTop = () => {
+    const [username, setUsername] = useState("Bạn")
+    useEffect(() => {
+        if (!emptyItemInLocalStorage("account")) {
+            setUsername(getOptionsLocalStorage("account").name)
+        }
+    }, [])
     return (
         <div id="top-header">
             <div className="container">
                 <div className="pull-left">
-                    <span>Hello bạn | E-shop vững tin mua hàng!</span>
+                    <span>Hello {username} | E-shop vững tin mua hàng!</span>
                 </div>
 
                 {/* <div className="pull-right">

@@ -1,7 +1,5 @@
 // ---------------------------ADMIN TYPE-----------------------------//
 
-const { default: ex } = require("API/ProductAPI")
-
 exports.TYPE_CUSTOM_FIELD = {
     INPUT: "Input",
     TEXTAREA: "TextArea",
@@ -10,19 +8,21 @@ exports.TYPE_CUSTOM_FIELD = {
 
 exports.TYPE_ADMIN_PAGE = {
     ADD_EDIT: "AddEdit",
-    DOSSIER: "Dossier"
+    DOSSIER: "Dossier",
+    DOSSIER_LAPTOP: "laptops",
+    DOSSIER_DRIVE: "drives"
 }
 
 exports.TYPE_PRODUCT = {
     PHONE: "phone",
     LAPTOP: "laptop",
-    HARD_DRIVE: "hard-drive",
+    DRIVE: "drive",
     MOUSE: "mouse",
     KEYBOARD: "keyboard",
     HEADPHONES: "headphones"
 }
 
-exports.TYPE_HARD_DRIVE = {
+exports.TYPE_DRIVE = {
     IS_HHD: "IS_HHD",
     IS_SSD: "IS_SSD"
 }
@@ -295,7 +295,7 @@ exports.SPEC_VALUE_LAPTOP_BATTERY = [
 ]
 //--HARD DRIVE--
 
-exports.BRAND_HARD_DRIVE = [
+exports.BRAND_DRIVE = [
     { id: 1, value: "WD" },
     { id: 2, value: "SAMSUNG" },
     { id: 3, value: "KINGSTON" },
@@ -306,13 +306,13 @@ exports.BRAND_HARD_DRIVE = [
     { id: 8, value: "CRUCIAL" },
     { id: 9, value: "SEAGATE" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_TYPE = [
+exports.SPEC_VALUE_DRIVE_TYPE = [
     { id: 1, value: "HHD" },
     { id: 2, value: "SSD" },
     { id: 3, value: "Di động HHD" },
     { id: 4, value: "Di động SSD" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_CONNECT = [
+exports.SPEC_VALUE_DRIVE_CONNECT = [
     { id: 1, value: "USB Type C" },
     { id: 2, value: "USB 3.0" },
     { id: 3, value: "USB  3.1" },
@@ -323,7 +323,7 @@ exports.SPEC_VALUE_HARD_DRIVE_CONNECT = [
     { id: 8, value: "PCI e" },
     { id: 9, value: "Ethernet" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_CAPACITY = [
+exports.SPEC_VALUE_DRIVE_CAPACITY = [
     { id: 1, value: "120GB" },
     { id: 2, value: "128GB" },
     { id: 3, value: "256GB" },
@@ -333,14 +333,14 @@ exports.SPEC_VALUE_HARD_DRIVE_CAPACITY = [
     { id: 7, value: "4 TB" },
     { id: 8, value: "6 TB" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_DIMENSION = [
+exports.SPEC_VALUE_DRIVE_DIMENSION = [
     { id: 1, value: "2.5''" },
     { id: 2, value: "3.5''" },
     { id: 3, value: "M.2 2280" },
     { id: 4, value: "M.2" },
     { id: 5, value: "Card PCI" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_READ_SPEED = [
+exports.SPEC_VALUE_DRIVE_READ_SPEED = [
     { id: 1, value: "114 MB/s" },
     { id: 2, value: "120 MB/s" },
     { id: 3, value: "125 MB/ s" },
@@ -352,7 +352,7 @@ exports.SPEC_VALUE_HARD_DRIVE_READ_SPEED = [
     { id: 9, value: "2000MB/s" },
     { id: 10, value: "2400MB/s" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_RECORD_SPEED = [
+exports.SPEC_VALUE_DRIVE_RECORD_SPEED = [
     { id: 1, value: "115 MB/s" },
     { id: 2, value: "350MB/s" },
     { id: 3, value: "550MB/s" },
@@ -360,12 +360,12 @@ exports.SPEC_VALUE_HARD_DRIVE_RECORD_SPEED = [
     { id: 5, value: "1100MB/s" },
     { id: 6, value: "1550MB/s" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_ROTATION_SPEED = [
+exports.SPEC_VALUE_DRIVE_ROTATION_SPEED = [
     { id: 1, value: "5400RPM" },
     { id: 2, value: "5900RPM" },
     { id: 3, value: "7200RPM" }
 ]
-exports.SPEC_VALUE_HARD_DRIVE_CACHE = [
+exports.SPEC_VALUE_DRIVE_CACHE = [
     { id: 1, value: "128MB" },
     { id: 2, value: "256MB" }
 ]
@@ -405,11 +405,11 @@ exports.INITIAL_VALUES_DEFAULT = {
         price: 0,
         type_id: 2
     },
-    image: {
-        img1: "",
-        img2: "",
-        img3: ""
-    }
+    images: [
+        { id: 0, img: "" },
+        { id: 1, img: "" },
+        { id: 2, img: "" }
+    ]
 }
 
 exports.INITIAL_VALUES_LAPTOP_DEFAULT = {
@@ -424,14 +424,14 @@ exports.INITIAL_VALUES_LAPTOP_DEFAULT = {
     size_id: 0,
     weight_id: 0
 }
-exports.INITIAL_VALUES_HARD_DRIVE_DEFAULT = {
-    hard_drive_type_id: 0,
+exports.INITIAL_VALUES_DRIVE_DEFAULT = {
+    drive_type_id: 0,
     capacity_id: 0,
     connect_id: 0,
     dimension_id: 0,
-    read_speed_id: 0,
-    record_speed_id: 0,
-    rotation_speed_id: 0,
+    read_id: 0,
+    write_id: 0,
+    rotation_id: 0,
     cache_id: 0
 }
 
@@ -465,7 +465,7 @@ exports.DATA_POST_LAPTOP = {
     }
 }
 
-exports.DATA_POST_HARD_DRIVE = {
+exports.DATA_POST_DRIVE = {
     info: {
         id: 0,
         brand_id: 4,
@@ -476,13 +476,13 @@ exports.DATA_POST_HARD_DRIVE = {
         type_id: 3
     },
     spec: {
-        hard_drive_type_id: 2,
+        drive_type_id: 2,
         capacity_id: 2,
         connect_id: 4,
         dimension_id: 3,
-        read_speed_id: 2,
-        record_speed_id: 2,
-        rotation_speed_id: 3,
+        read_id: 2,
+        write_id: 2,
+        rotation_id: 3,
         cache_id: 1
     },
     image: {
@@ -541,7 +541,7 @@ exports.SCREEN_LAPTOP_FILTER_WEB = [
     { id: 4, value: "15.6''", active: false },
     { id: 5, value: "17''", active: false }
 ]
-//hard-drive
+//drive
 exports.CONNECT_LAPTOP_FILTER_WEB = [
     { id: 1, value: "USB Type C", active: false },
     { id: 2, value: "USB 3.0", active: false },
@@ -550,7 +550,7 @@ exports.CONNECT_LAPTOP_FILTER_WEB = [
     { id: 5, value: "SATA 3'", active: false },
     { id: 6, value: "PCI e", active: false }
 ]
-exports.BRAND_HARD_DRIVE_FILTER_WEB = [
+exports.BRAND_DRIVE_FILTER_WEB = [
     { id: 1, value: "SAMSUNG", active: false },
     { id: 2, value: "KINGSTON", active: false },
     { id: 3, value: "KINGMAX", active: false },
@@ -560,7 +560,7 @@ exports.BRAND_HARD_DRIVE_FILTER_WEB = [
     { id: 7, value: "CRUCIAL", active: false },
     { id: 8, value: "SEAGATE", active: false }
 ]
-exports.CAPACITY_HARD_DRIVE_FILTER_WEB = [
+exports.CAPACITY_DRIVE_FILTER_WEB = [
     { id: 1, value: "120GB", active: false },
     { id: 2, value: "128GB", active: false },
     { id: 3, value: "256GB", active: false },
@@ -813,6 +813,40 @@ exports.NAV_MAP_Mouse = [
 ]
 
 // ---------------------------RENDER-----------------------------//
+
+exports.RENDER_LAPTOP_DETAIL_DEFAULT = {
+    id: 0,
+    images: [
+        {
+            id: 1,
+            img: ""
+        },
+        {
+            id: 2,
+            img: ""
+        },
+        {
+            id: 3,
+            img: ""
+        }
+    ],
+    info: {
+        name: "",
+        price: "",
+        cpu: "",
+        screen: "",
+        ram: "",
+        rom: "",
+        gpu: "",
+        port: "",
+        battery: "",
+        size: "",
+        weight: "",
+        guarantee: ""
+    },
+    description: ""
+}
+
 exports.RENDER_HOME = [
     {
         id: 1,
@@ -1036,22 +1070,30 @@ exports.RENDER_CART = [
         image:
             "https://cdn.tgdd.vn/Products/Images/44/236315/lenovo-ideapad-slim-3-15iil05-i3-81we0132vn-600x600.jpg",
         name: "Levono Think 15 (Chính hãng)",
-        ram: "4 GB",
-        rom: "SSD 512 GB",
-        price: "11.690.000₫",
-        quality: 2,
-        link: String("/etech/laptop/" + this.name)
+        spec1: "4 GB",
+        spec2: "SSD 512 GB",
+        price: 11690000,
+        qty: 1
     },
     {
         id: 6,
         image:
             "https://cdn.tgdd.vn/Products/Images/44/236315/lenovo-ideapad-slim-3-15iil05-i3-81we0132vn-600x600.jpg",
         name: "Levono Think 16 (Chính hãng)",
-        ram: "4 GB", //shot
-        rom: "SSD 512 GB",
-        price: "11.990.000₫",
-        quality: 1,
-        link: String("/etech/laptop/" + this.name)
+        spec1: "4 GB",
+        spec2: "SSD 512 GB",
+        price: 11990000,
+        qty: 1
+    },
+    {
+        id: 7,
+        image:
+            "https://cdn.tgdd.vn/Products/Images/1902/205985/o-cung-hdd-1tb-seagate-backup-plus-slim-xam-2-org.jpg",
+        name: "Ổ cứng SSD ",
+        spec1: "SSD",
+        spec2: "USB TYPE C",
+        price: 500000,
+        qty: 1
     }
 ]
 
@@ -1064,7 +1106,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 2,
@@ -1074,7 +1116,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 3,
@@ -1084,7 +1126,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 4,
@@ -1094,7 +1136,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 5,
@@ -1104,7 +1146,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 6,
@@ -1114,7 +1156,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 7,
@@ -1124,7 +1166,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
         id: 8,
@@ -1134,42 +1176,42 @@ exports.DOSSIER_DATA_LAPTOP = [
         ram: "4 GB",
         rom: "SSD 512",
         screen: "15.6 inch",
-        shortDescription: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
+        description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     }
 ]
 
-exports.DOSSIER_DATA_HARD_DEVICE = [
+exports.DOSSIER_DATA_DEVICE = [
     {
         id: 1,
         brand: "SAMSUNG",
         name: "Ổ CỨNG 01",
-        hard_drive_type: "SSD",
+        drive_type: "SSD",
         capacity: "512GB",
-        shortDescription: "Là ổ cứng ..."
+        description: "Là ổ cứng ..."
     },
     {
         id: 2,
         brand: "SANDISK",
         name: "Ổ CỨNG 02",
-        hard_drive_type: "SSD",
+        drive_type: "SSD",
         capacity: "512GB",
-        shortDescription: "Là ổ cứng ..."
+        description: "Là ổ cứng ..."
     },
     {
         id: 3,
         brand: "KINGMAX",
         name: "Ổ CỨNG 03",
-        hard_drive_type: "HHD",
+        drive_type: "HHD",
         capacity: "4T",
-        shortDescription: "Là ổ cứng ..."
+        description: "Là ổ cứng ..."
     },
     {
         id: 4,
         brand: "SANDISK",
         name: "Ổ CỨNG 04",
-        hard_drive_type: "SSD",
+        drive_type: "SSD",
         capacity: "512GB",
-        shortDescription: "Là ổ cứng ..."
+        description: "Là ổ cứng ..."
     }
 ]
 

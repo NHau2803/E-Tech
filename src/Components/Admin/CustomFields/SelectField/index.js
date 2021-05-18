@@ -1,4 +1,5 @@
 import { Form, Select } from "antd"
+import { useEffect, useState } from "react"
 
 const SelectField = props => {
     const {
@@ -31,7 +32,7 @@ const SelectField = props => {
                         .toLowerCase()
                         .localeCompare(optionB.children.toLowerCase())
                 }
-                // value={["1"]}
+                value={["1"]}
             >
                 {options.map(item => (
                     <Select.Option key={item.id} value={item.id}>

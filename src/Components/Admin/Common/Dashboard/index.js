@@ -25,7 +25,7 @@ const DashboardComponent = props => {
             <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={["0"]}
+                // defaultSelectedKeys={["0"]}
                 // selectedKeys={[selectedKey]}
                 style={{ height: "690px" }}
             >

@@ -8,48 +8,24 @@ import { Form, Button, Space, Row, Col, notification } from "antd"
 import { useForm } from "antd/lib/form/Form"
 import axiosClient from "API/ClientAxios"
 import GetOptionsAPI from "API/GetOptions"
+import HardDriveAPI from "API/HardDrive"
 import LaptopAPI from "API/Laptop"
-import ProductAPI from "API/ProductAPI"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import InputField from "Components/Admin/CustomFields/InputField"
 import SelectField from "Components/Admin/CustomFields/SelectField"
 import useFormData from "Components/Admin/UseData/UseFormData"
 import {
     LIST_RENDER_DEFAULT,
-    BRAND_HARD_DRIVE,
-    SPEC_VALUE_HARD_DRIVE_CACHE,
-    SPEC_VALUE_HARD_DRIVE_CAPACITY,
-    SPEC_VALUE_HARD_DRIVE_CONNECT,
-    SPEC_VALUE_HARD_DRIVE_DIMENSION,
-    SPEC_VALUE_HARD_DRIVE_READ_SPEED,
-    SPEC_VALUE_HARD_DRIVE_RECORD_SPEED,
-    SPEC_VALUE_HARD_DRIVE_ROTATION_SPEED,
-    SPEC_VALUE_HARD_DRIVE_TYPE,
-    TYPE_ADMIN_PAGE,
-    TYPE_HARD_DRIVE
-} from "Constants/Data"
-import {
-    BRAND_LAPTOP,
-    SPEC_VALUE_LAPTOP_BATTERY,
-    SPEC_VALUE_LAPTOP_CPU,
-    SPEC_VALUE_LAPTOP_GPU,
-    SPEC_VALUE_LAPTOP_OS,
-    SPEC_VALUE_LAPTOP_PORT,
-    SPEC_VALUE_LAPTOP_RAM,
-    SPEC_VALUE_LAPTOP_ROM,
-    SPEC_VALUE_LAPTOP_SCREEN,
-    SPEC_VALUE_LAPTOP_SIZE,
-    SPEC_VALUE_LAPTOP_WEIGHT,
-    TYPE_CUSTOM_FIELD,
+    TYPE_DRIVE,
     TYPE_PRODUCT,
-    TYPE_PRODUCT_RENDER
+    TYPE_CUSTOM_FIELD
 } from "Constants/Data"
+
 import { VALIDATE_MESSAGES } from "Constants/Validate"
 import { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router-dom"
-import { checkHardDiveType } from "Utils/CheckType"
+import { checkDiveType } from "Utils/CheckType"
 import { getOptionsLocalStorage } from "Utils/Converter"
-import saveOptionsFromAPI from "Utils/SaveToLocalStorage"
 import "./AddEditPage.css"
 const axios = require("axios")
 
@@ -58,36 +34,34 @@ const layout = {
     wrapperCol: { span: 12 }
 }
 
-const AddEditPage = props => {
+const AddEditPage = () => {
     const { productId, productType } = useParams()
     const isAddMode = !productId
-    const history = useHistory()
     const [form] = Form.useForm()
+    const history = useHistory()
+    const redirectLaptops = () => history.push("/admin/laptops")
+    const redirectDrives = () => history.push("/admin/drives")
 
     const {
         listOptions,
         info,
         spec,
-        image,
+        imageList,
         notify,
         setNotify,
         reLoadInitialValue,
         handleInputChange,
-        changeInitialValueSpec
+        changeInitialValueSpec,
+        handleChooseIdSSD
     } = useFormData(isAddMode, productType, productId)
-    console.log("🚀 ~ file: index.js ~ line 78 ~ listOptions", listOptions)
-    // console.log("🚀 ~ file: index.js ~ line 69 ~ image", image)
-    // console.log("🚀 ~ file: index.js ~ line 69 ~ spec", spec)
+    // console.log("🚀 ~ file: index.js ~ line 78 ~ listOptions", listOptions)
+    // console.log("🚀 ~ file: index.js ~ line 69 ~ imageList", imageList)
+    console.log("🚀 ~ file: index.js ~ line 69 ~ spec", spec)
     // console.log("🚀 ~ file: index.js ~ line 69 ~ info", info)
-
-    //---------------------------SAVE OPTIONS-----------------------------------------------
-    // useEffect(() => {
-    //     saveOptionsFromAPI()
-
-    // }, [])
 
     //---------------------------HANDLE RELOAD INITIAL VALUE WHEN UPDATE---------------------
     // todo: reload when state have data from api. Because render firstly initialValue = "" => need reload
+
     useEffect(() => {
         form.resetFields()
     }, [reLoadInitialValue])
@@ -107,15 +81,55 @@ const AddEditPage = props => {
     }
 
     const onFinish = values => {
-        const create = { info, spec, image }
-        console.log("🚀 ~ file: index.js ~ line 68 ~ create", create)
-        openNotification(notify.type, notify.title, notify.message)
-        // ProductAPI.create(create).then(res => {
-        //     console.log(res)
-        // })
-        // LaptopAPI.create(create).then(res => {
-        //     console.log(res)
-        // })
+        let imageArr = []
+        imageList.map(item => imageArr.push(item.img))
+        const images = {
+            img1: imageArr[0],
+            img2: imageArr[1],
+            img3: imageArr[2]
+        }
+
+        if (
+            info.type_id === 2 &&
+            checkDiveType(spec.drive_type_id) === TYPE_DRIVE.IS_SSD
+        ) {
+            handleChooseIdSSD()
+        }
+
+        const create = { info, spec, images }
+
+        console.log(
+            "🚀 ~ file: index.js ~ line 89 ~ AddEditPage ~ create",
+            create
+        )
+        switch (info.type_id) {
+            case 1:
+                LaptopAPI.create(create).then(res => {
+                    if (res && res.notify) {
+                        openNotification(
+                            notify.type,
+                            notify.title,
+                            notify.message
+                        )
+                        redirectLaptops()
+                    }
+                })
+                break
+            case 2:
+                HardDriveAPI.create(create).then(res => {
+                    if (res && res.notify) {
+                        openNotification(
+                            notify.type,
+                            notify.title,
+                            notify.message
+                        )
+                        redirectDrives()
+                    }
+                })
+                break
+            default:
+                break
+        }
     }
     //------------------------COMPONENT RENDER---------------------
     const renderSpecLaptop = () => {
@@ -124,134 +138,172 @@ const AddEditPage = props => {
                 <SelectField
                     name={"cpu_id"}
                     label={"Vi xử lí"}
-                    initialValue={spec.cpu_id || ""}
-                    options={SPEC_VALUE_LAPTOP_CPU || LIST_RENDER_DEFAULT}
+                    initialValue={spec.cpu || ""}
+                    options={
+                        getOptionsLocalStorage("cpus") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"ram_id"}
                     label={"Ram"}
-                    initialValue={spec.ram_id || ""}
-                    options={SPEC_VALUE_LAPTOP_RAM || LIST_RENDER_DEFAULT}
+                    initialValue={spec.ram || ""}
+                    options={
+                        getOptionsLocalStorage("rams") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"rom_id"}
                     label={"Lưu trữ"}
-                    initialValue={spec.rom_id || ""}
-                    options={SPEC_VALUE_LAPTOP_ROM || LIST_RENDER_DEFAULT}
+                    initialValue={spec.rom || ""}
+                    options={
+                        getOptionsLocalStorage("roms") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"gpu_id"}
                     label={"Card đồ họa"}
-                    initialValue={spec.gpu_id || ""}
-                    options={SPEC_VALUE_LAPTOP_GPU || LIST_RENDER_DEFAULT}
+                    initialValue={spec.gpu || ""}
+                    options={
+                        getOptionsLocalStorage("gpus") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"screen_id"}
                     label={"Kích thướt màn hình"}
-                    initialValue={spec.screen_id || ""}
-                    options={SPEC_VALUE_LAPTOP_SCREEN || LIST_RENDER_DEFAULT}
+                    initialValue={spec.screen || ""}
+                    options={
+                        getOptionsLocalStorage("sizes") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"port_id"}
                     label={"Kết nối chính"}
-                    initialValue={spec.port_id || ""}
-                    options={SPEC_VALUE_LAPTOP_PORT || LIST_RENDER_DEFAULT}
+                    initialValue={spec.port || ""}
+                    options={
+                        getOptionsLocalStorage("ports") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"battery_id"}
                     label={"PIN"}
-                    initialValue={spec.battery_id || ""}
-                    options={SPEC_VALUE_LAPTOP_BATTERY || LIST_RENDER_DEFAULT}
+                    initialValue={spec.battery || ""}
+                    options={
+                        getOptionsLocalStorage("batteries") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"weight_id"}
                     label={"Trọng lượng"}
-                    initialValue={spec.weight_id || ""}
-                    options={SPEC_VALUE_LAPTOP_WEIGHT || LIST_RENDER_DEFAULT}
+                    initialValue={spec.weight || ""}
+                    options={
+                        getOptionsLocalStorage("weights") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"size_id"}
                     label={"Kích thước"}
-                    initialValue={spec.size_id || ""}
-                    options={SPEC_VALUE_LAPTOP_SIZE || LIST_RENDER_DEFAULT}
+                    initialValue={spec.size || ""}
+                    options={
+                        getOptionsLocalStorage("sizes") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"os_id"}
                     label={"Hệ điều hành"}
-                    initialValue={spec.os_id || ""}
-                    options={SPEC_VALUE_LAPTOP_OS || LIST_RENDER_DEFAULT}
+                    initialValue={spec.os || ""}
+                    options={
+                        getOptionsLocalStorage("os") || LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
             </Col>
         )
     }
-    const renderSpecHardDrive = () => {
+    const renderSpecDrive = () => {
         return (
             <Col span={12}>
                 <SelectField
-                    name={"hard_drive_type_id"}
+                    name={"drive_type_id"}
                     label={"Kiểu ổ cứng"}
-                    initialValue={
-                        !isAddMode ? spec.hard_drive_type_id || "" : ""
+                    initialValue={!isAddMode ? spec.drive_type_id || "" : ""}
+                    options={
+                        getOptionsLocalStorage("types") || LIST_RENDER_DEFAULT
                     }
-                    options={SPEC_VALUE_HARD_DRIVE_TYPE}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"capacity_id"}
                     label={"Dung lượng"}
                     initialValue={!isAddMode ? spec.capacity_id || "" : ""}
-                    options={SPEC_VALUE_HARD_DRIVE_CAPACITY}
+                    options={
+                        getOptionsLocalStorage("capacities") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"connect_id"}
                     label={"Kết nối"}
                     initialValue={!isAddMode ? spec.connect_id || "" : ""}
-                    options={SPEC_VALUE_HARD_DRIVE_CONNECT}
+                    options={
+                        getOptionsLocalStorage("connections") ||
+                        LIST_RENDER_DEFAULT
+                    }
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"dimension_id"}
                     label={"Kích thướt"}
                     initialValue={!isAddMode ? spec.dimension_id || "" : ""}
-                    options={SPEC_VALUE_HARD_DRIVE_DIMENSION}
-                    rules={[{ required: true }]}
-                />
-                <SelectField
-                    name={"read_speed_id"}
-                    label={"Tốc độ đọc"}
-                    initialValue={!isAddMode ? spec.read_speed_id || "" : ""}
-                    options={SPEC_VALUE_HARD_DRIVE_READ_SPEED}
-                    rules={[{ required: true }]}
-                />
-                <SelectField
-                    name={"record_speed_id"}
-                    label={"Tốc độ ghi"}
-                    initialValue={!isAddMode ? spec.record_speed_id || "" : ""}
-                    options={SPEC_VALUE_HARD_DRIVE_RECORD_SPEED}
-                    rules={[{ required: true }]}
-                />
-                <SelectField
-                    name={"rotation_speed_id"}
-                    label={"Tốc độ quay"}
-                    initialValue={
-                        !isAddMode ? spec.rotation_speed_id || "" : ""
+                    options={
+                        getOptionsLocalStorage("dimensions") ||
+                        LIST_RENDER_DEFAULT
                     }
-                    options={SPEC_VALUE_HARD_DRIVE_ROTATION_SPEED}
                     rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"read_id"}
+                    label={"Tốc độ đọc"}
+                    initialValue={!isAddMode ? spec.read_id || "" : ""}
+                    options={
+                        getOptionsLocalStorage("reads") || LIST_RENDER_DEFAULT
+                    }
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"write_id"}
+                    label={"Tốc độ ghi"}
+                    initialValue={!isAddMode ? spec.write_id || "" : ""}
+                    options={
+                        getOptionsLocalStorage("writes") || LIST_RENDER_DEFAULT
+                    }
+                    rules={[{ required: true }]}
+                />
+                <SelectField
+                    name={"rotation_id"}
+                    label={"Tốc độ quay"}
+                    initialValue={!isAddMode ? spec.rotation_id || "" : ""}
+                    options={
+                        getOptionsLocalStorage("rotations") ||
+                        LIST_RENDER_DEFAULT
+                    }
+                    rules={
+                        checkDiveType(spec.drive_type_id) === TYPE_DRIVE.IS_SSD
+                            ? []
+                            : [{ required: true }]
+                    }
                     disabled={
-                        checkHardDiveType(spec.hard_drive_type_id) ===
-                        TYPE_HARD_DRIVE.IS_SSD
+                        checkDiveType(spec.drive_type_id) === TYPE_DRIVE.IS_SSD
                             ? true
                             : false
                     }
@@ -260,11 +312,16 @@ const AddEditPage = props => {
                     name={"cache_id"}
                     label={"Bộ nhớm đệm"}
                     initialValue={!isAddMode ? spec.cache_id || "" : ""}
-                    options={SPEC_VALUE_HARD_DRIVE_CACHE}
-                    rules={[{ required: true }]}
+                    options={
+                        getOptionsLocalStorage("caches") || LIST_RENDER_DEFAULT
+                    }
+                    rules={
+                        checkDiveType(spec.drive_type_id) === TYPE_DRIVE.IS_SSD
+                            ? []
+                            : [{ required: true }]
+                    }
                     disabled={
-                        checkHardDiveType(spec.hard_drive_type_id) ===
-                        TYPE_HARD_DRIVE.IS_SSD
+                        checkDiveType(spec.drive_type_id) === TYPE_DRIVE.IS_SSD
                             ? true
                             : false
                     }
@@ -277,10 +334,10 @@ const AddEditPage = props => {
     const handleRenderSpec = () => {
         if (isAddMode && info !== undefined) {
             switch (info.type_id) {
-                case 2:
+                case 1:
                     return renderSpecLaptop()
-                case 3:
-                    return renderSpecHardDrive()
+                case 2:
+                    return renderSpecDrive()
                 default:
                     break
             }
@@ -288,8 +345,8 @@ const AddEditPage = props => {
             switch (productType) {
                 case TYPE_PRODUCT.LAPTOP:
                     return renderSpecLaptop()
-                case TYPE_PRODUCT.HARD_DRIVE:
-                    return renderSpecHardDrive()
+                case TYPE_PRODUCT.DRIVE:
+                    return renderSpecDrive()
                 default:
                     break
             }
@@ -299,19 +356,19 @@ const AddEditPage = props => {
     const handleRenderBrand = () => {
         if (isAddMode && info !== undefined) {
             switch (info.type_id) {
+                case 1:
+                    return getOptionsLocalStorage("laptop_brand")
                 case 2:
-                    return getOptionsLocalStorage("BRAND_LAPTOP")
-                case 3:
-                    return getOptionsLocalStorage("BRAND_HARD_DRIVE")
+                    return getOptionsLocalStorage("drive_brand")
                 default:
                     break
             }
         } else {
             switch (productType) {
                 case TYPE_PRODUCT.LAPTOP:
-                    return getOptionsLocalStorage("BRAND_LAPTOP")
-                case TYPE_PRODUCT.HARD_DRIVE:
-                    return getOptionsLocalStorage("BRAND_HARD_DRIVE")
+                    return getOptionsLocalStorage("laptop_brand")
+                case TYPE_PRODUCT.DRIVE:
+                    return getOptionsLocalStorage("drive_brand")
                 default:
                     break
             }
@@ -342,7 +399,7 @@ const AddEditPage = props => {
                             disabled={!isAddMode ? true : false}
                             initialValue={info.type_id || ""}
                             options={
-                                getOptionsLocalStorage("TYPE_PRODUCT_RENDER") ||
+                                getOptionsLocalStorage("product_type") ||
                                 LIST_RENDER_DEFAULT
                             }
                             rules={[{ required: true }]}
@@ -361,28 +418,16 @@ const AddEditPage = props => {
                             initialValue={info.name || ""}
                             rules={[{ required: true }]}
                         />
-                        <InputField
-                            typeInput={TYPE_CUSTOM_FIELD.INPUT}
-                            name={"img1"}
-                            label={"Link Ảnh 1"}
-                            initialValue={image.img1 || ""}
-                            prefix={<LinkOutlined />}
-                            rules={[{ required: true }]}
-                        />
-                        <InputField
-                            typeInput={TYPE_CUSTOM_FIELD.INPUT}
-                            name={"img2"}
-                            label={"Link Ảnh 2"}
-                            initialValue={image.img2 || ""}
-                            prefix={<LinkOutlined />}
-                        />
-                        <InputField
-                            typeInput={TYPE_CUSTOM_FIELD.INPUT}
-                            name={"img3"}
-                            label={"Link Ảnh 3"}
-                            initialValue={image.img3 || ""}
-                            prefix={<LinkOutlined />}
-                        />
+                        {imageList.map(item => (
+                            <InputField
+                                typeInput={TYPE_CUSTOM_FIELD.INPUT}
+                                name={item.id}
+                                label={"Link Ảnh"}
+                                initialValue={item.img || ""}
+                                prefix={<LinkOutlined />}
+                                rules={[{ required: true }]}
+                            />
+                        ))}
                         <InputField
                             typeInput={TYPE_CUSTOM_FIELD.TEXTAREA}
                             name={"description"}

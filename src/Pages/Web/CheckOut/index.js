@@ -1,21 +1,90 @@
+import { InputNumber, message, notification } from "antd"
+import CartAPI from "API/Cart"
 import { RENDER_CART } from "Constants/Data"
 import { PATH } from "Constants/Path"
-// import "../../../index.css"
-
+import { useEffect, useState } from "react"
+import ReactDOM from "react-dom"
+import { Link, useHistory } from "react-router-dom"
+import {
+    changePriceToVND,
+    getOptionsLocalStorage,
+    setOptionsLocalStorage
+} from "Utils/Converter"
+import { removeCacheLocalStorage } from "Utils/localStorageFunctions"
+// import "./styles.css";
 const CheckOut = () => {
-    const getTotal = (price, quality) => {
+    const [cart, setCart] = useState(getOptionsLocalStorage("carts"))
+    const [account, setAccount] = useState(getOptionsLocalStorage("account"))
+    const history = useHistory()
+    const redirectHome = () => history.push("/etech")
+    console.log("🚀 ~ file: index.js ~ line 17 ~ CheckOut ~ account", account)
+
+    useEffect(() => {
+        setOptionsLocalStorage("carts", cart)
+    }, [cart])
+
+    useEffect(() => {
+        let productIds = []
+        cart.map(item => productIds.push(item.id))
+        console.log("🚀 ~ file: index.js ~ line 17 ~ useEffect ~ cart", cart)
         console.log(
-            "🚀 ~ file: index.js ~ line 9 ~ getTotal ~ quality",
-            quality
+            "🚀 ~ file: index.js ~ line 17 ~ useEffect ~ productIds",
+            productIds
         )
-        console.log("🚀 ~ file: index.js ~ line 9 ~ getTotal ~ price", price)
+        // CartAPI.getCartInfo({ id: productIds }).then(res => setCart(res))
+    })
+
+    const handleRemoveItem = id => {
+        //setReload(!reload)
+        setCart(cart.filter(item => item.id !== id))
+        setOptionsLocalStorage("carts", cart)
+    }
+
+    const getTotal = () => {
+        let totalPrice = 0
+        cart.map(item => {
+            // console.log(
+            //     "🚀 ~ file: index.js ~ line 33 ~ useEffect ~ cart",
+            //     cart
+            // )
+            totalPrice += item.price * item.qty
+        })
+        // setBill({totalPrice: totalPrice, shipPrice: 0, total: 0})
+
+        return totalPrice
+    }
+
+    useEffect(() => {
+        getTotal()
+    }, [cart])
+
+    const onChangeQty = (id, e) => {
+        cart.map(item => item.id === parseInt(id) && (item.qty = e))
+        setCart([...cart], cart)
+    }
+
+    const handlePay = () => {
+        let order = []
+        console.log("=========")
+        cart.map(item => order.push({ id: item.id, qty: item.qty }))
+        CartAPI.saveCart({ order: order }).then(res => {
+            console.log(res)
+            if (res.notify && res.notify) {
+                notification["success"]({
+                    message: "Cảm ơn",
+                    description: "Bạn đã đặt hàng thành công!"
+                })
+                removeCacheLocalStorage("carts")
+                redirectHome()
+            }
+        })
     }
 
     return (
         <div className="section">
             <div className="container">
                 <div className="row">
-                    <form id="checkout-form" className="clearfix">
+                    <div id="checkout-form" className="clearfix">
                         <div className="col-md-12">
                             <div className="order-summary clearfix">
                                 <div className="section-title">
@@ -37,7 +106,7 @@ const CheckOut = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {RENDER_CART.map(item => {
+                                        {cart.map(item => {
                                             return (
                                                 <tr key={item.id}>
                                                     <td className="thumb">
@@ -47,25 +116,29 @@ const CheckOut = () => {
                                                         ></img>
                                                     </td>
                                                     <td className="details">
-                                                        <a href={item.link}>
+                                                        <Link
+                                                            to={`/etech/${item.type_product}/${item.id}`}
+                                                        >
                                                             {item.name}
-                                                        </a>
+                                                        </Link>
                                                         <ul>
                                                             <li>
                                                                 <span>
-                                                                    {item.ram}
+                                                                    {item.spec1}
                                                                 </span>
                                                             </li>
                                                             <li>
                                                                 <span>
-                                                                    {item.rom}
+                                                                    {item.spec2}
                                                                 </span>
                                                             </li>
                                                         </ul>
                                                     </td>
                                                     <td className="price text-center">
                                                         <strong>
-                                                            {item.price}
+                                                            {changePriceToVND(
+                                                                item.price
+                                                            )}
                                                         </strong>
                                                         <br />
                                                         {/* <del className="font-weak">
@@ -73,26 +146,38 @@ const CheckOut = () => {
                                                     </del> */}
                                                     </td>
                                                     <td className="qty text-center">
-                                                        <input
-                                                            className="input"
-                                                            type="number"
+                                                        <InputNumber
+                                                            size="large"
+                                                            min={1}
+                                                            max={99}
                                                             defaultValue={
-                                                                item.price
-                                                                    ? item.quality
-                                                                    : 1
+                                                                item.qty
+                                                            }
+                                                            onChange={e =>
+                                                                onChangeQty(
+                                                                    item.id,
+                                                                    e
+                                                                )
                                                             }
                                                         />
                                                     </td>
                                                     <td className="total text-center">
                                                         <strong className="primary-color">
-                                                            {getTotal(
-                                                                item.price,
-                                                                item.quality
+                                                            {changePriceToVND(
+                                                                item.price *
+                                                                    item.qty
                                                             )}
                                                         </strong>
                                                     </td>
                                                     <td className="text-right">
-                                                        <button className="main-btn icon-btn">
+                                                        <button
+                                                            className="main-btn icon-btn"
+                                                            onClick={() => {
+                                                                handleRemoveItem(
+                                                                    item.id
+                                                                )
+                                                            }}
+                                                        >
                                                             <i className="fa fa-close" />
                                                         </button>
                                                     </td>
@@ -116,6 +201,7 @@ const CheckOut = () => {
                                         type="text"
                                         name="name"
                                         placeholder="Họ Tên"
+                                        value={account.name || ""}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -124,6 +210,7 @@ const CheckOut = () => {
                                         type="text"
                                         name="address"
                                         placeholder="Địa chỉ"
+                                        value={account.address || ""}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -132,6 +219,7 @@ const CheckOut = () => {
                                         type="text"
                                         name="email"
                                         placeholder="Email"
+                                        value={account.email || ""}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -140,6 +228,7 @@ const CheckOut = () => {
                                         type="text"
                                         name="phone"
                                         placeholder="Số điện thoại"
+                                        value={account.phone || ""}
                                     />
                                 </div>
 
@@ -183,7 +272,11 @@ const CheckOut = () => {
                                                 <h3>Giá &emsp;</h3>
                                             </td>
                                             <td>
-                                                <h3>2.990.000đ</h3>
+                                                <h3>
+                                                    {changePriceToVND(
+                                                        getTotal()
+                                                    )}
+                                                </h3>
                                             </td>
                                         </tr>
                                         <tr>
@@ -199,20 +292,28 @@ const CheckOut = () => {
                                                 <h3>Tổng &emsp;</h3>
                                             </td>
                                             <td>
-                                                <h3> 2.990.000đ</h3>
+                                                <h3>
+                                                    {changePriceToVND(
+                                                        getTotal()
+                                                    )}
+                                                </h3>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button className="primary-btn">
+                                <button
+                                    className="primary-btn"
+                                    onClick={() => handlePay()}
+                                >
                                     Thanh toán
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     )
 }
+
 export default CheckOut

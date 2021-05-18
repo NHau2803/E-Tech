@@ -1,26 +1,32 @@
 import axios from "axios"
 import queryString from "query-string"
 
-const axiosClient = axios.create({
-    // baseURL: `${process.env.BASE_API}:${process.env.PORT}`,
-    // timeout: 2000,
-    // withCredentials: false,
-    // headers: {
-    //     "Content-type": "application/json",
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-    // }
-    // paramsSerializer: param => queryString.stringifyUrl(param)
-})
+const axiosClient = axios.create({})
 
-axiosClient.interceptors.request.use(async config => {
-    //function get token from local
-    return config
-})
+// axiosClient.interceptors.request.use(async config => {
+//     //function get token from local
+//     return config
+// })
+
+// For GET requests
+axios.interceptors.request.use(
+    req => {
+        // Add configurations here
+        return req
+    },
+    err => {
+        return Promise.reject(err)
+    }
+)
 
 axiosClient.interceptors.response.use(
     res => {
-        if (res && res.data) return res.data
+        if (res && res.data) {
+            return res.data
+        }
+        if (res.status !== 200) {
+            return res.message
+        }
         return res
     },
     err => {

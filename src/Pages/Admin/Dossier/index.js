@@ -6,29 +6,58 @@ import {
 } from "@ant-design/icons"
 import { Layout, Table, Form, Space, Button, message, notification } from "antd"
 import Search from "antd/lib/input/Search"
+import HardDriveAPI from "API/HardDrive"
+import LaptopAPI from "API/Laptop"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import MessageField from "Components/Admin/CustomFields/Message"
 import {
     BRAND_LAPTOP_FILTER,
-    DOSSIER_DATA_HARD_DEVICE,
+    DOSSIER_DATA_DEVICE,
     DOSSIER_DATA_LAPTOP,
     SPEC_VALUE_LAPTOP_RAM,
     SPEC_VALUE_LAPTOP_RAM_FILTER,
     SPEC_VALUE_LAPTOP_SCREEN_FILTER,
     TYPE_PRODUCT
 } from "Constants/Data"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useParams, useRouteMatch } from "react-router-dom"
 
 const { Content } = Layout
 
 const DossierData = () => {
     const { productType } = useParams()
+    console.log(
+        "🚀 ~ file: index.js ~ line 29 ~ DossierData ~ productType",
+        productType
+    )
     const [form] = Form.useForm()
-    const [data, setData] = useState(DOSSIER_DATA_LAPTOP)
-    const [editingKey, setEditingKey] = useState("")
+    const [data, setData] = useState([])
+    const [dataFilter, setDataFilter] = useState([])
+    const [filters, setFilters] = useState([])
+    const [value, setValue] = useState("")
 
     const match = useRouteMatch()
+
+    useEffect(() => {
+        setDataFilter([])
+        setData([])
+        if (productType === "laptops") {
+            LaptopAPI.getList().then(res => {
+                console.log(res)
+                setData(res.data)
+                setDataFilter(res.data)
+                setFilters(res.filter)
+            })
+        }
+        if (productType === "drives") {
+            HardDriveAPI.getList().then(res => {
+                console.log(res)
+                setData(res.data)
+                setDataFilter(res.data)
+                setFilters(res.filter)
+            })
+        }
+    }, [productType])
 
     // ---------------------even---------------------
 
@@ -37,6 +66,14 @@ const DossierData = () => {
         console.log(key)
         return <MessageField />
     }
+
+    // const onSearch = value => {
+    //     console.log(
+    //         "🚀 ~ file: index.js ~ line 65 ~ DossierData ~ value",
+    //         value
+    //     )
+    //     console.log(data.filter(item => item.name === value))
+    // }
     // ---------------------table---------------------
     const columnsLaptop = [
         {
@@ -49,7 +86,7 @@ const DossierData = () => {
             id: 2,
             title: "Hãng",
             dataIndex: "brand",
-            filters: BRAND_LAPTOP_FILTER,
+            filters: filters.Brand,
             onFilter: (value, record) => record.brand.includes(value),
             width: "8%"
         },
@@ -57,28 +94,29 @@ const DossierData = () => {
             id: 3,
             title: "Vi xử lí",
             dataIndex: "cpu",
-            filters: SPEC_VALUE_LAPTOP_SCREEN_FILTER,
-            onFilter: (value, record) => record.screen.includes(value),
-            width: "8%"
+            filters: filters.Cpu,
+            onFilter: (value, record) => record.cpu.includes(value),
+            width: "15%"
         },
         {
             id: 4,
             title: "Ram",
             dataIndex: "ram",
-            filters: SPEC_VALUE_LAPTOP_RAM,
+            filters: filters.Ram,
             onFilter: (id, record) => record.ram.includes(id),
-            width: "6%"
+            width: "12%"
         },
         {
             id: 5,
             title: "Lưu trữ",
             dataIndex: "rom",
-            width: "8%"
+            filters: filters.Rom,
+            width: "15%"
         },
         {
             id: 6,
             title: "Mô tả sản phẩm",
-            dataIndex: "shortDescription"
+            dataIndex: "description"
             // with: "10%"
         },
         {
@@ -108,7 +146,7 @@ const DossierData = () => {
             )
         }
     ]
-    const columnsHardDrive = [
+    const columnsDrive = [
         {
             id: 1,
             title: "Tên sản phẩm",
@@ -119,7 +157,7 @@ const DossierData = () => {
             id: 2,
             title: "Hãng",
             dataIndex: "brand",
-            filters: BRAND_LAPTOP_FILTER,
+            filters: filters.Brand,
             onFilter: (value, record) => record.brand.includes(value),
             width: "10%"
         },
@@ -127,21 +165,23 @@ const DossierData = () => {
         {
             id: 3,
             title: "Loại ổ cứng",
-            dataIndex: "hard_drive_type",
-            filters: SPEC_VALUE_LAPTOP_RAM,
-            onFilter: (id, record) => record.ram.includes(id),
+            dataIndex: "type",
+            filters: filters.type,
+            onFilter: (id, record) => record.type.includes(id),
             width: "10%"
         },
         {
             id: 4,
             title: "Dung lượng",
             dataIndex: "capacity",
+            filters: filters.capacity,
+            onFilter: (id, record) => record.capacity.includes(id),
             width: "10%"
         },
         {
             id: 5,
             title: "Mô tả sản phẩm",
-            dataIndex: "shortDescription"
+            dataIndex: "description"
             // with: "10%"
         },
         {
@@ -172,7 +212,7 @@ const DossierData = () => {
         }
     ]
     const onChange = (pagination, filters, sorter, extra) => {
-        console.log("params", pagination, filters, sorter, extra)
+        //console.log("params", pagination, filters, sorter, extra)
     }
 
     const openNotification = (title, message) => {
@@ -200,33 +240,36 @@ const DossierData = () => {
                 <Search
                     placeholder="Tìm kiếm tên sản phẩm"
                     style={{ width: 200, marginLeft: 5 }}
-                    onSearch={value => console.log(value)}
+                    onChange={e => {
+                        const currValue = e.target.value
+                        setValue(currValue)
+                        const filteredData = data.filter(item =>
+                            item.name
+                                .toLowerCase()
+                                .includes(currValue.toLowerCase())
+                        )
+                        setDataFilter(filteredData)
+                    }}
                 />
 
                 <Form form={form} component={false}>
                     <Table
                         bordered
-                        dataSource={
-                            productType === "laptops"
-                                ? DOSSIER_DATA_LAPTOP
-                                : productType === "hard-drives"
-                                ? DOSSIER_DATA_HARD_DEVICE
-                                : []
-                        }
+                        dataSource={dataFilter}
                         columns={
                             productType === "laptops"
                                 ? columnsLaptop
-                                : productType === "hard-drives"
-                                ? columnsHardDrive
+                                : productType === "drives"
+                                ? columnsDrive
                                 : []
                         }
-                        //rowClassName="editable-row"
                         onChange={onChange}
                         pagination={{
-                            current: 1,
-                            pageSize: 6
+                            defaultPageSize: 10,
+                            showSizeChanger: true,
+                            pageSizeOptions: ["10", "20", "30"]
                         }}
-                        //scroll={{ y: 500 }}
+                        scroll={{ y: 500 }}
                         // footer={() => "Footer"}
                     />
                 </Form>

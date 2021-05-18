@@ -16,8 +16,8 @@ export const MENU = [
     {
         id: 1,
         icon: <HddOutlined />,
-        name: "Hard Drive",
-        link: "/admin/hard-drives"
+        name: "Drive",
+        link: "/admin/drives"
     },
     {
         id: 2,
