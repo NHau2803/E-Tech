@@ -1,7 +1,6 @@
-import { Menu, Layout } from "antd"
+import { Layout, Menu } from "antd"
 import { MENU } from "Constants/List"
-import { useState } from "react"
-import { Link, NavLink } from "react-router-dom"
+import { Link } from "react-router-dom"
 const { Sider } = Layout
 
 const DashboardComponent = props => {
@@ -20,7 +19,9 @@ const DashboardComponent = props => {
                     fontSize: "20px"
                 }}
             >
-                E-Tech
+                <Link to="/etech" style={{ color: "white" }}>
+                    ETech
+                </Link>
             </div>
             <Menu
                 theme="dark"

@@ -1,14 +1,14 @@
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
 import { Layout } from "antd"
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
-import React, { useState } from "react"
-import AddEditPage from "./AddEdit"
 import DashboardComponent from "Components/Admin/Common/Dashboard"
 import { TYPE_ADMIN_PAGE, TYPE_PRODUCT } from "Constants/Data"
-import DossierData from "./Dossier"
-import "./AdminPage.css"
-import UpdateLaptopPage from "./Laptop/Update"
+import React, { useState } from "react"
 import { useHistory, useParams } from "react-router"
+import AddEditPage from "./AddEdit"
+import "./AdminPage.css"
+import DossierData from "./Dossier"
 import UpdateDrivePage from "./Drive/Update"
+import UpdateLaptopPage from "./Laptop/Update"
 
 const { Header, Content } = Layout
 

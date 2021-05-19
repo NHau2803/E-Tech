@@ -1,4 +1,4 @@
-import { Form, Cascader } from "antd"
+import { Cascader, Form } from "antd"
 const CascaderField = props => {
     const { typeInput, name, label, rules } = props
     return (

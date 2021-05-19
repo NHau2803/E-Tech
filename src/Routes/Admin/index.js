@@ -3,23 +3,23 @@ import { BackTop } from "antd"
 import GetOptionsAPI from "API/GetOptions"
 import LoaderComponent from "Components/Web/Common/Loader"
 import NotFoundComponent from "Components/Web/Common/NotFound"
-import { TYPE_ADMIN_PAGE } from "Constants/Data"
 import { PATH } from "Constants/Path"
-import UpdateLaptopPage from "Pages/Admin/Laptop/Update"
 import React, { Suspense, useEffect } from "react"
 import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom"
 import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
-import saveToLocalStorage from "Utils/saveToLocalStorage"
+import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
 const AdminPage = React.lazy(() => import("../../Pages/Admin"))
 const RouteAdmin = () => {
     const match = useRouteMatch()
     const history = useHistory()
     const redirectLogin = () => history.push(PATH.LOGIN)
     const redirectNotFound = () => history.push("/not-found")
-
+    const isEmptyItemInLocalStorage = emptyItemInLocalStorage("account")
     const isAdmin = () => {
-        if (getOptionsLocalStorage("account").admin === 1) {
-            return true
+        if (!isEmptyItemInLocalStorage) {
+            if (getOptionsLocalStorage("account").admin === 1) {
+                return true
+            }
         }
         return false
     }
@@ -27,7 +27,9 @@ const RouteAdmin = () => {
     useEffect(() => {
         GetOptionsAPI.getOptions()
             .then(res => {
-                if (res) {
+                if (res.status === "Only admin can access") {
+                    redirectNotFound()
+                } else {
                     console.log(
                         "🚀 ~ file: index.js ~ line 18 ~ GetOptionsAPI.getOptions ~ res",
                         res

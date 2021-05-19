@@ -1,5 +1,4 @@
 import { Form, Select } from "antd"
-import { useEffect, useState } from "react"
 
 const SelectField = props => {
     const {

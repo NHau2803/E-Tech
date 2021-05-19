@@ -1,14 +1,8 @@
-import {
-    FacebookFilled,
-    MailFilled,
-    MailOutlined,
-    PhoneOutlined
-} from "@ant-design/icons"
+import { FacebookFilled, MailFilled, PhoneOutlined } from "@ant-design/icons"
 import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
-
-const FooterComponent = props => {
-    const { logo } = props
+import Images from "Constants/Images"
+const FooterComponent = () => {
     return (
         <footer id="footer" className="section section-grey">
             <div className="container">
@@ -16,7 +10,7 @@ const FooterComponent = props => {
                     <div className="col-md-3 col-sm-6 col-xs-6">
                         <div className="footer-logo">
                             <a className="logo" href="/#">
-                                <img alt="Logo" src={logo}></img>
+                                <img alt="Logo" src={Images.Logo}></img>
                             </a>
                         </div>
 
@@ -33,7 +27,7 @@ const FooterComponent = props => {
                                 <li>
                                     <a href="/#">
                                         GỌI MUA HÀNG: <PhoneOutlined />
-                                        0944445555
+                                        0955556666
                                     </a>
                                 </li>
                                 <li>
@@ -76,6 +70,11 @@ const FooterComponent = props => {
                                 <li>
                                     <Link to={PATH.POLICY_TRANSPORT}>
                                         CHÍNH SÁCH VẬN CHUYỂN
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={PATH.POLICY_PAY}>
+                                        CHÍNH SÁCH THANH TOÁN
                                     </Link>
                                 </li>
                                 <li>

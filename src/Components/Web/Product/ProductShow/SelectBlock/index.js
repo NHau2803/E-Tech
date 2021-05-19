@@ -1,10 +1,9 @@
 // import { useEffect } from "react"
-import { changePriceToVND } from "Utils/Converter"
 import ProductBlock from "../ProductBlock"
 // import Slider from "react-slick"
 
 const SelectBlock = props => {
-    const { selectBlockTitle, products } = props
+    const { selectBlockTitle, products, brandId } = props
 
     return (
         <div className="section">
@@ -20,6 +19,7 @@ const SelectBlock = props => {
                         return (
                             <ProductBlock
                                 key={item.id}
+                                brandId={brandId}
                                 id={item.id}
                                 image={item.images}
                                 name={item.name}

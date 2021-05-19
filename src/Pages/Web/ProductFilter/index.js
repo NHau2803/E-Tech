@@ -1,9 +1,8 @@
 import RenderWeb from "API/RenderWeb"
 import BreadcrumbComponent from "Components/Web/Breadcrumb"
-import FooterComponent from "Components/Web/Common/Footer"
 import FilterBlock from "Components/Web/FilterBlock"
 import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
-import { RENDER_HOME } from "Constants/Data"
+import { RENDER_HOME, RENDER_HOME_DEFAULT } from "Constants/Data"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
@@ -11,10 +10,31 @@ import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
 
 const ProductFilter = () => {
     const { productType } = useParams()
+
     const isEmptyItemInLocalStorage = emptyItemInLocalStorage("productList")
-    const [productList, setProductList] = useState(
-        getOptionsLocalStorage("productList") || RENDER_HOME
+    console.log(
+        "🚀 ~ file: index.js ~ line 12 ~ HomePage ~ isEmptyItemInLocalStorage",
+        isEmptyItemInLocalStorage
     )
+    const [productList, setProductList] = useState(
+        isEmptyItemInLocalStorage
+            ? RENDER_HOME_DEFAULT
+            : getOptionsLocalStorage("productList")
+    )
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        if (isEmptyItemInLocalStorage) {
+            RenderWeb.get().then(res => {
+                console.log(
+                    "🚀 ~ file: index.js ~ line 18 ~ RenderWeb.get ~ res",
+                    res
+                )
+                setProductList(res)
+                setOptionsLocalStorage("productList", res)
+            })
+        }
+    }, [])
+
     // const [carts, setCarts] = useState(getOptionsLocalStorage("carts"))
     // useEffect(() => {
     //     window.scrollTo(0, 0)
@@ -31,12 +51,12 @@ const ProductFilter = () => {
         <div>
             <BreadcrumbComponent pageName={productType.toUpperCase()} />
             <FilterBlock />
-            {RENDER_HOME.map(item => {
+            {productList.map(item => {
                 return (
                     <SelectBlock
                         key={item.id}
                         selectBlockTitle={item.brand}
-                        products={item.results}
+                        products={item.result}
                     />
                 )
             })}

@@ -1,18 +1,18 @@
+// import RouteAdmin from "Routes/Admin"
+import LoaderComponent from "Components/Web/Common/Loader"
+import NotFoundComponent from "Components/Web/Common/NotFound"
+import TestAPI from "Pages/Admin/Test"
+import LoginPage from "Pages/Common/LoginPage"
+import SignupPage from "Pages/Common/SignUp"
+import { Suspense } from "react"
 import {
     BrowserRouter as Router,
     Redirect,
     Route,
     Switch
 } from "react-router-dom"
-import { Suspense } from "react"
-import RouteWeb from "Routes/Web"
-// import RouteAdmin from "Routes/Admin"
-import LoaderComponent from "Components/Web/Common/Loader"
-import LoginPage from "Pages/Common/LoginPage"
-import SignupPage from "Pages/Common/SignUp"
 import RouteAdmin from "Routes/Admin"
-import TestAPI from "Pages/Admin/Test"
-import NotFoundComponent from "Components/Web/Common/NotFound"
+import RouteWeb from "Routes/Web"
 import { getOptionsLocalStorage } from "Utils/Converter"
 function App() {
     return (

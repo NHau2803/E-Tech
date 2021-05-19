@@ -1,52 +1,46 @@
+import { Button, Checkbox, Form, Input, Select } from "antd"
+import { BASE_URL } from "API/URL"
+import axios from "axios"
 import React, { useState } from "react"
+import { useHistory } from "react-router"
+import { setOptionsLocalStorage } from "Utils/Converter"
 import "./SignUpPage.css"
-import {
-    Form,
-    Input,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
-    Button,
-    AutoComplete
-} from "antd"
 
 const { Option } = Select
-const residences = [
-    {
-        value: "Hà Nội",
-        label: "Hà Nội",
-        children: [
-            {
-                value: "Quận",
-                label: "Quận"
-                // children: [
-                //     {
-                //         value: "Đường",
-                //         label: "Đường"
-                //     }
-                // ]
-            }
-        ]
-    },
-    {
-        value: "Thành Phố Hồ Chí Minh",
-        label: "Thành Phố Hồ Chí Minh",
-        children: [
-            {
-                value: "Quận",
-                label: "Quận"
-                // children: [
-                //     {
-                //         value: "Đường",
-                //         label: "Đường"
-                //     }
-                // ]
-            }
-        ]
-    }
-]
+// const residences = [
+//     {
+//         value: "Hà Nội",
+//         label: "Hà Nội",
+//         children: [
+//             {
+//                 value: "Quận",
+//                 label: "Quận"
+//                 // children: [
+//                 //     {
+//                 //         value: "Đường",
+//                 //         label: "Đường"
+//                 //     }
+//                 // ]
+//             }
+//         ]
+//     },
+//     {
+//         value: "Thành Phố Hồ Chí Minh",
+//         label: "Thành Phố Hồ Chí Minh",
+//         children: [
+//             {
+//                 value: "Quận",
+//                 label: "Quận"
+//                 // children: [
+//                 //     {
+//                 //         value: "Đường",
+//                 //         label: "Đường"
+//                 //     }
+//                 // ]
+//             }
+//         ]
+//     }
+// ]
 
 const tailFormItemLayout = {
     wrapperCol: {
@@ -89,13 +83,59 @@ const SignupPage = () => {
     const onReset = () => {
         form.resetFields()
     }
-
+    const history = useHistory()
+    const redirectHomePage = () => history.push("/etech")
     const onFinish = values => {
-        console.log("Received values of form: ", values)
+        const signin = {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            phone: values.phone,
+            address: values.address
+        }
+        axios
+            .post(BASE_URL + "/api/register", signin)
+            .then(res => {
+                console.log(
+                    "🚀 ~ file: index.js ~ line 18 ~ LoginPage ~ res",
+                    res.data
+                )
+                if (res.data.date && res.data.success === true) {
+                    let account = {
+                        address: res.data.date.address,
+                        admin: 0,
+                        email: res.data.date.email,
+                        name: res.data.date.name,
+                        phone: res.data.date.phone
+                    }
+
+                    setOptionsLocalStorage("account", account)
+                    redirectHomePage()
+                }
+                if (res.data.error) {
+                    // notification.error({
+                    //     message: "Thông báo",
+                    //     description: "Đăng kí thất bại"
+                    // })
+                    form.setFields([
+                        {
+                            name: "email",
+                            errors: ["Đã tồn tại email này!"]
+                        }
+                    ])
+                }
+            })
+            .catch(
+                err => console.log(err)
+                // notification.error({
+                //     message: "a",
+                //     description: message
+                // })
+            )
     }
 
     const prefixSelector = (
-        <Form.Item name="prefix" noStyle>
+        <Form.Item noStyle>
             <Select
                 style={{
                     width: 70
@@ -108,7 +148,7 @@ const SignupPage = () => {
     const [autoCompleteResult, setAutoCompleteResult] = useState([])
 
     const onWebsiteChange = value => {
-        if (!value) {
+        if (value) {
             setAutoCompleteResult([])
         } else {
             setAutoCompleteResult(
@@ -129,24 +169,19 @@ const SignupPage = () => {
                     form={form}
                     name="register"
                     onFinish={onFinish}
-                    initialValues={{
-                        residence: ["Hà Nội", "Quận", "xihu"],
-                        prefix: "86"
-                    }}
                     scrollToFirstError
                 >
                     <Form.Item {...tailFormItemLayout}>
-                        {/* <img alt="Logo" src={Images.Logo1}></img> */}
                         <h1>Đăng Ký</h1>
                     </Form.Item>
 
                     <Form.Item
-                        name="username"
-                        label="Tên Đăng Nhập"
+                        name="email"
+                        label="Email"
                         rules={[
                             {
                                 required: true,
-                                message: "Mời Bạn Nhập Tên Đăng Nhập!"
+                                message: "Mời bạn nhập email"
                             }
                         ]}
                     >
@@ -154,12 +189,16 @@ const SignupPage = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="password"
+                        name={["password"]}
                         label="Mật Khẩu"
                         rules={[
                             {
                                 required: true,
-                                message: "Mời Bạn Nhập Mật Khẩu!"
+                                message: "Mời bạn nhập mật khẩu"
+                            },
+                            {
+                                message: "Mật khẩu phải hơn 8 kí tự",
+                                min: 8
                             }
                         ]}
                         hasFeedback
@@ -175,21 +214,19 @@ const SignupPage = () => {
                         rules={[
                             {
                                 required: true,
-                                message: "Mời Bạn Xác Nhận Mật Khẩu!"
+                                message: "Mời bạn xác nhận mật khẩu"
                             },
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
                                     if (
-                                        !value ||
+                                        value &&
                                         getFieldValue("password") === value
                                     ) {
                                         return Promise.resolve()
                                     }
 
                                     return Promise.reject(
-                                        new Error(
-                                            "Hai mật khẩu bạn đã nhập không khớp!"
-                                        )
+                                        new Error("Mật khẩu không khớp")
                                     )
                                 }
                             })
@@ -198,7 +235,7 @@ const SignupPage = () => {
                         <Input.Password />
                     </Form.Item>
 
-                    <Form.Item
+                    {/* <Form.Item
                         name="residence"
                         label="Nơi Cư Trú"
                         rules={[
@@ -210,14 +247,28 @@ const SignupPage = () => {
                         ]}
                     >
                         <Cascader options={residences} />
-                    </Form.Item>
+                    </Form.Item> */}
+
                     <Form.Item
-                        name={["address", "street"]}
-                        label="Địa Chỉ Nhà"
+                        name="name"
+                        label="Tên Khách Hàng"
                         rules={[
                             {
                                 required: true,
-                                message: "Mời Bạn Nhập Địa Chỉ Nhà"
+                                message: "Mời bạn nhập tên"
+                            }
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        name={"address"}
+                        label="Địa Chỉ"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Mời bạn nhập địa chỉ"
                             }
                         ]}
                     >
@@ -229,7 +280,11 @@ const SignupPage = () => {
                         rules={[
                             {
                                 required: true,
-                                message: "Mời Bạn Nhập Số Điện Thoại"
+                                message: "Mời bạn nhập số điện thoại"
+                            },
+                            {
+                                max: 10,
+                                message: "Số điện thoại không lớn hơn 10"
                             }
                         ]}
                     >
@@ -250,24 +305,26 @@ const SignupPage = () => {
                                     value
                                         ? Promise.resolve()
                                         : Promise.reject(
-                                              new Error(
-                                                  "Should accept agreement"
-                                              )
+                                              new Error("Bạn chưa ấn đồng ý")
                                           )
                             }
                         ]}
                         {...tailFormItemLayout}
                     >
                         <Checkbox>
-                            I have read the{" "}
-                            <u>
-                                <a href="/#">agreement</a>
-                            </u>
+                            Tôi đã đọc thỏa thuận.
+                            {/* <u>
+                                <a href="/dang-ky">thỏa thuận</a>
+                            </u> */}
                         </Checkbox>
                     </Form.Item>
 
                     <Form.Item {...tailFormItemLayout}>
-                        <Button htmlType="submit" className="button-signup">
+                        <Button
+                            htmlType="submit"
+                            type="primary"
+                            className="button-signup"
+                        >
                             Đăng Ký
                         </Button>
 

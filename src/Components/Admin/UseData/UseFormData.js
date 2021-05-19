@@ -1,16 +1,12 @@
-import { useEffect, useState } from "react"
+import HardDriveAPI from "API/HardDrive"
+import LaptopAPI from "API/Laptop"
 import {
     INITIAL_VALUES_DEFAULT,
-    TYPE_PRODUCT,
-    INITIAL_VALUES_LAPTOP_DEFAULT,
-    DATA_POST_LAPTOP,
-    DATA_POST_DRIVE,
     INITIAL_VALUES_DRIVE_DEFAULT,
-    SPEC_VALUE_LAPTOP_CPU
+    INITIAL_VALUES_LAPTOP_DEFAULT,
+    TYPE_PRODUCT
 } from "Constants/Data"
-import GetOptionsAPI from "API/GetOptions"
-import LaptopAPI from "API/Laptop"
-import HardDriveAPI from "API/HardDrive"
+import { useEffect, useState } from "react"
 import { useHistory } from "react-router"
 const useFormData = (isAddMode, type, productId) => {
     const history = useHistory()

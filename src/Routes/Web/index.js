@@ -1,20 +1,20 @@
+import { render } from "@testing-library/react"
+import { BackTop } from "antd"
+import Logo from "Assets/Images/Logo.jpg"
 import FooterComponent from "Components/Web/Common/Footer"
 import HeaderMain from "Components/Web/Common/Header/HeaderMain"
+import HeaderNav from "Components/Web/Common/Header/HeaderNav"
+import HeaderTop from "Components/Web/Common/Header/HeaderTop"
 import LoaderComponent from "Components/Web/Common/Loader"
 import NotFoundComponent from "Components/Web/Common/NotFound"
-import HeaderNav from "Components/Web/Common/Header/HeaderNav"
-import React, { Suspense, useEffect, useState } from "react"
-import { Route, Switch, useRouteMatch } from "react-router"
-import { PATH } from "Constants/Path"
-import { render } from "@testing-library/react"
 import AboutPage from "Pages/Web/About"
-import { BackTop } from "antd"
+import PolicyPay from "Pages/Web/Policy/Pay"
 import PolicyTransport from "Pages/Web/Policy/Transport"
 import Recruitment from "Pages/Web/Recruitment"
-import { RENDER_CART } from "Constants/Data"
+import React, { Suspense, useState } from "react"
+import { Route, Switch, useRouteMatch } from "react-router"
 import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
 import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
-import HeaderTop from "Components/Web/Common/Header/HeaderTop"
 
 const HomePage = React.lazy(() => import("../../Pages/Web/Home"))
 const ProductDetailPage = React.lazy(() =>
@@ -32,6 +32,9 @@ const RouteWeb = () => {
     const match = useRouteMatch()
     if (emptyItemInLocalStorage("carts")) {
         setOptionsLocalStorage("carts", [])
+    }
+    if (emptyItemInLocalStorage("productList")) {
+        setOptionsLocalStorage("productList", [])
     }
 
     return (
@@ -60,6 +63,13 @@ const RouteWeb = () => {
                         path={`${match.url}/chinh-sach-van-chuyen`}
                         render={() => {
                             return <PolicyTransport />
+                        }}
+                    />
+                    <Route
+                        exact
+                        path={`${match.url}/chinh-sach-thanh-toan`}
+                        render={() => {
+                            return <PolicyPay />
                         }}
                     />
                     <Route
@@ -95,11 +105,7 @@ const RouteWeb = () => {
                         }}
                     />
                 </Switch>
-                <FooterComponent
-                    logo={
-                        "https://drive.google.com/uc?export=view&id=1Efe_zTMed_8-Ix0fgfbKVLXwtxdVb3UX"
-                    }
-                />
+                <FooterComponent />
             </Suspense>
             <BackTop />
         </div>

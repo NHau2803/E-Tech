@@ -1,0 +1,43 @@
+.container-pay  {
+    display: block;
+    margin: auto;
+    width: 60%;
+    font-size: 20px;
+    padding: 10px;
+    
+}
+
+.container-pay > ul> li{
+    padding: 10px;
+}
+
+.container-pay  > table > th> td> tr{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.content  > table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    font-size: 15px;
+    /* text-align: center; */
+}
+
+.content  > table > tbody > tr > td {
+   width: 140px;
+   border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+
+/* .table-thanhtoan{
+    font-weight: 400;
+} */
+.list-table-thanhtoan{
+    list-style-type:disc;
+}

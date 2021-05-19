@@ -1,5 +1,4 @@
 import React from "react"
-import { BASE_URL } from "API/URL"
 const TestAPI = () => {
     var axios = require("axios")
     const getBreeds = () => {

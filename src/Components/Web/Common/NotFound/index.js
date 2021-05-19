@@ -5,7 +5,7 @@ const NotFoundComponent = props => {
 
     const renderFull = () => {
         return (
-            <div class="container_status">
+            <div className="container_status">
                 <h2>Không tìm thấy trang</h2>
                 <h1>404</h1>
                 <p>Rất tiếc, bạn không thể truy cập</p>

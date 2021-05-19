@@ -1,15 +1,12 @@
 import {
+    BarChartOutlined,
     HeartOutlined,
-    LoginOutlined,
-    PhoneOutlined,
     PoweroffOutlined,
     RightCircleOutlined,
     ShoppingCartOutlined,
     UserAddOutlined,
     UserOutlined
 } from "@ant-design/icons"
-import CartComponent from "Components/Web/Cart"
-import { RENDER_CART } from "Constants/Data"
 import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
@@ -19,10 +16,11 @@ import {
     setOptionsLocalStorage
 } from "Utils/Converter"
 import {
+    emptyItemInLocalStorage,
     getQtyOfCartInLocalStorage,
-    getTotalPriceOfCartInLocalStorage,
-    removeCacheLocalStorage
+    getTotalPriceOfCartInLocalStorage
 } from "Utils/localStorageFunctions"
+import Images from "Constants/Images"
 
 const HeaderMain = () => {
     const [toggleCart, setToggleCart] = useState(false)
@@ -30,6 +28,15 @@ const HeaderMain = () => {
     const [carts, setCarts] = useState(getOptionsLocalStorage("carts"))
     const [totalPrice, setTotalPrice] = useState(0)
     const [countItem, setCountItem] = useState(0)
+    const isEmptyItemInLocalStorage = emptyItemInLocalStorage("account")
+    const isAdmin = () => {
+        if (!isEmptyItemInLocalStorage) {
+            if (getOptionsLocalStorage("account").admin === 1) {
+                return true
+            }
+        }
+        return false
+    }
 
     useEffect(() => {
         setCarts(getOptionsLocalStorage("carts"))
@@ -57,12 +64,7 @@ const HeaderMain = () => {
                     <div className="pull-left">
                         <div className="header-logo">
                             <Link className="logo" to={PATH.HOME}>
-                                <img
-                                    alt="Logo"
-                                    src={
-                                        "https://drive.google.com/uc?export=view&id=1Efe_zTMed_8-Ix0fgfbKVLXwtxdVb3UX"
-                                    }
-                                ></img>
+                                <img alt="Logo" src={Images.Logo}></img>
                             </Link>
                         </div>
 
@@ -85,7 +87,6 @@ const HeaderMain = () => {
                             <li
                                 onMouseEnter={() => {
                                     setToggle(true)
-                                    console.log("a")
                                 }}
                                 onMouseLeave={() => {
                                     setToggle(false)
@@ -112,6 +113,24 @@ const HeaderMain = () => {
                                 </div>
                                 <Link to={PATH.LOGIN}>Đăng nhập</Link>
                                 <ul className="custom-menu">
+                                    <li
+                                        style={{
+                                            display: isAdmin()
+                                                ? "block"
+                                                : "none"
+                                        }}
+                                    >
+                                        <Link to="/admin/laptops">
+                                            <BarChartOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
+                                            Trang quản lí
+                                        </Link>
+                                    </li>
                                     <li>
                                         <Link to="/#">
                                             <UserOutlined
@@ -121,7 +140,7 @@ const HeaderMain = () => {
                                                         "var(--color-primary)"
                                                 }}
                                             />
-                                            Tài khoản của bạn
+                                            TK của bạn
                                         </Link>
                                     </li>
                                     <li>

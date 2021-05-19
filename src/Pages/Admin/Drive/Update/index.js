@@ -1,15 +1,6 @@
-import {
-    BankFilled,
-    CloseOutlined,
-    LinkOutlined,
-    SaveOutlined
-} from "@ant-design/icons"
-import { Form, Button, Space, Row, Col, notification } from "antd"
-import { useForm } from "antd/lib/form/Form"
-import axiosClient from "API/ClientAxios"
-import GetOptionsAPI from "API/GetOptions"
+import { CloseOutlined, LinkOutlined, SaveOutlined } from "@ant-design/icons"
+import { Button, Col, Form, notification, Row, Space } from "antd"
 import HardDriveAPI from "API/HardDrive"
-import LaptopAPI from "API/Laptop"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import InputField from "Components/Admin/CustomFields/InputField"
 import SelectField from "Components/Admin/CustomFields/SelectField"
@@ -20,7 +11,7 @@ import {
     TYPE_DRIVE
 } from "Constants/Data"
 import { VALIDATE_MESSAGES } from "Constants/Validate"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useHistory, useParams } from "react-router-dom"
 import { checkDiveType } from "Utils/CheckType"
 import { getOptionsLocalStorage } from "Utils/Converter"

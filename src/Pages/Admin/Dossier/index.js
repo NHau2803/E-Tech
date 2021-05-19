@@ -4,21 +4,12 @@ import {
     FormOutlined,
     ReloadOutlined
 } from "@ant-design/icons"
-import { Layout, Table, Form, Space, Button, message, notification } from "antd"
+import { Button, Form, Layout, notification, Space, Table } from "antd"
 import Search from "antd/lib/input/Search"
 import HardDriveAPI from "API/HardDrive"
 import LaptopAPI from "API/Laptop"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import MessageField from "Components/Admin/CustomFields/Message"
-import {
-    BRAND_LAPTOP_FILTER,
-    DOSSIER_DATA_DEVICE,
-    DOSSIER_DATA_LAPTOP,
-    SPEC_VALUE_LAPTOP_RAM,
-    SPEC_VALUE_LAPTOP_RAM_FILTER,
-    SPEC_VALUE_LAPTOP_SCREEN_FILTER,
-    TYPE_PRODUCT
-} from "Constants/Data"
 import { useEffect, useState } from "react"
 import { Link, useParams, useRouteMatch } from "react-router-dom"
 
@@ -133,13 +124,14 @@ const DossierData = () => {
                         <Button type="primary" icon={<FormOutlined />}></Button>
                     </Link>
                     <Link to={`/${record.id}`} key={record.id}>
-                        <Button icon={<FileSearchOutlined />}></Button>
+                        <Button icon={<FileSearchOutlined />} disabled></Button>
                     </Link>
                     <Link to={`/${record.id}`} key={record.id}>
                         <Button
                             danger
                             icon={<DeleteOutlined />}
                             onClick={any => handleDelete}
+                            disabled
                         />
                     </Link>
                 </Space>

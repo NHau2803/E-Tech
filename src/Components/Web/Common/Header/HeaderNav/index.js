@@ -1,11 +1,11 @@
-import { PhoneFilled, PhoneOutlined } from "@ant-design/icons"
+import { PhoneOutlined } from "@ant-design/icons"
 import {
     NAV_MAP_COL,
-    NAV_MAP_vpCOL,
     NAV_MAP_dhCOL,
     NAV_MAP_HARD,
+    NAV_MAP_Keyboard,
     NAV_MAP_Mouse,
-    NAV_MAP_Keyboard
+    NAV_MAP_vpCOL
 } from "Constants/Data"
 import { PATH } from "Constants/Path"
 import { useState } from "react"

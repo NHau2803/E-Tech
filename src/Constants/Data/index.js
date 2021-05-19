@@ -847,6 +847,24 @@ exports.RENDER_LAPTOP_DETAIL_DEFAULT = {
     description: ""
 }
 
+exports.RENDER_HOME_DEFAULT = [
+    {
+        id: 0,
+        brand: "",
+        result: [
+            {
+                id: 0,
+                name: "",
+                image: "",
+                ram: "",
+                rom: "",
+                guarantee: 0,
+                price: ""
+            }
+        ]
+    }
+]
+
 exports.RENDER_HOME = [
     {
         id: 1,

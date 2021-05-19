@@ -1,12 +1,12 @@
-import { Form, Input, Button, Checkbox, message, notification } from "antd"
-import { UserOutlined, LockOutlined } from "@ant-design/icons"
-import "./LoginPage.css"
-import { useEffect, useState } from "react"
-import { Link, useHistory } from "react-router-dom"
-import { PATH } from "Constants/Path"
-import axios from "axios"
+import { LockOutlined, UserOutlined } from "@ant-design/icons"
+import { Button, Checkbox, Form, Input } from "antd"
 import { BASE_URL } from "API/URL"
+import axios from "axios"
+import { PATH } from "Constants/Path"
+import { useState } from "react"
+import { Link, useHistory } from "react-router-dom"
 import { setOptionsLocalStorage } from "Utils/Converter"
+import "./LoginPage.css"
 const LoginPage = () => {
     const [account, setAccount] = useState({ email: "", password: "" })
     const [form] = Form.useForm()
@@ -28,26 +28,32 @@ const LoginPage = () => {
                     setOptionsLocalStorage("access_token", res.data.token)
                     setOptionsLocalStorage("account", res.data.info)
                     redirectHomePage()
-                } else {
-                    form.setFields([
-                        {
-                            name: "email",
-                            errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
-                        },
-                        {
-                            name: "password",
-                            errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
-                        }
-                    ])
                 }
+                // else {
+                //     form.setFields([
+                //         {
+                //             name: "email",
+                //             errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
+                //         },
+                //         {
+                //             name: "password",
+                //             errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
+                //         }
+                //     ])
+                // }
             })
-            .catch(
-                err => console.log(err)
-                // notification.error({
-                //     message: "a",
-                //     description: message
-                // })
-            )
+            .catch(err => {
+                form.setFields([
+                    {
+                        name: "email",
+                        errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
+                    },
+                    {
+                        name: "password",
+                        errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
+                    }
+                ])
+            })
     }
 
     return (

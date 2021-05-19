@@ -1,9 +1,12 @@
+import { useRouteMatch } from "react-router"
 import { changePriceToVND } from "Utils/Converter"
 import { handleSaveCartItem } from "Utils/localStorageFunctions"
 import ProductSpec from "./ProductSpec"
 
 const ProductDetail = props => {
     const { detail, images, id } = props
+    const match = useRouteMatch()
+    console.log("🚀 ~ file: index.js ~ line 9 ~ match", match)
     console.log("🚀 ~ file: index.js ~ line 6 ~ images", images)
     console.log("🚀 ~ file: index.js ~ line 6 ~ detail", detail)
 
@@ -71,7 +74,14 @@ const ProductDetail = props => {
                         <button className="main-btn icon-btn">
                             <i className="fa fa-heart"></i>
                         </button>
-                        <button className="main-btn icon-btn">
+                        <button
+                            className="main-btn icon-btn"
+                            onClick={() => {
+                                navigator.clipboard.writeText(
+                                    "http://localhost:3000" + match.url
+                                )
+                            }}
+                        >
                             <i className="fa fa-share-alt"></i>
                         </button>
                     </div>

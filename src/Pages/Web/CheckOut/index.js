@@ -1,9 +1,7 @@
-import { InputNumber, message, notification } from "antd"
+import { InputNumber, notification } from "antd"
 import CartAPI from "API/Cart"
-import { RENDER_CART } from "Constants/Data"
 import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
-import ReactDOM from "react-dom"
 import { Link, useHistory } from "react-router-dom"
 import {
     changePriceToVND,

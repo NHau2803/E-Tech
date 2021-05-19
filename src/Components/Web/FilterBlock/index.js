@@ -1,15 +1,15 @@
 import {
+    BRAND_DRIVE_FILTER_WEB,
     BRAND_LAPTOP_FILTER_WEB,
-    PRICE_LAPTOP_FILTER_WEB,
-    BRAND_HARD_DRIVE_FILTER_WEB,
-    RAM_LAPTOP_FILTER_WEB,
+    CAPACITY_DRIVE_FILTER_WEB,
     CONNECT_LAPTOP_FILTER_WEB,
-    TYPE_PRODUCT,
+    RAM_LAPTOP_FILTER_WEB,
     SCREEN_LAPTOP_FILTER_WEB,
-    CAPACITY_HARD_DRIVE_FILTER_WEB
+    TYPE_PRODUCT
 } from "Constants/Data"
 import { useEffect, useState } from "react"
-import { Link, NavLink, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
+import { setOptionsLocalStorage } from "Utils/Converter"
 import "./FilterBlock.css"
 const FilterBlock = () => {
     const { productType } = useParams()
@@ -18,8 +18,8 @@ const FilterBlock = () => {
         switch (productType) {
             case TYPE_PRODUCT.LAPTOP:
                 return BRAND_LAPTOP_FILTER_WEB
-            case TYPE_PRODUCT.HARD_DRIVE:
-                return BRAND_HARD_DRIVE_FILTER_WEB
+            case TYPE_PRODUCT.DRIVE:
+                return BRAND_DRIVE_FILTER_WEB
             default:
                 break
         }
@@ -38,7 +38,7 @@ const FilterBlock = () => {
         CONNECT_LAPTOP_FILTER_WEB || []
     )
     const [filterRecordsCapacity, setFilterRecordsCapacity] = useState(
-        CAPACITY_HARD_DRIVE_FILTER_WEB || []
+        CAPACITY_DRIVE_FILTER_WEB || []
     )
 
     const renderFilter = (title, filterRecordName, changeRecordName) => {
@@ -99,8 +99,9 @@ const FilterBlock = () => {
         }
         console.log(
             "🚀 ~ file: index.js ~ line 100 ~ useEffect ~ paramsRequest",
-            paramsRequest
+            JSON.stringify(paramsRequest)
         )
+        setOptionsLocalStorage("paramsRequest", paramsRequest)
     }, [checkChange])
 
     const changeRecord = (type, id) => {
@@ -168,8 +169,6 @@ const FilterBlock = () => {
 
     // }
 
-    console.log(filterRecordsBrand)
-    console.log(filterRecordsRam)
     return (
         <div className="container">
             <div className="row">
@@ -198,10 +197,74 @@ const FilterBlock = () => {
                               "connect"
                           )}
 
-                    <div className="filter__icon">
+                    <div
+                        className="filter__icon"
+                        style={{
+                            borderTop: "1px solid rgba(0 , 0, 0, 0.125)",
+                            margin: "10px 14px",
+                            padding: "10px 0px"
+                        }}
+                    >
                         <div className="css_icon">
-                            <div className="filter__text">Giá</div>
-                            Đang cập nhật
+                            <div
+                                style={{ lineHeight: "4rem" }}
+                                className="filter__text"
+                            >
+                                Sắp xếp theo giá
+                            </div>
+                            <div className="filter__box">Giá giảm dần</div>
+                            <div className="filter__box">Giá tăng dần</div>
+                            <div>
+                                <input
+                                    type="text"
+                                    placeholder="Giá thấp nhất"
+                                    maxLength="14"
+                                    style={{
+                                        border: "1px solid rgb(224, 224, 224)",
+                                        marginTop: "5px",
+                                        padding: "8px 20px",
+                                        color: "#000",
+                                        display: "inline-block",
+                                        borderRadius: "4px0"
+                                    }}
+                                />
+                            </div>
+                            <div
+                                style={{
+                                    lineHeight: "3rem",
+                                    margin: "0px 10px"
+                                }}
+                            >
+                                _
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="Giá cao nhất"
+                                maxLength="14"
+                                style={{
+                                    border: "1px solid rgb(224, 224, 224)",
+                                    marginTop: "5px",
+                                    padding: "8px 20px",
+                                    color: "#000",
+                                    display: "inline-block",
+                                    borderRadius: "4px0"
+                                }}
+                            />
+                            <button
+                                style={{
+                                    background: "var(--color-primary)",
+                                    border: "none",
+                                    color: "rgb(255,255,255)",
+                                    padding: "8px 20px",
+                                    borderRadius: "4px",
+                                    marginLeft: "5px",
+                                    height: "40px",
+                                    visibility: "visible",
+                                    marginTop: "7px"
+                                }}
+                            >
+                                Tìm kiếm
+                            </button>
                         </div>
                     </div>
                 </div>

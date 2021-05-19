@@ -4,7 +4,17 @@ import { changePriceToVND, getOptionsLocalStorage } from "Utils/Converter"
 import { handleSaveCartItem } from "Utils/localStorageFunctions"
 
 const ProductBlock = props => {
-    const { id, image, name, guarantee, price, spec1, spec2, valueSale } = props
+    const {
+        brandId,
+        id,
+        image,
+        name,
+        guarantee,
+        price,
+        spec1,
+        spec2,
+        valueSale
+    } = props
     // console.log("🚀 ~ file: index.js ~ line 6 ~ price", changePriceToVND(price))
 
     const saveProductToLocalStorage = () => {
@@ -34,7 +44,11 @@ const ProductBlock = props => {
                         ""
                     )}*/}
                     <button className="main-btn quick-view">
-                        <Link to={`${PATH.LAPTOP}/${id}`}>
+                        <Link
+                            to={`${
+                                brandId > 7 ? PATH.DRIVE : PATH.LAPTOP
+                            }/${id}`}
+                        >
                             <i className="fa fa-search-plus"></i> Xem Chi Tiết
                         </Link>
                     </button>
