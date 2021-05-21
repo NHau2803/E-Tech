@@ -57,7 +57,9 @@ const ProductBlock = props => {
                 <div className="product-body">
                     <h2 className="product-name">
                         <Link
-                            to={`${PATH.LAPTOP}/${id}`}
+                            to={`${
+                                brandId > 7 ? PATH.DRIVE : PATH.LAPTOP
+                            }/${id}`}
                             className="product-name link"
                         >
                             {name}
