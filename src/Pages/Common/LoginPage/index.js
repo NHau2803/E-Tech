@@ -5,7 +5,9 @@ import axios from "axios"
 import { PATH } from "Constants/Path"
 import { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { login } from "Redux/User/User.thunk"
 import { setOptionsLocalStorage } from "Utils/Converter"
+import { useDispatch } from "react-redux"
 import "./LoginPage.css"
 const LoginPage = () => {
     const [account, setAccount] = useState({ email: "", password: "" })
@@ -14,46 +16,29 @@ const LoginPage = () => {
     localStorage.clear()
     const redirectHomePage = () => history.push("/etech")
 
-    const onFinish = values => {
-        console.log("Received values of form: ", values)
-        setAccount(values)
-        axios
-            .post(BASE_URL + "/api/login", values)
-            .then(res => {
-                console.log(
-                    "🚀 ~ file: index.js ~ line 18 ~ LoginPage ~ res",
-                    res
-                )
-                if (res.data.token && res.data.success === "success") {
-                    setOptionsLocalStorage("access_token", res.data.token)
-                    setOptionsLocalStorage("account", res.data.info)
-                    redirectHomePage()
+    const dispatch = useDispatch()
+    const onFinish = async values => {
+        // console.log("Received values of form: ", values)
+        // setAccount(values)
+        const isLogin = await dispatch(login(values))
+        console.log(
+            `LHA:  ===> file: index.js ===> line 24 ===> isLogin`,
+            isLogin
+        )
+        if (isLogin) {
+            redirectHomePage()
+        } else {
+            form.setFields([
+                {
+                    name: "email",
+                    errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
+                },
+                {
+                    name: "password",
+                    errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
                 }
-                // else {
-                //     form.setFields([
-                //         {
-                //             name: "email",
-                //             errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
-                //         },
-                //         {
-                //             name: "password",
-                //             errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
-                //         }
-                //     ])
-                // }
-            })
-            .catch(err => {
-                form.setFields([
-                    {
-                        name: "email",
-                        errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
-                    },
-                    {
-                        name: "password",
-                        errors: ["Sai tên đăng nhập hoặc mật khẩu!"]
-                    }
-                ])
-            })
+            ])
+        }
     }
 
     return (

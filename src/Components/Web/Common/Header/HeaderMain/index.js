@@ -22,6 +22,8 @@ import {
 } from "Utils/localStorageFunctions"
 import Images from "Constants/Images"
 
+import { useDispatch } from "react-redux"
+import { logoutUser } from "Redux/User/User.thunk"
 const HeaderMain = () => {
     const [toggleCart, setToggleCart] = useState(false)
     const [toggle, setToggle] = useState(false)
@@ -53,8 +55,9 @@ const HeaderMain = () => {
         setOptionsLocalStorage("carts", carts)
     }
 
+    const dispatch = useDispatch()
     const logout = () => {
-        localStorage.clear()
+        dispatch(logoutUser())
     }
 
     return (

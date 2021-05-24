@@ -16,13 +16,15 @@ import { Route, Switch, useRouteMatch } from "react-router"
 import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
 import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
 
+import { Spin } from "antd"
+import { useSelector } from "react-redux"
+
 const HomePage = React.lazy(() => import("../../Pages/Web/Home"))
 const ProductDetailPage = React.lazy(() =>
     import("../../Pages/Web/ProductDetail")
 )
 const CheckOut = React.lazy(() => import("../../Pages/Web/CheckOut"))
 const ProductFilter = React.lazy(() => import("../../Pages/Web/ProductFilter"))
-
 const RouteWeb = () => {
     const isEmptyItemInLocalStorage = emptyItemInLocalStorage("carts")
     const [carts, setCarts] = useState(
@@ -36,79 +38,81 @@ const RouteWeb = () => {
     if (emptyItemInLocalStorage("productList")) {
         setOptionsLocalStorage("productList", [])
     }
-
+    const loading = useSelector(state => state.SystemReducer.loading)
     return (
-        <div>
-            <Suspense fallback={() => render(<LoaderComponent />)}>
-                <HeaderTop />
-                <HeaderMain />
-                <HeaderNav />
-                <Switch>
-                    <Route
-                        exact
-                        path={match.url}
-                        render={() => {
-                            return <HomePage />
-                        }}
-                    />
-                    <Route
-                        exact
-                        path={`${match.url}/gioi-thieu`}
-                        render={() => {
-                            return <AboutPage />
-                        }}
-                    />
-                    <Route
-                        exact
-                        path={`${match.url}/chinh-sach-van-chuyen`}
-                        render={() => {
-                            return <PolicyTransport />
-                        }}
-                    />
-                    <Route
-                        exact
-                        path={`${match.url}/chinh-sach-thanh-toan`}
-                        render={() => {
-                            return <PolicyPay />
-                        }}
-                    />
-                    <Route
-                        exact
-                        path={`${match.url}/tuyen-dung`}
-                        render={() => {
-                            return <Recruitment />
-                        }}
-                    />
-                    <Route
-                        exact
-                        path={`${match.url}/thanh-toan`}
-                        render={() => {
-                            return <CheckOut />
-                        }}
-                    />
-                    <Route
-                        path={`${match.url}/:productType/:productId`}
-                        render={() => {
-                            return <ProductDetailPage />
-                        }}
-                    />
-                    <Route
-                        path={`${match.url}/:productType`}
-                        render={() => {
-                            return <ProductFilter />
-                        }}
-                    />
+        <Spin spinning={loading} delay={200} size="large">
+            <div>
+                <Suspense fallback={() => render(<LoaderComponent />)}>
+                    <HeaderTop />
+                    <HeaderMain />
+                    <HeaderNav />
+                    <Switch>
+                        <Route
+                            exact
+                            path={match.url}
+                            render={() => {
+                                return <HomePage />
+                            }}
+                        />
+                        <Route
+                            exact
+                            path={`${match.url}/gioi-thieu`}
+                            render={() => {
+                                return <AboutPage />
+                            }}
+                        />
+                        <Route
+                            exact
+                            path={`${match.url}/chinh-sach-van-chuyen`}
+                            render={() => {
+                                return <PolicyTransport />
+                            }}
+                        />
+                        <Route
+                            exact
+                            path={`${match.url}/chinh-sach-thanh-toan`}
+                            render={() => {
+                                return <PolicyPay />
+                            }}
+                        />
+                        <Route
+                            exact
+                            path={`${match.url}/tuyen-dung`}
+                            render={() => {
+                                return <Recruitment />
+                            }}
+                        />
+                        <Route
+                            exact
+                            path={`${match.url}/thanh-toan`}
+                            render={() => {
+                                return <CheckOut />
+                            }}
+                        />
+                        <Route
+                            path={`${match.url}/:productType/:productId`}
+                            render={() => {
+                                return <ProductDetailPage />
+                            }}
+                        />
+                        <Route
+                            path={`${match.url}/:productType`}
+                            render={() => {
+                                return <ProductFilter />
+                            }}
+                        />
 
-                    <Route
-                        render={() => {
-                            return <NotFoundComponent />
-                        }}
-                    />
-                </Switch>
-                <FooterComponent />
-            </Suspense>
-            <BackTop />
-        </div>
+                        <Route
+                            render={() => {
+                                return <NotFoundComponent />
+                            }}
+                        />
+                    </Switch>
+                    <FooterComponent />
+                </Suspense>
+                <BackTop />
+            </div>
+        </Spin>
     )
 }
 export default RouteWeb
