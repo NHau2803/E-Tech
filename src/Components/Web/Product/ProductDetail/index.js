@@ -1,15 +1,16 @@
+import { useDispatch } from "react-redux"
 import { useRouteMatch } from "react-router"
+import { addCart } from "Redux/Cart/Cart.reducer"
 import { changePriceToVND } from "Utils/Converter"
-import { handleSaveCartItem } from "Utils/localStorageFunctions"
 import ProductSpec from "./ProductSpec"
 
 const ProductDetail = props => {
     const { detail, images, id } = props
     const match = useRouteMatch()
-    console.log("🚀 ~ file: index.js ~ line 9 ~ match", match)
-    console.log("🚀 ~ file: index.js ~ line 6 ~ images", images)
-    console.log("🚀 ~ file: index.js ~ line 6 ~ detail", detail)
-
+    // console.log("🚀 ~ file: index.js ~ line 9 ~ match", match)
+    // console.log("🚀 ~ file: index.js ~ line 6 ~ images", images)
+    // console.log("🚀 ~ file: index.js ~ line 6 ~ detail", detail)
+    const dispatch = useDispatch()
     const saveProductToLocalStorage = () => {
         let cartItem = {
             id: id,
@@ -20,7 +21,7 @@ const ProductDetail = props => {
             spec2: detail.rom,
             qty: 1
         }
-        handleSaveCartItem(cartItem)
+        dispatch(addCart(cartItem))
     }
 
     return (

@@ -1,30 +1,35 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { authRequest } from "../../../redux/_actions/Auth/user.Action"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
-import { getAuthApi } from "Redux/User/User.thunk"
+import { getAuthCookie } from "Redux/User/User.thunk"
 
 const Authentication = (SpecificComponent, option, adminRoute = null) => {
     function AuthenticationCheck(props) {
-        const user = useSelector(state => state.user)
+        const account = useSelector(state => state.UserReducer.user)
         const dispatch = useDispatch()
         const history = useHistory()
 
         const fetchAuth = async () => {
-            const res = await dispatch(getAuthApi())
-            if (res && !res.isAuth) {
+            const res = await dispatch(getAuthCookie())
+            console.log(
+                "🚀 ~ file: BaseAuth.js ~ line 16 ~ fetchAuth ~ res",
+                res
+            )
+            if (res && !res.isLogin) {
+                //true => bat dang nhap
+                console.log("!isLogin")
                 if (option) {
-                    history.push("/login")
+                    history.push("/dang-nhap")
                 }
             } else {
-                //đã đăng nhập
-                if (adminRoute && !res.payload.isAdmin) {
+                console.log("isLogin")
+                if (adminRoute && res && !res.isAdmin) {
                     //Kiểm tra khong phai admin
                     history.push("/etech")
                 } else {
                     if (option === false) {
-                        history.push("/")
+                        history.push("/etech")
                     }
                 }
             }
@@ -34,7 +39,7 @@ const Authentication = (SpecificComponent, option, adminRoute = null) => {
             //To know my current status, send Auth request
         }, [])
         //Đã có login
-        return <SpecificComponent {...props} user={user} />
+        return <SpecificComponent {...props} />
     }
     return AuthenticationCheck
 }

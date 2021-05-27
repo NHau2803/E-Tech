@@ -1,13 +1,10 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Checkbox, Form, Input } from "antd"
-import { BASE_URL } from "API/URL"
-import axios from "axios"
 import { PATH } from "Constants/Path"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 import { Link, useHistory } from "react-router-dom"
 import { login } from "Redux/User/User.thunk"
-import { setOptionsLocalStorage } from "Utils/Converter"
-import { useDispatch } from "react-redux"
 import "./LoginPage.css"
 const LoginPage = () => {
     const [account, setAccount] = useState({ email: "", password: "" })
@@ -20,7 +17,9 @@ const LoginPage = () => {
     const onFinish = async values => {
         // console.log("Received values of form: ", values)
         // setAccount(values)
-        const isLogin = await dispatch(login(values))
+        const isLogin = await dispatch(
+            login({ email: values.email, password: values.password })
+        )
         console.log(
             `LHA:  ===> file: index.js ===> line 24 ===> isLogin`,
             isLogin

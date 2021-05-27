@@ -1,18 +1,15 @@
-const {
-    getOptionsLocalStorage,
-    setOptionsLocalStorage
-} = require("./Converter")
+const { getLS, setLS } = require("./Converter")
 
 export const emptyItemInLocalStorage = name => {
     try {
-        return Object.keys(getOptionsLocalStorage(name)).length === 0
+        return Object.keys(getLS(name)).length === 0
     } catch (error) {
         return true
     }
 }
 
 export const getTotalPriceOfCartInLocalStorage = () => {
-    const carts = getOptionsLocalStorage("carts")
+    const carts = getLS("carts")
     let totalPrice = 0
     // let countItem = 0
     carts.map(item => {
@@ -21,21 +18,21 @@ export const getTotalPriceOfCartInLocalStorage = () => {
     return totalPrice
 }
 export const getQtyOfCartInLocalStorage = () => {
-    const carts = getOptionsLocalStorage("carts")
+    const carts = getLS("carts")
     return carts.length
 }
 
 export const handleSaveCartItem = cartItem => {
-    let carts = getOptionsLocalStorage("carts")
+    let carts = getLS("carts")
     if (
         !carts.some(item => {
             return item.id === cartItem.id
         })
     ) {
         carts.push(cartItem)
-        setOptionsLocalStorage("carts", carts)
-        const reloadCarts = getOptionsLocalStorage("reloadCarts")
-        setOptionsLocalStorage("reloadCarts", !reloadCarts)
+        setLS("carts", carts)
+        const reloadCarts = getLS("reloadCarts")
+        setLS("reloadCarts", !reloadCarts)
     }
     return true
 }

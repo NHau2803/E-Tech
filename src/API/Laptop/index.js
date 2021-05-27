@@ -1,6 +1,6 @@
 import axiosClient from "API/ClientAxios"
 import { BASE_URL } from "API/URL"
-import { getOptionsLocalStorage } from "Utils/Converter"
+import { getLS } from "Utils/Converter"
 
 const LaptopAPI = {
     getForUpdate: async id => {
@@ -8,9 +8,7 @@ const LaptopAPI = {
             const url = BASE_URL + "/api/admin/products/laptop/update/" + id
             return axiosClient.get(url, {
                 headers: {
-                    Authorization: `Bearer ${getOptionsLocalStorage(
-                        "access_token"
-                    )}`
+                    Authorization: `Bearer ${getLS("access_token")}`
                 }
             })
         } catch (error) {
@@ -26,9 +24,7 @@ const LaptopAPI = {
             const url = BASE_URL + "/api/admin/products/laptop/index"
             return axiosClient.get(url, {
                 headers: {
-                    Authorization: `Bearer ${getOptionsLocalStorage(
-                        "access_token"
-                    )}`
+                    Authorization: `Bearer ${getLS("access_token")}`
                 }
             })
         } catch (error) {
@@ -44,9 +40,7 @@ const LaptopAPI = {
             const url = BASE_URL + "/api/admin/products/laptop/create"
             return axiosClient.post(url, data, {
                 headers: {
-                    Authorization: `Bearer ${getOptionsLocalStorage(
-                        "access_token"
-                    )}`
+                    Authorization: `Bearer ${getLS("access_token")}`
                 }
             })
         } catch (error) {
@@ -62,9 +56,7 @@ const LaptopAPI = {
             const url = BASE_URL + "/api/admin/products/laptop/update"
             return axiosClient.post(url, data, {
                 headers: {
-                    Authorization: `Bearer ${getOptionsLocalStorage(
-                        "access_token"
-                    )}`
+                    Authorization: `Bearer ${getLS("access_token")}`
                 }
             })
         } catch (error) {

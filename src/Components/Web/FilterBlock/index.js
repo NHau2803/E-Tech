@@ -9,7 +9,7 @@ import {
 } from "Constants/Data"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { setOptionsLocalStorage } from "Utils/Converter"
+import { setLS } from "Utils/Converter"
 import "./FilterBlock.css"
 const FilterBlock = () => {
     const { productType } = useParams()
@@ -101,7 +101,7 @@ const FilterBlock = () => {
             "🚀 ~ file: index.js ~ line 100 ~ useEffect ~ paramsRequest",
             JSON.stringify(paramsRequest)
         )
-        setOptionsLocalStorage("paramsRequest", paramsRequest)
+        setLS("paramsRequest", paramsRequest)
     }, [checkChange])
 
     const changeRecord = (type, id) => {

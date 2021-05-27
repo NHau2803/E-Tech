@@ -1,7 +1,8 @@
 import { PATH } from "Constants/Path"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { changePriceToVND, getOptionsLocalStorage } from "Utils/Converter"
-import { handleSaveCartItem } from "Utils/localStorageFunctions"
+import { addCart } from "Redux/Cart/Cart.reducer"
+import { changePriceToVND } from "Utils/Converter"
 
 const ProductBlock = props => {
     const {
@@ -16,7 +17,20 @@ const ProductBlock = props => {
         valueSale
     } = props
     // console.log("🚀 ~ file: index.js ~ line 6 ~ price", changePriceToVND(price))
-
+    //--------------------------giong nut ben kia--------
+    // const saveProductToLocalStorage = () => {
+    //     let cartItem = {
+    //         id: id,
+    //         image: image,
+    //         name: name,
+    //         price: price,
+    //         spec1: spec1,
+    //         spec2: spec2,
+    //         qty: 1
+    //     }
+    //     handleSaveCartItem(cartItem)
+    // }
+    const dispatch = useDispatch()
     const saveProductToLocalStorage = () => {
         let cartItem = {
             id: id,
@@ -27,7 +41,7 @@ const ProductBlock = props => {
             spec2: spec2,
             qty: 1
         }
-        handleSaveCartItem(cartItem)
+        dispatch(addCart(cartItem))
     }
 
     return (

@@ -7,55 +7,40 @@ import {
     UserAddOutlined,
     UserOutlined
 } from "@ant-design/icons"
+import Images from "Constants/Images"
 import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import {
-    changePriceToVND,
-    getOptionsLocalStorage,
-    setOptionsLocalStorage
-} from "Utils/Converter"
-import {
-    emptyItemInLocalStorage,
-    getQtyOfCartInLocalStorage,
-    getTotalPriceOfCartInLocalStorage
-} from "Utils/localStorageFunctions"
-import Images from "Constants/Images"
+    getTotalPriceBillSuccess,
+    getTotalPriceSuccess
+} from "Redux/Cart/Cart.reducer"
+import { getCartLS, setCartLS } from "Redux/Cart/Cart.thunk"
+import { getUserCookie, logoutUser } from "Redux/User/User.thunk"
+import { changePriceToVND } from "Utils/Converter"
 
-import { useDispatch } from "react-redux"
-import { logoutUser } from "Redux/User/User.thunk"
 const HeaderMain = () => {
+    const dispatch = useDispatch()
     const [toggleCart, setToggleCart] = useState(false)
     const [toggle, setToggle] = useState(false)
-    const [carts, setCarts] = useState(getOptionsLocalStorage("carts"))
-    const [totalPrice, setTotalPrice] = useState(0)
-    const [countItem, setCountItem] = useState(0)
-    const isEmptyItemInLocalStorage = emptyItemInLocalStorage("account")
-    const isAdmin = () => {
-        if (!isEmptyItemInLocalStorage) {
-            if (getOptionsLocalStorage("account").admin === 1) {
-                return true
-            }
-        }
-        return false
-    }
+    const carts = useSelector(state => state.CartReducer.carts)
+    const account = useSelector(state => state.UserReducer.user)
+    const admin = useSelector(state => state.UserReducer.admin)
+    const totalPrice = useSelector(state => state.CartReducer.totalPrice)
+    const countItem = carts && carts.length
 
     useEffect(() => {
-        setCarts(getOptionsLocalStorage("carts"))
-    }, [toggle])
+        dispatch(getCartLS())
+        dispatch(getTotalPriceBillSuccess())
+        dispatch(getTotalPriceSuccess())
+    }, [])
 
-    useEffect(() => {
-        setOptionsLocalStorage("carts", carts)
-        setTotalPrice(getTotalPriceOfCartInLocalStorage())
-        setCountItem(getQtyOfCartInLocalStorage())
-    }, [carts])
-
-    const handleRemove = id => {
-        setCarts(carts.filter(item => item.id !== id))
-        setOptionsLocalStorage("carts", carts)
+    const handleRemoveItem = id => {
+        dispatch(setCartLS(carts.filter(item => item.id !== id)))
+        dispatch(getTotalPriceSuccess())
     }
 
-    const dispatch = useDispatch()
     const logout = () => {
         dispatch(logoutUser())
     }
@@ -118,9 +103,10 @@ const HeaderMain = () => {
                                 <ul className="custom-menu">
                                     <li
                                         style={{
-                                            display: isAdmin()
-                                                ? "block"
-                                                : "none"
+                                            display:
+                                                admin && admin === 1
+                                                    ? "block"
+                                                    : "none"
                                         }}
                                     >
                                         <Link to="/admin/laptops">
@@ -158,7 +144,14 @@ const HeaderMain = () => {
                                             Yêu thích
                                         </Link>
                                     </li>
-                                    <li>
+                                    <li
+                                        style={{
+                                            display:
+                                                account !== null
+                                                    ? "none"
+                                                    : "block"
+                                        }}
+                                    >
                                         <Link to={PATH.SIGNUP}>
                                             <UserAddOutlined
                                                 style={{
@@ -170,7 +163,14 @@ const HeaderMain = () => {
                                             Tạo tài khoản
                                         </Link>
                                     </li>
-                                    <li>
+                                    <li
+                                        style={{
+                                            display:
+                                                account === null
+                                                    ? "none"
+                                                    : "block"
+                                        }}
+                                    >
                                         <Link to="/#" onClick={() => logout()}>
                                             <PoweroffOutlined
                                                 style={{
@@ -215,48 +215,53 @@ const HeaderMain = () => {
                                 {/* <CartComponent/> */}
                                 <div className="custom-menu">
                                     <div id="shopping-cart">
-                                        {carts.map(item => {
-                                            return (
-                                                <div
-                                                    className="shopping-cart-list"
-                                                    key={item.id}
-                                                >
-                                                    <div className="product product-widget">
-                                                        <div className="product-thumb">
-                                                            <img
-                                                                alt="Logo"
-                                                                src={item.image}
-                                                            ></img>
+                                        {carts &&
+                                            carts.map(item => {
+                                                return (
+                                                    <div
+                                                        className="shopping-cart-list"
+                                                        key={item.id}
+                                                    >
+                                                        <div className="product product-widget">
+                                                            <div className="product-thumb">
+                                                                <img
+                                                                    alt="Logo"
+                                                                    src={
+                                                                        item.image
+                                                                    }
+                                                                ></img>
+                                                            </div>
+                                                            <div className="product-body">
+                                                                <h2 className="product-name">
+                                                                    <Link
+                                                                        to={`${PATH.LAPTOP}/${item.id}`}
+                                                                    >
+                                                                        {
+                                                                            item.name
+                                                                        }
+                                                                    </Link>
+                                                                </h2>
+                                                                <p className="product-price">
+                                                                    {changePriceToVND(
+                                                                        item.price
+                                                                    )}
+                                                                    {/* <span className="qty">x1</span> */}
+                                                                </p>
+                                                            </div>
+                                                            <button
+                                                                className="cancel-btn"
+                                                                onClick={() =>
+                                                                    handleRemoveItem(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                <i className="fa fa-trash"></i>
+                                                            </button>
                                                         </div>
-                                                        <div className="product-body">
-                                                            <h2 className="product-name">
-                                                                <Link
-                                                                    to={`${PATH.LAPTOP}/${item.id}`}
-                                                                >
-                                                                    {item.name}
-                                                                </Link>
-                                                            </h2>
-                                                            <p className="product-price">
-                                                                {changePriceToVND(
-                                                                    item.price
-                                                                )}
-                                                                {/* <span className="qty">x1</span> */}
-                                                            </p>
-                                                        </div>
-                                                        <button
-                                                            className="cancel-btn"
-                                                            onClick={() =>
-                                                                handleRemove(
-                                                                    item.id
-                                                                )
-                                                            }
-                                                        >
-                                                            <i className="fa fa-trash"></i>
-                                                        </button>
                                                     </div>
-                                                </div>
-                                            )
-                                        })}
+                                                )
+                                            })}
                                         {/* Button => check out */}
                                         <div className="shopping-cart-btns">
                                             <Link

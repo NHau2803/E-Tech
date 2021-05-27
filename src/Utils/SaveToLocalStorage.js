@@ -22,7 +22,7 @@
 //     SPEC_VALUE_LAPTOP_WEIGHT,
 //     TYPE_PRODUCT_RENDER
 // } from "Constants/Data"
-// import { setOptionsLocalStorage } from "./Converter"
+// import { setLS } from "./Converter"
 
 // const saveToLocalStorage = res => {
 //     const isSaveDone = window.localStorage.getItem("isSaveDone")
@@ -30,10 +30,10 @@
 //         "🚀 ~ file: saveToLocalStorage.js ~ line 33 ~ isSaveDone",
 //         typeof isSaveDone
 //     )
-//     setOptionsLocalStorage("product_type", res.type)
+//     setLS("product_type", res.type)
 
-//     // setOptionsLocalStorage("product_type", res.laptop)
-//     // setOptionsLocalStorage("gpus", res.gpus)
+//     // setLS("product_type", res.laptop)
+//     // setLS("gpus", res.gpus)
 
 //     // if (isSaveDone === "false" || isSaveDone === undefined) {
 //     console.log(
@@ -43,16 +43,16 @@
 //     //     GetOptionsAPI.getOptions()
 //     //         .then(res => {
 //     //             console.log(res)
-//     //             // setOptionsLocalStorage("gpus", res.gpus)
-//     //             // setOptionsLocalStorage("cpus", res.cpus)
-//     //             // setOptionsLocalStorage("rams", res.rams)
-//     //             // setOptionsLocalStorage("roms", res.roms)
-//     //             // setOptionsLocalStorage("screens", res.screens)
-//     //             // setOptionsLocalStorage("ports", res.ports)
-//     //             // setOptionsLocalStorage("batteries", res.batteries)
-//     //             // setOptionsLocalStorage("SPEC_VALUE_LAPTOP_WEIGHT", res.weights)
-//     //             // setOptionsLocalStorage("SPEC_VALUE_LAPTOP_SIZE", res.sizes)
-//     //             // setOptionsLocalStorage("SPEC_VALUE_LAPTOP_OS", res.os)
+//     //             // setLS("gpus", res.gpus)
+//     //             // setLS("cpus", res.cpus)
+//     //             // setLS("rams", res.rams)
+//     //             // setLS("roms", res.roms)
+//     //             // setLS("screens", res.screens)
+//     //             // setLS("ports", res.ports)
+//     //             // setLS("batteries", res.batteries)
+//     //             // setLS("SPEC_VALUE_LAPTOP_WEIGHT", res.weights)
+//     //             // setLS("SPEC_VALUE_LAPTOP_SIZE", res.sizes)
+//     //             // setLS("SPEC_VALUE_LAPTOP_OS", res.os)
 //     //             // window.localStorage.setItem("isSaveDone", "true")
 //     //         })
 //     //         .catch(err => console.error(err))

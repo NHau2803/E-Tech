@@ -1,32 +1,22 @@
 // import RouteAdmin from "Routes/Admin"
 
 import LoaderComponent from "Components/Web/Common/Loader"
-
 import NotFoundComponent from "Components/Web/Common/NotFound"
-
+import Authentication from "HOC/BaseAuth"
 import TestAPI from "Pages/Admin/Test"
-
 import LoginPage from "Pages/Common/LoginPage"
-
 import SignupPage from "Pages/Common/SignUp"
-
 import { Suspense } from "react"
-
-import store from "./Redux/index"
 import { Provider } from "react-redux"
-
 import {
     BrowserRouter as Router,
     Redirect,
     Route,
     Switch
 } from "react-router-dom"
-
 import RouteAdmin from "Routes/Admin"
-
 import RouteWeb from "Routes/Web"
-
-import { getOptionsLocalStorage } from "Utils/Converter"
+import store from "./Redux/index"
 
 function App() {
     return (
@@ -40,6 +30,7 @@ function App() {
                             <Route
                                 exact
                                 path="/dang-nhap"
+                                s
                                 component={LoginPage}
                             />
 
@@ -50,13 +41,12 @@ function App() {
                             />
 
                             <Route
-                                path={
-                                    getOptionsLocalStorage("access_token") &&
-                                    getOptionsLocalStorage("account")
-                                        ? "/admin"
-                                        : "/not-found"
-                                }
-                                component={RouteAdmin}
+                                path={"/admin"}
+                                component={Authentication(
+                                    RouteAdmin,
+                                    true,
+                                    true
+                                )}
                             />
 
                             <Route path="/etech" component={RouteWeb} />

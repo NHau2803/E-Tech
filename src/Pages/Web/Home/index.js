@@ -1,38 +1,36 @@
-import RenderWeb from "API/RenderWeb"
-import BenefitComponent from "Components/Web/Benefit"
 import HeaderBanner from "Components/Web/Common/Header/HeaderBanner"
-import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
-import {
-    RENDER_CART,
-    RENDER_HOME,
-    RENDER_HOME_DEFAULT,
-    RENDER_LAPTOP_DETAIL_DEFAULT
-} from "Constants/Data"
-import { useEffect, useState } from "react"
-import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
-import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
-import GetOptionsAPI from "API/GetOptions"
+// import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { getCartLS } from "Redux/Cart/Cart.thunk"
 import { getProductApi } from "Redux/Product/Product.thunk"
-
+import { setLS } from "Utils/Converter"
+import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
+const SelectBlock = React.lazy(() =>
+    import("../../../Components/Web/Product/ProductShow/SelectBlock")
+)
 const HomePage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        if (emptyItemInLocalStorage("carts")) {
+            setLS("carts", [])
+        }
+        dispatch(getCartLS())
         dispatch(getProductApi())
     }, [])
-    const productList = useSelector(state => state.ProductReducer.products)
+    const products = useSelector(state => state.ProductReducer.products)
 
-    // const isEmptyItemInLocalStorage = emptyItemInLocalStorage("productList")
+    // const isEmptyItemInLocalStorage = emptyItemInLocalStorage("products")
     // const isEmptyOptions = emptyItemInLocalStorage("rams")
     // console.log(
     //     "🚀 ~ file: index.js ~ line 12 ~ HomePage ~ isEmptyItemInLocalStorage",
     //     isEmptyItemInLocalStorage
     // )
-    // const [productList, setProductList] = useState(
+    // const [products, setproducts] = useState(
     //     isEmptyItemInLocalStorage
     //         ? RENDER_HOME_DEFAULT
-    //         : getOptionsLocalStorage("productList")
+    //         : getLS("products")
     // )
     // useEffect(() => {
     //     window.scrollTo(0, 0)
@@ -42,8 +40,8 @@ const HomePage = () => {
     //                 "🚀 ~ file: index.js ~ line 18 ~ RenderWeb.get ~ res",
     //                 res
     //             )
-    //             setProductList(res)
-    //             setOptionsLocalStorage("productList", res)
+    //             setproducts(res)
+    //             setLS("products", res)
     //         })
     //     }
     //     if (isEmptyOptions) {
@@ -54,45 +52,45 @@ const HomePage = () => {
     //                         "🚀 ~ file: index.js ~ line 18 ~ GetOptionsAPI.getOptions ~ res",
     //                         res
     //                     )
-    //                     setOptionsLocalStorage("product_type", res.type)
+    //                     setLS("product_type", res.type)
     //                     /**Laptop**/
-    //                     setOptionsLocalStorage("cpus", res.laptop.cpus)
-    //                     setOptionsLocalStorage("gpus", res.laptop.gpus)
-    //                     setOptionsLocalStorage("rams", res.laptop.rams)
-    //                     setOptionsLocalStorage("roms", res.laptop.roms)
-    //                     setOptionsLocalStorage(
+    //                     setLS("cpus", res.laptop.cpus)
+    //                     setLS("gpus", res.laptop.gpus)
+    //                     setLS("rams", res.laptop.rams)
+    //                     setLS("roms", res.laptop.roms)
+    //                     setLS(
     //                         "batteries",
     //                         res.laptop.batteries
     //                     )
-    //                     setOptionsLocalStorage(
+    //                     setLS(
     //                         "laptop_brand",
     //                         res.laptop.brands
     //                     )
-    //                     setOptionsLocalStorage("os", res.laptop.os)
-    //                     setOptionsLocalStorage("ports", res.laptop.ports)
-    //                     setOptionsLocalStorage("screens", res.laptop.screens)
-    //                     setOptionsLocalStorage("sizes", res.laptop.sizes)
-    //                     setOptionsLocalStorage("weights", res.laptop.weights)
-    //                     setOptionsLocalStorage("rams", res.laptop.rams)
+    //                     setLS("os", res.laptop.os)
+    //                     setLS("ports", res.laptop.ports)
+    //                     setLS("screens", res.laptop.screens)
+    //                     setLS("sizes", res.laptop.sizes)
+    //                     setLS("weights", res.laptop.weights)
+    //                     setLS("rams", res.laptop.rams)
     //                     /**Drive**/
-    //                     setOptionsLocalStorage("drive_brand", res.drive.brands)
-    //                     setOptionsLocalStorage("caches", res.drive.caches)
-    //                     setOptionsLocalStorage(
+    //                     setLS("drive_brand", res.drive.brands)
+    //                     setLS("caches", res.drive.caches)
+    //                     setLS(
     //                         "capacities",
     //                         res.drive.capacities
     //                     )
-    //                     setOptionsLocalStorage(
+    //                     setLS(
     //                         "connections",
     //                         res.drive.connections
     //                     )
-    //                     setOptionsLocalStorage(
+    //                     setLS(
     //                         "dimensions",
     //                         res.drive.dimensions
     //                     )
-    //                     setOptionsLocalStorage("reads", res.drive.reads)
-    //                     setOptionsLocalStorage("rotations", res.drive.rotations)
-    //                     setOptionsLocalStorage("types", res.drive.types)
-    //                     setOptionsLocalStorage("writes", res.drive.writes)
+    //                     setLS("reads", res.drive.reads)
+    //                     setLS("rotations", res.drive.rotations)
+    //                     setLS("types", res.drive.types)
+    //                     setLS("writes", res.drive.writes)
     //                 }
     //             })
     //             .catch(err => {
@@ -103,7 +101,7 @@ const HomePage = () => {
     return (
         <div>
             <HeaderBanner />
-            {productList.map(item => {
+            {products.map(item => {
                 return (
                     <SelectBlock
                         key={item.id}
@@ -113,7 +111,7 @@ const HomePage = () => {
                     />
                 )
             })}
-            <BenefitComponent />
+            {/* <BenefitComponent /> */}
         </div>
     )
 }

@@ -1,70 +1,56 @@
 import { InputNumber, notification } from "antd"
 import CartAPI from "API/Cart"
 import { PATH } from "Constants/Path"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useHistory } from "react-router-dom"
 import {
-    changePriceToVND,
-    getOptionsLocalStorage,
-    setOptionsLocalStorage
-} from "Utils/Converter"
+    changeQty,
+    getTotalPriceBillSuccess,
+    getTotalPriceSuccess
+} from "Redux/Cart/Cart.reducer"
+import { getCartLS, saveCartApi, setCartLS } from "Redux/Cart/Cart.thunk"
+import { getUserCookie } from "Redux/User/User.thunk"
+import { changePriceToVND } from "Utils/Converter"
 import { removeCacheLocalStorage } from "Utils/localStorageFunctions"
 // import "./styles.css";
 const CheckOut = () => {
-    const [cart, setCart] = useState(getOptionsLocalStorage("carts"))
-    const [account, setAccount] = useState(getOptionsLocalStorage("account"))
+    // const [cart, setCart] = useState(getLS("carts"))
+    const dispatch = useDispatch()
+    const account = useSelector(state => state.UserReducer.user)
+    const carts = useSelector(state => state.CartReducer.carts)
+    // const totalPrice = useSelector(state => state.CartReducer.totalPrice)
+    const totalPriceBill = useSelector(
+        state => state.CartReducer.totalPriceBill
+    )
     const history = useHistory()
     const redirectHome = () => history.push("/etech")
-    console.log("🚀 ~ file: index.js ~ line 17 ~ CheckOut ~ account", account)
+    // console.log("🚀 ~ file: index.js ~ line 17 ~ CheckOut ~ account", account)
 
     useEffect(() => {
-        setOptionsLocalStorage("carts", cart)
-    }, [cart])
-
-    useEffect(() => {
-        let productIds = []
-        cart.map(item => productIds.push(item.id))
-        console.log("🚀 ~ file: index.js ~ line 17 ~ useEffect ~ cart", cart)
-        console.log(
-            "🚀 ~ file: index.js ~ line 17 ~ useEffect ~ productIds",
-            productIds
-        )
-        // CartAPI.getCartInfo({ id: productIds }).then(res => setCart(res))
-    })
+        dispatch(getUserCookie())
+        dispatch(getCartLS())
+        dispatch(getTotalPriceSuccess())
+        dispatch(getTotalPriceBillSuccess())
+    }, [])
 
     const handleRemoveItem = id => {
-        //setReload(!reload)
-        setCart(cart.filter(item => item.id !== id))
-        setOptionsLocalStorage("carts", cart)
+        dispatch(setCartLS(carts.filter(item => item.id !== id)))
+        dispatch(getTotalPriceSuccess())
+        dispatch(getTotalPriceBillSuccess())
     }
-
-    const getTotal = () => {
-        let totalPrice = 0
-        cart.map(item => {
-            // console.log(
-            //     "🚀 ~ file: index.js ~ line 33 ~ useEffect ~ cart",
-            //     cart
-            // )
-            totalPrice += item.price * item.qty
-        })
-        // setBill({totalPrice: totalPrice, shipPrice: 0, total: 0})
-
-        return totalPrice
-    }
-
-    useEffect(() => {
-        getTotal()
-    }, [cart])
 
     const onChangeQty = (id, e) => {
-        cart.map(item => item.id === parseInt(id) && (item.qty = e))
-        setCart([...cart], cart)
+        dispatch(changeQty({ id, e }))
+        dispatch(getTotalPriceBillSuccess())
     }
 
     const handlePay = () => {
         let order = []
         console.log("=========")
-        cart.map(item => order.push({ id: item.id, qty: item.qty }))
+        carts.map(item => order.push({ id: item.id, qty: item.qty }))
+        dispatch(saveCartApi(order))
+
         CartAPI.saveCart({ order: order }).then(res => {
             console.log(res)
             if (res.notify && res.notify) {
@@ -104,7 +90,7 @@ const CheckOut = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {cart.map(item => {
+                                        {carts.map(item => {
                                             return (
                                                 <tr key={item.id}>
                                                     <td className="thumb">
@@ -199,7 +185,7 @@ const CheckOut = () => {
                                         type="text"
                                         name="name"
                                         placeholder="Họ Tên"
-                                        value={account.name || ""}
+                                        value={(account && account.name) || ""}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -208,7 +194,9 @@ const CheckOut = () => {
                                         type="text"
                                         name="address"
                                         placeholder="Địa chỉ"
-                                        value={account.address || ""}
+                                        value={
+                                            (account && account.address) || ""
+                                        }
                                     />
                                 </div>
                                 <div className="form-group">
@@ -217,7 +205,7 @@ const CheckOut = () => {
                                         type="text"
                                         name="email"
                                         placeholder="Email"
-                                        value={account.email || ""}
+                                        value={(account && account.email) || ""}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -226,7 +214,7 @@ const CheckOut = () => {
                                         type="text"
                                         name="phone"
                                         placeholder="Số điện thoại"
-                                        value={account.phone || ""}
+                                        value={(account && account.phone) || ""}
                                     />
                                 </div>
 
@@ -272,7 +260,7 @@ const CheckOut = () => {
                                             <td>
                                                 <h3>
                                                     {changePriceToVND(
-                                                        getTotal()
+                                                        totalPriceBill
                                                     )}
                                                 </h3>
                                             </td>
@@ -292,7 +280,7 @@ const CheckOut = () => {
                                             <td>
                                                 <h3>
                                                     {changePriceToVND(
-                                                        getTotal()
+                                                        totalPriceBill
                                                     )}
                                                 </h3>
                                             </td>

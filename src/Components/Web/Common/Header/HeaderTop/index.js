@@ -1,22 +1,25 @@
 // import { useEffect, useState } from "react"
-// import { getOptionsLocalStorage } from "Utils/Converter"
+// import { getLS } from "Utils/Converter"
 // import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
-import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getUserCookie } from "Redux/User/User.thunk"
 const HeaderTop = () => {
-    // const [username, setUsername] = useState("Bạn")
-    const user = useSelector(state => state.UserReducer.user)
-    // useEffect(() => {
-    //     if (!emptyItemInLocalStorage("account")) {
-    //         setUsername(getOptionsLocalStorage("account").name)
-    //     }
-    // }, [])
+    const dispatch = useDispatch()
+    const account = useSelector(state => state.UserReducer.user)
+
+    useEffect(() => {
+        console.log("HeaderTop")
+        dispatch(getUserCookie())
+    }, [])
+
     return (
         <div id="top-header">
             <div className="container">
                 <div className="pull-left">
                     <span>
-                        Hello {(user && user.name) || "Bạn"} | E-shop vững tin
-                        mua hàng!
+                        Hello {(account && account.name) || "Bạn"} | E-shop vững
+                        tin mua hàng!
                     </span>
                 </div>
 

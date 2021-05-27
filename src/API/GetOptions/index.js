@@ -1,6 +1,6 @@
 import axiosClient from "API/ClientAxios"
 import { BASE_URL } from "API/URL"
-import { getOptionsLocalStorage } from "Utils/Converter"
+import { getLS } from "Utils/Converter"
 
 const GetOptionsAPI = {
     getOptions: () => {
@@ -8,9 +8,7 @@ const GetOptionsAPI = {
             const url = BASE_URL + "/api/admin/products/spec_list"
             return axiosClient.get(url, {
                 headers: {
-                    Authorization: `Bearer ${getOptionsLocalStorage(
-                        "access_token"
-                    )}`
+                    Authorization: `Bearer ${getLS("access_token")}`
                 }
             })
         } catch (error) {

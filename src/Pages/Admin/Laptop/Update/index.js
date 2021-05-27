@@ -9,7 +9,7 @@ import { LIST_RENDER_DEFAULT, TYPE_CUSTOM_FIELD } from "Constants/Data"
 import { VALIDATE_MESSAGES } from "Constants/Validate"
 import { useEffect } from "react"
 import { useHistory, useParams } from "react-router-dom"
-import { getOptionsLocalStorage } from "Utils/Converter"
+import { getLS } from "Utils/Converter"
 
 const layout = {
     labelCol: { span: 8 },
@@ -100,8 +100,7 @@ const UpdateLaptopPage = () => {
                             disabled={!isAddMode ? true : false}
                             initialValue={info.type_id || ""}
                             options={
-                                getOptionsLocalStorage("product_type") ||
-                                LIST_RENDER_DEFAULT
+                                getLS("product_type") || LIST_RENDER_DEFAULT
                             }
                             rules={[{ required: true }]}
                         />
@@ -110,8 +109,7 @@ const UpdateLaptopPage = () => {
                             label={"Hãng sản phẩm"}
                             initialValue={info.brand_id || ""}
                             options={
-                                getOptionsLocalStorage("laptop_brand") ||
-                                LIST_RENDER_DEFAULT
+                                getLS("laptop_brand") || LIST_RENDER_DEFAULT
                             }
                             rules={[{ required: true }]}
                         />
@@ -171,100 +169,70 @@ const UpdateLaptopPage = () => {
                             name={"cpu_id"}
                             label={"Vi xử lí"}
                             initialValue={spec.cpu_id || ""}
-                            options={
-                                getOptionsLocalStorage("cpus") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("cpus") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"ram_id"}
                             label={"Ram"}
                             initialValue={spec.ram_id || ""}
-                            options={
-                                getOptionsLocalStorage("rams") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("rams") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"rom_id"}
                             label={"Lưu trữ"}
                             initialValue={spec.rom_id || ""}
-                            options={
-                                getOptionsLocalStorage("roms") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("roms") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"gpu_id"}
                             label={"Card đồ họa"}
                             initialValue={spec.gpu_id || ""}
-                            options={
-                                getOptionsLocalStorage("gpus") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("gpus") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"screen_id"}
                             label={"Kích thướt màn hình"}
                             initialValue={spec.screen_id || ""}
-                            options={
-                                getOptionsLocalStorage("sizes") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("sizes") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"port_id"}
                             label={"Kết nối chính"}
                             initialValue={spec.port_id || ""}
-                            options={
-                                getOptionsLocalStorage("ports") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("ports") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"battery_id"}
                             label={"PIN"}
                             initialValue={spec.battery_id || ""}
-                            options={
-                                getOptionsLocalStorage("batteries") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("batteries") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"weight_id"}
                             label={"Trọng lượng"}
                             initialValue={spec.weight_id || ""}
-                            options={
-                                getOptionsLocalStorage("weights") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("weights") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"size_id"}
                             label={"Kích thước"}
                             initialValue={spec.size_id || ""}
-                            options={
-                                getOptionsLocalStorage("sizes") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("sizes") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"os_id"}
                             label={"Hệ điều hành"}
                             initialValue={spec.os_id || ""}
-                            options={
-                                getOptionsLocalStorage("os") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("os") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                     </Col>

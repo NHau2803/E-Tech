@@ -1,30 +1,47 @@
-import ProductsAPI from "API/Products"
 import BreadcrumbComponent from "Components/Web/Breadcrumb"
 import ProductDetail from "Components/Web/Product/ProductDetail"
 import ProductViewImage from "Components/Web/Product/ProductDetail/ProductViewImage"
 import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
 import ProductTab from "Components/Web/Product/ProductTab"
 import { RENDER_LAPTOP_DETAIL_DEFAULT, TYPE_PRODUCT } from "Constants/Data"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
-import { getOptionsLocalStorage } from "Utils/Converter"
+import { getProductApi, getProductDetailApi } from "Redux/Product/Product.thunk"
 
 // const ProductDetail = React.lazy(() =>
 //     import("../../../Components/Web/Product/ProductDetail")
 // )
 
-const ProductDetailPage = props => {
+const ProductDetailPage = () => {
     const { productType, productId } = useParams()
     const history = useHistory()
-    const redirectNotFound = () => history.push("/not-found")
-    const [productDetail, setProductDetail] = useState([])
+    const dispatch = useDispatch()
+
+    const products = useSelector(state => state.ProductReducer.products)
+    const productDetail = useSelector(
+        state => state.ProductReducer.productDetail
+    )
+    const is404 = useSelector(state => state.ProductReducer.is404)
+    console.log(
+        "🚀 ~ file: index.js ~ line 28 ~ ProductDetailPage ~ is404",
+        is404
+    )
+    if (is404) {
+        history.push("/not-found")
+    }
+
     console.log("🚀 ~ file: index.js ~ line 32 ~ productDetail", productDetail)
 
-    const [products, setProducts] = useState(
-        getOptionsLocalStorage("productList")
-            .sort((a, b) => b - a)
-            .slice(0, 5)
-    )
+    // const [products, setProducts] = useState(
+    //     getLS("productList")
+    //         .sort((a, b) => b - a)
+    //         .slice(0, 5)
+    // )
+
+    useEffect(() => {
+        dispatch(getProductApi())
+    }, [])
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -32,12 +49,9 @@ const ProductDetailPage = props => {
             !isNaN(productId) &&
             Object.values(TYPE_PRODUCT).includes(productType)
         ) {
-            ProductsAPI.getProductDetail(productType, productId).then(res => {
-                console.log(res)
-                setProductDetail(res)
-            })
+            dispatch(getProductDetailApi(productType, productId))
         } else {
-            redirectNotFound()
+            history.push("/not-found")
         }
     }, [productId])
 
@@ -80,6 +94,7 @@ const ProductDetailPage = props => {
                     <SelectBlock
                         key={item.id}
                         selectBlockTitle={item.brand}
+                        brandId={item.id}
                         products={item.result}
                     />
                 )

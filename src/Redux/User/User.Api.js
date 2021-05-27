@@ -2,7 +2,6 @@ import axiosClient from "../../API/ClientAxios"
 
 const url = "api/"
 
-//api/login
 const login = async body => {
     try {
         const resApi = await axiosClient.post(`${url}login`, body)
@@ -18,6 +17,31 @@ const login = async body => {
         return {
             success: false,
             data: {}
+        }
+    } catch (err) {
+        console.log(err)
+        return {
+            success: false,
+            data: {}
+        }
+    }
+}
+
+const signup = async body => {
+    try {
+        const resApi = await axiosClient.post(`${url}register`, body)
+        console.log(
+            `LHA:  ===> file: User.Api.js ===> line 8 ===> resApi`,
+            resApi
+        )
+        if (resApi && resApi.success)
+            return {
+                success: true,
+                data: resApi
+            }
+        return {
+            success: false,
+            data: resApi
         }
     } catch (err) {
         console.log(err)
@@ -50,6 +74,7 @@ const getAuth = async () => {
 }
 
 const UserApi = {
-    login
+    login,
+    signup
 }
 export default UserApi

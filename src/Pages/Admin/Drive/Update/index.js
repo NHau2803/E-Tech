@@ -14,7 +14,7 @@ import { VALIDATE_MESSAGES } from "Constants/Validate"
 import { useEffect } from "react"
 import { useHistory, useParams } from "react-router-dom"
 import { checkDiveType } from "Utils/CheckType"
-import { getOptionsLocalStorage } from "Utils/Converter"
+import { getLS } from "Utils/Converter"
 
 const layout = {
     labelCol: { span: 8 },
@@ -109,8 +109,7 @@ const UpdateDrivePage = () => {
                             disabled={!isAddMode ? true : false}
                             initialValue={info.type_id || ""}
                             options={
-                                getOptionsLocalStorage("product_type") ||
-                                LIST_RENDER_DEFAULT
+                                getLS("product_type") || LIST_RENDER_DEFAULT
                             }
                             rules={[{ required: true }]}
                         />
@@ -119,8 +118,7 @@ const UpdateDrivePage = () => {
                             label={"Hãng sản phẩm"}
                             initialValue={info.brand_id || ""}
                             options={
-                                getOptionsLocalStorage("laptop_brand") ||
-                                LIST_RENDER_DEFAULT
+                                getLS("laptop_brand") || LIST_RENDER_DEFAULT
                             }
                             rules={[{ required: true }]}
                         />
@@ -182,10 +180,7 @@ const UpdateDrivePage = () => {
                             initialValue={
                                 !isAddMode ? spec.drive_type_id || "" : ""
                             }
-                            options={
-                                getOptionsLocalStorage("types") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("types") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
@@ -194,10 +189,7 @@ const UpdateDrivePage = () => {
                             initialValue={
                                 !isAddMode ? spec.capacity_id || "" : ""
                             }
-                            options={
-                                getOptionsLocalStorage("capacities") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("capacities") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
@@ -207,8 +199,7 @@ const UpdateDrivePage = () => {
                                 !isAddMode ? spec.connect_id || "" : ""
                             }
                             options={
-                                getOptionsLocalStorage("connections") ||
-                                LIST_RENDER_DEFAULT
+                                getLS("connections") || LIST_RENDER_DEFAULT
                             }
                             rules={[{ required: true }]}
                         />
@@ -218,30 +209,21 @@ const UpdateDrivePage = () => {
                             initialValue={
                                 !isAddMode ? spec.dimension_id || "" : ""
                             }
-                            options={
-                                getOptionsLocalStorage("dimensions") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("dimensions") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"read_id"}
                             label={"Tốc độ đọc"}
                             initialValue={!isAddMode ? spec.read_id || "" : ""}
-                            options={
-                                getOptionsLocalStorage("reads") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("reads") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
                             name={"write_id"}
                             label={"Tốc độ ghi"}
                             initialValue={!isAddMode ? spec.write_id || "" : ""}
-                            options={
-                                getOptionsLocalStorage("writes") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("writes") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                         />
                         <SelectField
@@ -250,10 +232,7 @@ const UpdateDrivePage = () => {
                             initialValue={
                                 !isAddMode ? spec.rotation_id || "" : ""
                             }
-                            options={
-                                getOptionsLocalStorage("rotations") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("rotations") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                             disabled={
                                 checkDiveType(spec.drive_type_id) ===
@@ -266,10 +245,7 @@ const UpdateDrivePage = () => {
                             name={"cache_id"}
                             label={"Bộ nhớm đệm"}
                             initialValue={!isAddMode ? spec.cache_id || "" : ""}
-                            options={
-                                getOptionsLocalStorage("caches") ||
-                                LIST_RENDER_DEFAULT
-                            }
+                            options={getLS("caches") || LIST_RENDER_DEFAULT}
                             rules={[{ required: true }]}
                             disabled={
                                 checkDiveType(spec.drive_type_id) ===

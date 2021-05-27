@@ -1817,3 +1817,9 @@ textarea.input {
   opacity: 0;
   content: "";
 }
+
+.ant-spin-nested-loading > div > .ant-spin{
+  position: fixed;
+  transform: translateY(-50%);
+  top: 50%;
+}

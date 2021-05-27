@@ -5,18 +5,18 @@
 // import { Link } from "react-router-dom"
 // import {
 //     changePriceToVND,
-//     getOptionsLocalStorage,
-//     setOptionsLocalStorage
+//     getLS,
+//     setLS
 // } from "Utils/Converter"
 
 // const CartComponent = () => {
-//     const [carts, setCarts] = useState(getOptionsLocalStorage("carts"))
+//     const [carts, setCarts] = useState(getLS("carts"))
 
 //     const handleRemove = id => {
 //         setCarts(carts.filter(item => item.id !== id))
 //     }
 //     useEffect(() => {
-//         setOptionsLocalStorage("carts", carts)
+//         setLS("carts", carts)
 //     }, [carts])
 
 //     return (

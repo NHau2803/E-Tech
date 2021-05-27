@@ -1,48 +1,12 @@
-import { Button, Checkbox, Form, Input, Select } from "antd"
-import { BASE_URL } from "API/URL"
-import axios from "axios"
+import { Button, Checkbox, Form, Input, notification, Select } from "antd"
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import { useHistory } from "react-router"
-import { setOptionsLocalStorage } from "Utils/Converter"
+import { login, signup } from "Redux/User/User.thunk"
 import "./SignUpPage.css"
-
 const { Option } = Select
-// const residences = [
-//     {
-//         value: "Hà Nội",
-//         label: "Hà Nội",
-//         children: [
-//             {
-//                 value: "Quận",
-//                 label: "Quận"
-//                 // children: [
-//                 //     {
-//                 //         value: "Đường",
-//                 //         label: "Đường"
-//                 //     }
-//                 // ]
-//             }
-//         ]
-//     },
-//     {
-//         value: "Thành Phố Hồ Chí Minh",
-//         label: "Thành Phố Hồ Chí Minh",
-//         children: [
-//             {
-//                 value: "Quận",
-//                 label: "Quận"
-//                 // children: [
-//                 //     {
-//                 //         value: "Đường",
-//                 //         label: "Đường"
-//                 //     }
-//                 // ]
-//             }
-//         ]
-//     }
-// ]
 
-const tailFormItemLayout = {
+const FormItemLayout = {
     wrapperCol: {
         xs: {
             span: 24,
@@ -72,7 +36,7 @@ const formItemLayout = {
         }
     }
 }
-const tailLayout = {
+const Layout = {
     wrapperCol: {
         offset: 4,
         span: 16
@@ -85,53 +49,44 @@ const SignupPage = () => {
     }
     const history = useHistory()
     const redirectHomePage = () => history.push("/etech")
-    const onFinish = values => {
-        const signin = {
+    const dispatch = useDispatch()
+    const onFinish = async values => {
+        const body = {
             name: values.name,
             email: values.email,
             password: values.password,
             phone: values.phone,
             address: values.address
         }
-        axios
-            .post(BASE_URL + "/api/register", signin)
-            .then(res => {
-                console.log(
-                    "🚀 ~ file: index.js ~ line 18 ~ LoginPage ~ res",
-                    res.data
-                )
-                if (res.data.date && res.data.success === true) {
-                    let account = {
-                        address: res.data.date.address,
-                        admin: 0,
-                        email: res.data.date.email,
-                        name: res.data.date.name,
-                        phone: res.data.date.phone
-                    }
-
-                    setOptionsLocalStorage("account", account)
-                    redirectHomePage()
-                }
-                if (res.data.error) {
-                    // notification.error({
-                    //     message: "Thông báo",
-                    //     description: "Đăng kí thất bại"
-                    // })
-                    form.setFields([
-                        {
-                            name: "email",
-                            errors: ["Đã tồn tại email này!"]
-                        }
-                    ])
-                }
-            })
-            .catch(
-                err => console.log(err)
-                // notification.error({
-                //     message: "a",
-                //     description: message
-                // })
+        const res = await dispatch(signup(body))
+        console.log("🚀 ~ file: index.js ~ line 63 ~ SignupPage ~ res", res)
+        if (res.data.date && res.data.success === true) {
+            const isLogin = dispatch(
+                login({
+                    email: res.data.date.email,
+                    password: res.data.date.password
+                })
             )
+            if (isLogin) {
+                notification.success({
+                    message: "Thông báo",
+                    description: "Đăng kí thành công!"
+                })
+                redirectHomePage()
+            }
+        }
+        if (res.data.error) {
+            notification.error({
+                message: "Thông báo",
+                description: "Đăng kí thất bại!"
+            })
+            form.setFields([
+                {
+                    name: "email",
+                    errors: ["Đã tồn tại email này!"]
+                }
+            ])
+        }
     }
 
     const prefixSelector = (
@@ -171,7 +126,7 @@ const SignupPage = () => {
                     onFinish={onFinish}
                     scrollToFirstError
                 >
-                    <Form.Item {...tailFormItemLayout}>
+                    <Form.Item {...FormItemLayout}>
                         <h1>Đăng Ký</h1>
                     </Form.Item>
 
@@ -285,6 +240,10 @@ const SignupPage = () => {
                             {
                                 max: 10,
                                 message: "Số điện thoại không lớn hơn 10"
+                            },
+                            {
+                                min: 10,
+                                message: "Số điện thoại không nhỏ hơn 10"
                             }
                         ]}
                     >
@@ -309,7 +268,7 @@ const SignupPage = () => {
                                           )
                             }
                         ]}
-                        {...tailFormItemLayout}
+                        {...FormItemLayout}
                     >
                         <Checkbox>
                             Tôi đã đọc thỏa thuận.
@@ -319,7 +278,7 @@ const SignupPage = () => {
                         </Checkbox>
                     </Form.Item>
 
-                    <Form.Item {...tailFormItemLayout}>
+                    <Form.Item {...FormItemLayout}>
                         <Button
                             htmlType="submit"
                             type="primary"

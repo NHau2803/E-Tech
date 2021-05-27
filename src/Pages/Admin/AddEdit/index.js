@@ -16,7 +16,7 @@ import { VALIDATE_MESSAGES } from "Constants/Validate"
 import { useEffect } from "react"
 import { useHistory, useParams } from "react-router-dom"
 import { checkDiveType } from "Utils/CheckType"
-import { getOptionsLocalStorage } from "Utils/Converter"
+import { getLS } from "Utils/Converter"
 import "./AddEditPage.css"
 
 const axios = require("axios")
@@ -131,91 +131,70 @@ const AddEditPage = () => {
                     name={"cpu_id"}
                     label={"Vi xử lí"}
                     initialValue={spec.cpu || ""}
-                    options={
-                        getOptionsLocalStorage("cpus") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("cpus") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"ram_id"}
                     label={"Ram"}
                     initialValue={spec.ram || ""}
-                    options={
-                        getOptionsLocalStorage("rams") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("rams") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"rom_id"}
                     label={"Lưu trữ"}
                     initialValue={spec.rom || ""}
-                    options={
-                        getOptionsLocalStorage("roms") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("roms") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"gpu_id"}
                     label={"Card đồ họa"}
                     initialValue={spec.gpu || ""}
-                    options={
-                        getOptionsLocalStorage("gpus") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("gpus") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"screen_id"}
                     label={"Kích thướt màn hình"}
                     initialValue={spec.screen || ""}
-                    options={
-                        getOptionsLocalStorage("sizes") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("sizes") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"port_id"}
                     label={"Kết nối chính"}
                     initialValue={spec.port || ""}
-                    options={
-                        getOptionsLocalStorage("ports") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("ports") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"battery_id"}
                     label={"PIN"}
                     initialValue={spec.battery || ""}
-                    options={
-                        getOptionsLocalStorage("batteries") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("batteries") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"weight_id"}
                     label={"Trọng lượng"}
                     initialValue={spec.weight || ""}
-                    options={
-                        getOptionsLocalStorage("weights") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("weights") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"size_id"}
                     label={"Kích thước"}
                     initialValue={spec.size || ""}
-                    options={
-                        getOptionsLocalStorage("sizes") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("sizes") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"os_id"}
                     label={"Hệ điều hành"}
                     initialValue={spec.os || ""}
-                    options={
-                        getOptionsLocalStorage("os") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("os") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
             </Col>
@@ -228,67 +207,49 @@ const AddEditPage = () => {
                     name={"drive_type_id"}
                     label={"Kiểu ổ cứng"}
                     initialValue={!isAddMode ? spec.drive_type_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("types") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("types") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"capacity_id"}
                     label={"Dung lượng"}
                     initialValue={!isAddMode ? spec.capacity_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("capacities") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("capacities") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"connect_id"}
                     label={"Kết nối"}
                     initialValue={!isAddMode ? spec.connect_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("connections") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("connections") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"dimension_id"}
                     label={"Kích thướt"}
                     initialValue={!isAddMode ? spec.dimension_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("dimensions") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("dimensions") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"read_id"}
                     label={"Tốc độ đọc"}
                     initialValue={!isAddMode ? spec.read_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("reads") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("reads") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"write_id"}
                     label={"Tốc độ ghi"}
                     initialValue={!isAddMode ? spec.write_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("writes") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("writes") || LIST_RENDER_DEFAULT}
                     rules={[{ required: true }]}
                 />
                 <SelectField
                     name={"rotation_id"}
                     label={"Tốc độ quay"}
                     initialValue={!isAddMode ? spec.rotation_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("rotations") ||
-                        LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("rotations") || LIST_RENDER_DEFAULT}
                     rules={
                         checkDiveType(spec.drive_type_id) === TYPE_DRIVE.IS_SSD
                             ? []
@@ -304,9 +265,7 @@ const AddEditPage = () => {
                     name={"cache_id"}
                     label={"Bộ nhớm đệm"}
                     initialValue={!isAddMode ? spec.cache_id || "" : ""}
-                    options={
-                        getOptionsLocalStorage("caches") || LIST_RENDER_DEFAULT
-                    }
+                    options={getLS("caches") || LIST_RENDER_DEFAULT}
                     rules={
                         checkDiveType(spec.drive_type_id) === TYPE_DRIVE.IS_SSD
                             ? []
@@ -349,18 +308,18 @@ const AddEditPage = () => {
         if (isAddMode && info !== undefined) {
             switch (info.type_id) {
                 case 1:
-                    return getOptionsLocalStorage("laptop_brand")
+                    return getLS("laptop_brand")
                 case 2:
-                    return getOptionsLocalStorage("drive_brand")
+                    return getLS("drive_brand")
                 default:
                     break
             }
         } else {
             switch (productType) {
                 case TYPE_PRODUCT.LAPTOP:
-                    return getOptionsLocalStorage("laptop_brand")
+                    return getLS("laptop_brand")
                 case TYPE_PRODUCT.DRIVE:
-                    return getOptionsLocalStorage("drive_brand")
+                    return getLS("drive_brand")
                 default:
                     break
             }
@@ -391,8 +350,7 @@ const AddEditPage = () => {
                             disabled={!isAddMode ? true : false}
                             initialValue={info.type_id || ""}
                             options={
-                                getOptionsLocalStorage("product_type") ||
-                                LIST_RENDER_DEFAULT
+                                getLS("product_type") || LIST_RENDER_DEFAULT
                             }
                             rules={[{ required: true }]}
                         />

@@ -1,5 +1,8 @@
 // import { useEffect } from "react"
-import ProductBlock from "../ProductBlock"
+
+import React from "react"
+
+const ProductBlock = React.lazy(() => import("../ProductBlock"))
 // import Slider from "react-slick"
 
 const SelectBlock = props => {

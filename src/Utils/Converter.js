@@ -1,8 +1,8 @@
-export const getOptionsLocalStorage = name => {
+export const getLS = name => {
     return JSON.parse(window.localStorage.getItem(name))
 }
 
-export const setOptionsLocalStorage = (name, data) => {
+export const setLS = (name, data) => {
     return window.localStorage.setItem(name, JSON.stringify(data))
 }
 

@@ -2,10 +2,10 @@ import RenderWeb from "API/RenderWeb"
 import BreadcrumbComponent from "Components/Web/Breadcrumb"
 import FilterBlock from "Components/Web/FilterBlock"
 import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
-import { RENDER_HOME, RENDER_HOME_DEFAULT } from "Constants/Data"
+import { RENDER_HOME_DEFAULT } from "Constants/Data"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { getOptionsLocalStorage, setOptionsLocalStorage } from "Utils/Converter"
+import { getLS, setLS } from "Utils/Converter"
 import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
 
 const ProductFilter = () => {
@@ -17,9 +17,7 @@ const ProductFilter = () => {
         isEmptyItemInLocalStorage
     )
     const [productList, setProductList] = useState(
-        isEmptyItemInLocalStorage
-            ? RENDER_HOME_DEFAULT
-            : getOptionsLocalStorage("productList")
+        isEmptyItemInLocalStorage ? RENDER_HOME_DEFAULT : getLS("productList")
     )
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -30,18 +28,18 @@ const ProductFilter = () => {
                     res
                 )
                 setProductList(res)
-                setOptionsLocalStorage("productList", res)
+                setLS("productList", res)
             })
         }
     }, [])
 
-    // const [carts, setCarts] = useState(getOptionsLocalStorage("carts"))
+    // const [carts, setCarts] = useState(getLS("carts"))
     // useEffect(() => {
     //     window.scrollTo(0, 0)
     //     if (isEmptyItemInLocalStorage) {
     //         RenderWeb.get().then(res => {
     //             setProductList(res)
-    //             setOptionsLocalStorage("productList", res)
+    //             setLS("productList", res)
     //         })
     //     }
 
