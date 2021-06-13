@@ -1,11 +1,8 @@
 import { PhoneOutlined } from "@ant-design/icons"
 import {
-    NAV_MAP_COL,
-    NAV_MAP_dhCOL,
-    NAV_MAP_HARD,
-    NAV_MAP_Keyboard,
-    NAV_MAP_Mouse,
-    NAV_MAP_vpCOL
+    NAV_MAP_LAPTOP_ENGINEERING,
+    NAV_MAP_LAPTOP_GAMING,
+    NAV_MAP_LAPTOP_OFFICE
 } from "Constants/Data"
 import { PATH } from "Constants/Path"
 import { useState } from "react"
@@ -61,46 +58,44 @@ const HeaderNav = props => {
                                 </p>
                                 <div className="custom-menu">
                                     <div className="row">
-                                        {NAV_MAP_COL.map(item => {
-                                            return (
-                                                <div
-                                                    className="col-md-4"
-                                                    key={item.id}
-                                                >
-                                                    <ul className="list-links">
-                                                        <li>
-                                                            <a href={item.link}>
+                                        {NAV_MAP_LAPTOP_GAMING &&
+                                            NAV_MAP_LAPTOP_GAMING.map(item => {
+                                                return (
+                                                    <div
+                                                        className="col-md-4"
+                                                        key={item.id}
+                                                    >
+                                                        <ul className="list-links">
+                                                            <li>
                                                                 <h3 className="list-links-title">
                                                                     {item.title}
                                                                 </h3>
-                                                            </a>
-                                                        </li>
-                                                        {item.nav_map_li.map(
-                                                            item => {
-                                                                return (
-                                                                    <li
-                                                                        key={
-                                                                            item.id
-                                                                        }
-                                                                    >
-                                                                        <a
-                                                                            href={
-                                                                                item.link
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item.title
-                                                                            }
-                                                                        </a>
-                                                                    </li>
-                                                                )
-                                                            }
-                                                        )}
-                                                    </ul>
-                                                    <hr className="hidden-md hidden-lg"></hr>
-                                                </div>
-                                            )
-                                        })}
+                                                            </li>
+                                                            {item.nav_map_li &&
+                                                                item.nav_map_li.map(
+                                                                    item => {
+                                                                        return (
+                                                                            <li
+                                                                                key={
+                                                                                    item.id
+                                                                                }
+                                                                            >
+                                                                                <a
+                                                                                    href={`${PATH.HOME}/laptop/filter/${item.link}`}
+                                                                                >
+                                                                                    {
+                                                                                        item.title
+                                                                                    }
+                                                                                </a>
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
+                                                        </ul>
+                                                        <hr className="hidden-md hidden-lg"></hr>
+                                                    </div>
+                                                )
+                                            })}
                                     </div>
                                 </div>
                             </li>
@@ -116,53 +111,51 @@ const HeaderNav = props => {
                                 <p
                                     className="dropdown-toggle"
                                     data-toggle="dropdown"
-                                    aria-expanded={String(toggle)}
+                                    aria-expanded="true"
                                 >
-                                    Laptop Văn Phòng
+                                    Laptop Học Tập & Văn Phòng
                                     <i className="fa fa-angle-right"></i>
                                 </p>
                                 <div className="custom-menu">
                                     <div className="row">
-                                        {NAV_MAP_vpCOL.map(item => {
-                                            return (
-                                                <div
-                                                    className="col-md-4"
-                                                    key={item.id}
-                                                >
-                                                    <ul className="list-links">
-                                                        <li>
-                                                            <a href={item.link}>
+                                        {NAV_MAP_LAPTOP_OFFICE &&
+                                            NAV_MAP_LAPTOP_OFFICE.map(item => {
+                                                return (
+                                                    <div
+                                                        className="col-md-4"
+                                                        key={item.id}
+                                                    >
+                                                        <ul className="list-links">
+                                                            <li>
                                                                 <h3 className="list-links-title">
                                                                     {item.title}
                                                                 </h3>
-                                                            </a>
-                                                        </li>
-                                                        {item.nav_map_li.map(
-                                                            item => {
-                                                                return (
-                                                                    <li
-                                                                        key={
-                                                                            item.id
-                                                                        }
-                                                                    >
-                                                                        <a
-                                                                            href={
-                                                                                item.link
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item.title
-                                                                            }
-                                                                        </a>
-                                                                    </li>
-                                                                )
-                                                            }
-                                                        )}
-                                                    </ul>
-                                                    <hr className="hidden-md hidden-lg"></hr>
-                                                </div>
-                                            )
-                                        })}
+                                                            </li>
+                                                            {item.nav_map_li &&
+                                                                item.nav_map_li.map(
+                                                                    item => {
+                                                                        return (
+                                                                            <li
+                                                                                key={
+                                                                                    item.id
+                                                                                }
+                                                                            >
+                                                                                <a
+                                                                                    href={`${PATH.HOME}/laptop/filter/${item.link}`}
+                                                                                >
+                                                                                    {
+                                                                                        item.title
+                                                                                    }
+                                                                                </a>
+                                                                            </li>
+                                                                        )
+                                                                    }
+                                                                )}
+                                                        </ul>
+                                                        <hr className="hidden-md hidden-lg"></hr>
+                                                    </div>
+                                                )
+                                            })}
                                     </div>
                                 </div>
                             </li>
@@ -180,237 +173,53 @@ const HeaderNav = props => {
                                     data-toggle="dropdown"
                                     aria-expanded="true"
                                 >
-                                    Laptop Đồ Họa
+                                    Laptop Đồ Họa & Kỹ Thuật
                                     <i className="fa fa-angle-right"></i>
                                 </p>
                                 <div className="custom-menu">
                                     <div className="row">
-                                        {NAV_MAP_dhCOL.map(item => {
-                                            return (
-                                                <div
-                                                    className="col-md-4"
-                                                    key={item.id}
-                                                >
-                                                    <ul className="list-links">
-                                                        <li>
-                                                            <a href={item.link}>
-                                                                <h3 className="list-links-title">
-                                                                    {item.title}
-                                                                </h3>
-                                                            </a>
-                                                        </li>
-                                                        {item.nav_map_li.map(
-                                                            item => {
-                                                                return (
-                                                                    <li
-                                                                        key={
-                                                                            item.id
+                                        {NAV_MAP_LAPTOP_ENGINEERING &&
+                                            NAV_MAP_LAPTOP_ENGINEERING.map(
+                                                item => {
+                                                    return (
+                                                        <div
+                                                            className="col-md-4"
+                                                            key={item.id}
+                                                        >
+                                                            <ul className="list-links">
+                                                                <li>
+                                                                    <h3 className="list-links-title">
+                                                                        {
+                                                                            item.title
                                                                         }
-                                                                    >
-                                                                        <a
-                                                                            href={
-                                                                                item.link
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item.title
-                                                                            }
-                                                                        </a>
-                                                                    </li>
-                                                                )
-                                                            }
-                                                        )}
-                                                    </ul>
-                                                    <hr className="hidden-md hidden-lg"></hr>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                onMouseEnter={() => setOpenRow4(!openRow4)}
-                                onMouseLeave={() => setOpenRow4(!openRow4)}
-                                className={
-                                    openRow4
-                                        ? "dropdown side-dropdown open"
-                                        : "dropdown side-dropdown"
-                                }
-                            >
-                                <p
-                                    className="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    aria-expanded="true"
-                                >
-                                    Ổ Cứng
-                                    <i className="fa fa-angle-right"></i>
-                                </p>
-                                <div className="custom-menu">
-                                    <div className="row">
-                                        {NAV_MAP_HARD.map(item => {
-                                            return (
-                                                <div
-                                                    className="col-md-4"
-                                                    key={item.id}
-                                                >
-                                                    <ul className="list-links">
-                                                        <li>
-                                                            <a href={item.link}>
-                                                                <h3 className="list-links-title">
-                                                                    {item.title}
-                                                                </h3>
-                                                            </a>
-                                                        </li>
-                                                        {item.nav_map_li.map(
-                                                            item => {
-                                                                return (
-                                                                    <li
-                                                                        key={
-                                                                            item.id
+                                                                    </h3>
+                                                                </li>
+                                                                {item.nav_map_li &&
+                                                                    item.nav_map_li.map(
+                                                                        item => {
+                                                                            return (
+                                                                                <li
+                                                                                    key={
+                                                                                        item.id
+                                                                                    }
+                                                                                >
+                                                                                    <a
+                                                                                        href={`${PATH.HOME}/laptop/filter/${item.link}`}
+                                                                                    >
+                                                                                        {
+                                                                                            item.title
+                                                                                        }
+                                                                                    </a>
+                                                                                </li>
+                                                                            )
                                                                         }
-                                                                    >
-                                                                        <a
-                                                                            href={
-                                                                                item.link
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item.title
-                                                                            }
-                                                                        </a>
-                                                                    </li>
-                                                                )
-                                                            }
-                                                        )}
-                                                    </ul>
-                                                    <hr className="hidden-md hidden-lg"></hr>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                onMouseEnter={() => setOpenRow5(!openRow5)}
-                                onMouseLeave={() => setOpenRow5(!openRow5)}
-                                className={
-                                    openRow5
-                                        ? "dropdown side-dropdown open"
-                                        : "dropdown side-dropdown"
-                                }
-                            >
-                                <p
-                                    className="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    aria-expanded="true"
-                                >
-                                    Chuột
-                                    <i className="fa fa-angle-right"></i>
-                                </p>
-                                <div className="custom-menu">
-                                    <div className="row">
-                                        {NAV_MAP_Mouse.map(item => {
-                                            return (
-                                                <div
-                                                    className="col-md-4"
-                                                    key={item.id}
-                                                >
-                                                    <ul className="list-links">
-                                                        <li>
-                                                            <a href={item.link}>
-                                                                <h3 className="list-links-title">
-                                                                    {item.title}
-                                                                </h3>
-                                                            </a>
-                                                        </li>
-                                                        {item.nav_map_li.map(
-                                                            item => {
-                                                                return (
-                                                                    <li
-                                                                        key={
-                                                                            item.id
-                                                                        }
-                                                                    >
-                                                                        <a
-                                                                            href={
-                                                                                item.link
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item.title
-                                                                            }
-                                                                        </a>
-                                                                    </li>
-                                                                )
-                                                            }
-                                                        )}
-                                                    </ul>
-                                                    <hr className="hidden-md hidden-lg"></hr>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                onMouseEnter={() => setOpenRow6(!openRow6)}
-                                onMouseLeave={() => setOpenRow6(!openRow6)}
-                                className={
-                                    openRow6
-                                        ? "dropdown side-dropdown open"
-                                        : "dropdown side-dropdown"
-                                }
-                            >
-                                <p
-                                    className="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    aria-expanded="true"
-                                >
-                                    Bàn Phím
-                                    <i className="fa fa-angle-right"></i>
-                                </p>
-                                <div className="custom-menu">
-                                    <div className="row">
-                                        {NAV_MAP_Keyboard.map(item => {
-                                            return (
-                                                <div
-                                                    className="col-md-4"
-                                                    key={item.id}
-                                                >
-                                                    <ul className="list-links">
-                                                        <li>
-                                                            <a href={item.link}>
-                                                                <h3 className="list-links-title">
-                                                                    {item.title}
-                                                                </h3>
-                                                            </a>
-                                                        </li>
-                                                        {item.nav_map_li.map(
-                                                            item => {
-                                                                return (
-                                                                    <li
-                                                                        key={
-                                                                            item.id
-                                                                        }
-                                                                    >
-                                                                        <a
-                                                                            href={
-                                                                                item.link
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item.title
-                                                                            }
-                                                                        </a>
-                                                                    </li>
-                                                                )
-                                                            }
-                                                        )}
-                                                    </ul>
-                                                    <hr className="hidden-md hidden-lg"></hr>
-                                                </div>
-                                            )
-                                        })}
+                                                                    )}
+                                                            </ul>
+                                                            <hr className="hidden-md hidden-lg"></hr>
+                                                        </div>
+                                                    )
+                                                }
+                                            )}
                                     </div>
                                 </div>
                             </li>

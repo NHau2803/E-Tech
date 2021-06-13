@@ -1,5 +1,4 @@
 import { InputNumber, notification } from "antd"
-import CartAPI from "API/Cart"
 import { PATH } from "Constants/Path"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -13,7 +12,6 @@ import { getCartLS, saveCartApi, setCartLS } from "Redux/Cart/Cart.thunk"
 import { getUserCookie } from "Redux/User/User.thunk"
 import { changePriceToVND } from "Utils/Converter"
 import { removeCacheLocalStorage } from "Utils/localStorageFunctions"
-// import "./styles.css";
 const CheckOut = () => {
     // const [cart, setCart] = useState(getLS("carts"))
     const dispatch = useDispatch()
@@ -47,21 +45,21 @@ const CheckOut = () => {
 
     const handlePay = () => {
         let order = []
-        console.log("=========")
+        console.log("🚀 ~ file: index.js ~ line 50 ~ handlePay ~ order", order)
         carts.map(item => order.push({ id: item.id, qty: item.qty }))
         dispatch(saveCartApi(order))
 
-        CartAPI.saveCart({ order: order }).then(res => {
-            console.log(res)
-            if (res.notify && res.notify) {
-                notification["success"]({
-                    message: "Cảm ơn",
-                    description: "Bạn đã đặt hàng thành công!"
-                })
-                removeCacheLocalStorage("carts")
-                redirectHome()
-            }
-        })
+        // dispatch(CartApi.saveCart({ order: order })).then(res => {
+        //     console.log(res)
+        //     if (res.notify && res.notify) {
+        //         notification["success"]({
+        //             message: "Cảm ơn",
+        //             description: "Bạn đã đặt hàng thành công!"
+        //         })
+        //         removeCacheLocalStorage("carts")
+        //         redirectHome()
+        //     }
+        // })
     }
 
     return (

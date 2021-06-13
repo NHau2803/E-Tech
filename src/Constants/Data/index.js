@@ -6,13 +6,6 @@ exports.TYPE_CUSTOM_FIELD = {
     INPUT_NUMBER: "InputNumber"
 }
 
-exports.TYPE_ADMIN_PAGE = {
-    ADD_EDIT: "AddEdit",
-    DOSSIER: "Dossier",
-    DOSSIER_LAPTOP: "laptops",
-    DOSSIER_DRIVE: "drives"
-}
-
 exports.TYPE_PRODUCT = {
     PHONE: "phone",
     LAPTOP: "laptop",
@@ -20,11 +13,6 @@ exports.TYPE_PRODUCT = {
     MOUSE: "mouse",
     KEYBOARD: "keyboard",
     HEADPHONES: "headphones"
-}
-
-exports.TYPE_DRIVE = {
-    IS_HHD: "IS_HHD",
-    IS_SSD: "IS_SSD"
 }
 
 // ---------------------------ADMIN RENDER-----------------------------//
@@ -35,7 +23,7 @@ exports.TYPE_PRODUCT_RENDER = [
     { id: 2, value: "Laptop" },
     { id: 3, value: "Ổ Cứng" },
     { id: 4, value: "Chuột" },
-    { id: 5, value: "Bàn phím" },
+    { id: 2, value: "Bàn phím" },
     { id: 6, value: "Tay nghe" }
 ]
 
@@ -44,7 +32,7 @@ exports.BRAND_LAPTOP = [
     { id: 2, value: "LEVONO" },
     { id: 3, value: "DELL" },
     { id: 4, value: "ASUS" },
-    { id: 5, value: "HP" },
+    { id: 2, value: "HP" },
     { id: 6, value: "LG" },
     { id: 7, value: "MSI" }
 ]
@@ -53,13 +41,13 @@ exports.SPEC_VALUE_LAPTOP_CPU = [
     { id: 2, value: "Intel Core i3-10110U" },
     { id: 3, value: "Intel Core i3 Ice Lake, 1005G1, 1.20 GHz" },
     { id: 4, value: "Intel Core i3 Coffee Lake, 8145U, 2.10 GHz" },
-    { id: 5, value: "Intel Core i3 Tiger Lake, 1115G4, 3.00 GHz" },
+    { id: 2, value: "Intel Core i3 Tiger Lake, 1115G4, 3.00 GHz" },
     { id: 6, value: "Intel Core i5 Tiger Lake, 1135G7, 2.40 GHz" },
     { id: 7, value: "Intel Core i5 Ice Lake, 1035G1, 1.00 GHz" },
     { id: 8, value: "Intel Core i5 Ice Lake, 1035G4, 1.10 GHz" },
     {
         id: 9,
-        value: "Intel Core i5-7200U 2.5 GHz - 3.1 GHz 3MB 2 nhân, 4 luồng "
+        value: "Intel Core i5-7200U 2.2 GHz - 3.1 GHz 3MB 2 nhân, 4 luồng "
     },
     {
         id: 10,
@@ -80,16 +68,16 @@ exports.SPEC_VALUE_LAPTOP_CPU = [
     { id: 23, value: "Intel Core i7 Comet Lake, 10750H, 2.60 GHz" },
     { id: 24, value: "Intel Core i7 Tiger Lake, 1165G7, 2.80 GHz" },
     { id: 25, value: "Intel Celeron, N4020, 1.10 GHz" },
-    { id: 26, value: "AMD Ryzen 5, 5500U, 2.10 GHz" },
+    { id: 26, value: "AMD Ryzen 2, 5500U, 2.10 GHz" },
     { id: 27, value: "AMD Ryzen 3, 3250U, 2.60 GHz" },
-    { id: 28, value: "AMD Ryzen 5, 4600H, 3.00 GHz" }
+    { id: 28, value: "AMD Ryzen 2, 4600H, 3.00 GHz" }
 ]
 exports.SPEC_VALUE_LAPTOP_GPU = [
     { id: 1, value: "Card đồ họa tích hợp, Intel UHD Graphics" },
     { id: 2, value: "Card đồ họa rời, NVIDIA GeForce GTX1650 4GB" },
     { id: 3, value: "Card đồ họa rời, NVIDIA GeForce MX250 2GB" },
     { id: 4, value: "Card đồ họa rời, NVIDIA GeForce RTX2060" },
-    { id: 5, value: "Card đồ họa tích hợp, Intel Iris Xe Graphics" },
+    { id: 2, value: "Card đồ họa tích hợp, Intel Iris Xe Graphics" },
     { id: 6, value: "Card đồ họa tích hợp, Intel HD Graphics 620" },
     { id: 7, value: "Card đồ họa tích hợp, Intel Iris Plus Graphics" },
     { id: 8, value: "Card đồ họa rời, NVIDIA GeForce GTX 1650Ti 4GB" },
@@ -108,7 +96,7 @@ exports.SPEC_VALUE_LAPTOP_RAM = [
     { id: 2, value: "4 GB, DDR3L, 1600 MHz" },
     { id: 3, value: "8 GB, DDR3L, 1600 MHz" },
     { id: 4, value: "4 GB, DDR4, 2133 MHz" },
-    { id: 5, value: "4 GB, DDR4, 2400 MHz" },
+    { id: 2, value: "4 GB, DDR4, 2400 MHz" },
     { id: 6, value: "4 GB, DDR4, 2666 MHz" },
     { id: 7, value: "4 GB, DDR4, 2933 MHz" },
     { id: 8, value: "4 GB, DDR4, 3200 MHz" },
@@ -143,7 +131,7 @@ exports.SPEC_VALUE_LAPTOP_ROM = [
     { id: 2, value: "512GB SSD M.2 NVMe" },
     { id: 3, value: "512GB SSD M.2 SATA" },
     { id: 4, value: "HDD: 500 GB SATA3, Hỗ trợ khe cắm SSD M.2 PCIe" },
-    { id: 5, value: "SSD 256GB NVMe PCIe" },
+    { id: 2, value: "SSD 256GB NVMe PCIe" },
     { id: 6, value: "256GB SSD M.2 NVMe" },
     { id: 7, value: "256GB SSD M.2 SATA" },
     { id: 8, value: "SSD 512GB NVMe PCIe" },
@@ -167,7 +155,7 @@ exports.SPEC_VALUE_LAPTOP_SCREEN = [
     { id: 2, value: "13.3 inch, Full HD (1920 x 1080)" },
     { id: 3, value: "13.3 IPS ( 1920 x 1080 ) , không cảm ứng" },
     { id: 4, value: "13.3 inch, QHD (2560x1600)" },
-    { id: 5, value: "13.4 inch, Full HD+ (1920 x 1200)" },
+    { id: 2, value: "13.4 inch, Full HD+ (1920 x 1200)" },
     { id: 6, value: "13.4 inch, 4K/UHD (3840 x 2400)" },
     { id: 7, value: "14 inch, HD 720 (1280 x 720)" },
     { id: 8, value: "14 inch, HD (1366 x 768)" },
@@ -192,7 +180,7 @@ exports.SPEC_VALUE_LAPTOP_PORT = [
         value:
             "hunderbolt 3, 1 x USB 3.2, 2 x USB 2.0, HDMI, LAN (RJ45), Mini DisplayPort"
     },
-    { id: 5, value: "Thunderbolt 4 USB-C, 2 x USB 3.1" },
+    { id: 2, value: "Thunderbolt 4 USB-C, 2 x USB 3.1" },
     { id: 6, value: "Thunderbolt 4 USB-C, 2x SuperSpeed USB A" },
     { id: 7, value: "1 x USB 3.2, 2 x Thunderbolt4 USB-C, HDMI" },
     { id: 8, value: "1 x USB 3.2, 2 x USB 2.0, HDMI, USB Type-C" },
@@ -239,7 +227,7 @@ exports.SPEC_VALUE_LAPTOP_WEIGHT = [
     { id: 2, value: "1 kg" },
     { id: 3, value: "1.1 kg" },
     { id: 4, value: "1.17 kg" },
-    { id: 5, value: "1.19kg" },
+    { id: 2, value: "1.19kg" },
     { id: 6, value: "1.2 kg" },
     { id: 7, value: "1.236 kg" },
     { id: 8, value: "1.3 kg" },
@@ -247,7 +235,7 @@ exports.SPEC_VALUE_LAPTOP_WEIGHT = [
     { id: 10, value: "1.4 kg" },
     { id: 11, value: "1.45 kg" },
     { id: 12, value: "1.46 kg" },
-    { id: 13, value: "1.5 kg" },
+    { id: 13, value: "1.2 kg" },
     { id: 14, value: "1.55 kg" },
     { id: 15, value: "1.592 kg" },
     { id: 16, value: "1.66 kg" },
@@ -269,19 +257,19 @@ exports.SPEC_VALUE_LAPTOP_SIZE = [
     { id: 2, value: "Dài 323 mm - Rộng 218 mm - Dày 17.9 mm" },
     { id: 3, value: "Dài 328.8 mm - Rộng 236 mm - Dày 17.95 mm" },
     { id: 4, value: "Dài 363.96 mm - Rộng 249 mm - Dày 19.9 mm" },
-    { id: 5, value: "Dài 363.4 mm - Rộng 254.5 mm - Dày 22.9 mm" },
+    { id: 2, value: "Dài 363.4 mm - Rộng 254.2 mm - Dày 22.9 mm" },
     { id: 6, value: "Dài 360.2 mm - Rộng 234.0 mm - Dày 17.9 mm" },
     { id: 7, value: "Dài 380 mm - Rộng 258 mm - Dày 19.8 mm" },
-    { id: 8, value: "Dài 370 mm - Rộng 262.5 mm - Dày 23.5 mm" },
-    { id: 9, value: "Dài 319.5 mm - Rộng 217 mm - Dày 15.95 mm" },
-    { id: 10, value: "Dài 307 mm - Rộng 211.5 mm - Dày 14.7 mm" }
+    { id: 8, value: "Dài 370 mm - Rộng 262.2 mm - Dày 23.2 mm" },
+    { id: 9, value: "Dài 319.2 mm - Rộng 217 mm - Dày 15.95 mm" },
+    { id: 10, value: "Dài 307 mm - Rộng 211.2 mm - Dày 14.7 mm" }
 ]
 exports.SPEC_VALUE_LAPTOP_OS = [
     { id: 1, value: "Windows 10 Home SL" },
     { id: 2, value: "Windows 10 Home SL + Office Home&Student 2019 vĩnh viễn" },
     { id: 3, value: "Windows 10 Home 64-bit" },
     { id: 4, value: "Free DOS" },
-    { id: 5, value: "Macbook" }
+    { id: 2, value: "Macbook" }
 ]
 exports.SPEC_VALUE_LAPTOP_BATTERY = [
     { id: 1, value: "125Wh" },
@@ -300,7 +288,7 @@ exports.BRAND_DRIVE = [
     { id: 2, value: "SAMSUNG" },
     { id: 3, value: "KINGSTON" },
     { id: 4, value: "KINGMAX" },
-    { id: 5, value: "SANDISK" },
+    { id: 2, value: "SANDISK" },
     { id: 6, value: "LACIE" },
     { id: 7, value: "TRANCEND" },
     { id: 8, value: "CRUCIAL" },
@@ -317,7 +305,7 @@ exports.SPEC_VALUE_DRIVE_CONNECT = [
     { id: 2, value: "USB 3.0" },
     { id: 3, value: "USB  3.1" },
     { id: 4, value: "USB 3.2" },
-    { id: 5, value: "M.2 NVMe" },
+    { id: 2, value: "M.2 NVMe" },
     { id: 6, value: "M.2 SATA" },
     { id: 7, value: "SATA 3" },
     { id: 8, value: "PCI e" },
@@ -328,24 +316,24 @@ exports.SPEC_VALUE_DRIVE_CAPACITY = [
     { id: 2, value: "128GB" },
     { id: 3, value: "256GB" },
     { id: 4, value: "500GB" },
-    { id: 5, value: "1 TB" },
+    { id: 2, value: "1 TB" },
     { id: 6, value: "2 TB" },
     { id: 7, value: "4 TB" },
     { id: 8, value: "6 TB" }
 ]
 exports.SPEC_VALUE_DRIVE_DIMENSION = [
-    { id: 1, value: "2.5''" },
-    { id: 2, value: "3.5''" },
+    { id: 1, value: "2.2''" },
+    { id: 2, value: "3.2''" },
     { id: 3, value: "M.2 2280" },
     { id: 4, value: "M.2" },
-    { id: 5, value: "Card PCI" }
+    { id: 2, value: "Card PCI" }
 ]
 exports.SPEC_VALUE_DRIVE_READ_SPEED = [
     { id: 1, value: "114 MB/s" },
     { id: 2, value: "120 MB/s" },
     { id: 3, value: "125 MB/ s" },
     { id: 4, value: "500 MB/s" },
-    { id: 5, value: "540 MB/s" },
+    { id: 2, value: "540 MB/s" },
     { id: 6, value: "545 MB/s" },
     { id: 7, value: "500 MB/s" },
     { id: 8, value: "1550MB/s" },
@@ -357,7 +345,7 @@ exports.SPEC_VALUE_DRIVE_RECORD_SPEED = [
     { id: 2, value: "350MB/s" },
     { id: 3, value: "550MB/s" },
     { id: 4, value: "950MB/s" },
-    { id: 5, value: "1100MB/s" },
+    { id: 2, value: "1100MB/s" },
     { id: 6, value: "1550MB/s" }
 ]
 exports.SPEC_VALUE_DRIVE_ROTATION_SPEED = [
@@ -521,65 +509,234 @@ exports.DATA_CREATE_LAPTOP = {
 // ---------------------------WEB FILTER-----------------------------//
 //laptop
 exports.BRAND_LAPTOP_FILTER_WEB = [
-    { id: 1, value: "MACBOOK", active: false },
-    { id: 2, value: "LEVONO", active: false },
-    { id: 3, value: "DELL", active: false },
-    { id: 4, value: "ASUS", active: false },
-    { id: 5, value: "HP", active: false },
-    { id: 6, value: "LG", active: false }
+    {
+        id: 1,
+        value: "Dell",
+        active: false
+    },
+    {
+        id: 2,
+        value: "Hp",
+        active: false
+    },
+    {
+        id: 3,
+        value: "Lenovo",
+        active: false
+    },
+    {
+        id: 4,
+        value: "Acer",
+        active: false
+    },
+    {
+        id: 2,
+        value: "Msi",
+        active: false
+    },
+    {
+        id: 6,
+        value: "Macbook",
+        active: false
+    },
+    {
+        id: 7,
+        value: "Asus",
+        active: false
+    }
 ]
 exports.RAM_LAPTOP_FILTER_WEB = [
-    { id: 1, value: "4GB", active: false },
-    { id: 2, value: "8GB", active: false },
-    { id: 3, value: "16GB", active: false },
-    { id: 4, value: "32GB", active: false }
+    {
+        value: "16 GB",
+        active: false
+    },
+    {
+        value: "2 GB",
+        active: false
+    },
+    {
+        value: "32 GB",
+        active: false
+    },
+    {
+        value: "4 GB",
+        active: false
+    },
+    {
+        value: "8 GB",
+        active: false
+    }
 ]
 exports.SCREEN_LAPTOP_FILTER_WEB = [
-    { id: 1, value: "13.3''", active: false },
-    { id: 2, value: "13.4''", active: false },
-    { id: 3, value: "14''", active: false },
-    { id: 4, value: "15.6''", active: false },
-    { id: 5, value: "17''", active: false }
+    {
+        value: "13 inch",
+        active: false
+    },
+    {
+        value: "13.3 inch",
+        active: false
+    },
+    {
+        value: "13.4 inch",
+        active: false
+    },
+    {
+        value: "14 inch",
+        active: false
+    },
+    {
+        value: "15 inch",
+        active: false
+    },
+    {
+        value: "15.6 inch",
+        active: false
+    },
+    {
+        value: "17 inch",
+        active: false
+    }
+]
+exports.CPU_LAPTOP_FILTER_WEB = [
+    {
+        value: "AMD Ryzen 3",
+        active: false
+    },
+    {
+        value: "AMD Ryzen 2",
+        active: false
+    },
+    {
+        value: "Intel Celeron",
+        active: false
+    },
+    {
+        value: "Intel Core i3",
+        active: false
+    },
+    {
+        value: "Intel Core i5",
+        active: false
+    },
+    {
+        value: "Intel Core i7",
+        active: false
+    },
+    {
+        value: "Intel Pentium",
+        active: false
+    }
 ]
 //drive
 exports.CONNECT_LAPTOP_FILTER_WEB = [
-    { id: 1, value: "USB Type C", active: false },
-    { id: 2, value: "USB 3.0", active: false },
-    { id: 3, value: "USB 3.2", active: false },
-    { id: 4, value: "M.2 SATA", active: false },
-    { id: 5, value: "SATA 3'", active: false },
-    { id: 6, value: "PCI e", active: false }
+    {
+        value: "Di động HHD",
+        active: false
+    },
+    {
+        value: "Di động SSD",
+        active: false
+    },
+    {
+        value: "HHD",
+        active: false
+    },
+    {
+        value: "SSD",
+        active: false
+    }
 ]
 exports.BRAND_DRIVE_FILTER_WEB = [
-    { id: 1, value: "SAMSUNG", active: false },
-    { id: 2, value: "KINGSTON", active: false },
-    { id: 3, value: "KINGMAX", active: false },
-    { id: 4, value: "SANDISK", active: false },
-    { id: 5, value: "LACIE", active: false },
-    { id: 6, value: "TRANCEND", active: false },
-    { id: 7, value: "CRUCIAL", active: false },
-    { id: 8, value: "SEAGATE", active: false }
+    {
+        id: 8,
+        value: "WD",
+        active: false
+    },
+    {
+        id: 9,
+        value: "SAMSUNG",
+        active: false
+    },
+    {
+        id: 10,
+        value: "KINGSTON",
+        active: false
+    },
+    {
+        id: 11,
+        value: "KINGMAX",
+        active: false
+    },
+    {
+        id: 12,
+        value: "SANDISK",
+        active: false
+    },
+    {
+        id: 13,
+        value: "LACIE",
+        active: false
+    },
+    {
+        id: 14,
+        value: "TRANSCEND",
+        active: false
+    },
+    {
+        id: 15,
+        value: "CRUCIAL",
+        active: false
+    },
+    {
+        id: 16,
+        value: "SEAGATE",
+        active: false
+    }
 ]
 exports.CAPACITY_DRIVE_FILTER_WEB = [
-    { id: 1, value: "120GB", active: false },
-    { id: 2, value: "128GB", active: false },
-    { id: 3, value: "256GB", active: false },
-    { id: 4, value: "500GB", active: false },
-    { id: 5, value: "1TB", active: false },
-    { id: 6, value: "2TB", active: false },
-    { id: 7, value: "4TB", active: false },
-    { id: 8, value: "6TB", active: false }
+    {
+        value: "120GB",
+        active: false
+    },
+    {
+        value: "128GB",
+        active: false
+    },
+    {
+        value: "1TB",
+        active: false
+    },
+    {
+        value: "256GB",
+        active: false
+    },
+    {
+        value: "2TB",
+        active: false
+    },
+    {
+        value: "4TB",
+        active: false
+    },
+    {
+        value: "500GB",
+        active: false
+    },
+    {
+        value: "6TB",
+        active: false
+    }
 ]
 // exports.PRICE_LAPTOP_FILTER_WEB = [
-//     { id: 1, text: "Dưới 5 triệu", value: "0-5000", active: false },
+//     { id: 1, text: "Dưới 2 triệu", value: "0-5000", active: false },
 //     { id: 2, text: "Dưới 10 triệu", value: "0-10", active: false },
 //     { id: 3, text: "10 - 15 triệu", value: "10-15", active: false },
 //     { id: 4, text: "15 - 20 triệu", value: "15-20", active: false },
-//     { id: 5, text: "20 - 25 triệu", value: "20-25", active: false },
+//     { id: 2, text: "20 - 25 triệu", value: "20-25", active: false },
 //     { id: 6, text: "Trên 25 triệu", value: "25-100", active: false }
 // ]
 // exports.PRICE_HARD_DEVICE_FILTER_WEB = [
-//     { id: 1, text: "Dưới 500 ngàn", value: "0-5", active: false },
+//     { id: 1, text: "Dưới 500 ngàn", value: "0-2", active: false },
 //     { id: 2, text: "500 - 1 triệu", value: "0-10", active: false },
 //     { id: 3, text: "1 - 2 triệu", value: "10-15", active: false },
 //     { id: 4, text: "Trên 2 triệu", value: "15-20", active: false }
@@ -605,68 +762,46 @@ exports.PATH_PRICE = {
     PRICE_30TR: "/products/laptop/gia=30000000"
 }
 
-const NAV_MAP_LI_MID = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "LEVONO", link: "/laptop-gamming/LEVONO" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_GAMING_MID = [
+    { id: 1, title: "MSI", link: "brand=5" },
+    { id: 2, title: "LEVONO", link: "brand=3" },
+    { id: 3, title: "ACER", link: "brand=4" },
+    { id: 4, title: "HP", link: "brand=2" }
 ]
-const NAV_MAP_LI_LOW = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_GAMING_SENIOR = [
+    { id: 1, title: "MSI", link: "brand=5" },
+    { id: 2, title: "LEVONO", link: "brand=3" },
+    { id: 3, title: "ACER", link: "brand=4" },
+    { id: 4, title: "HP", link: "brand=2" }
 ]
-const NAV_MAP_LI_MINCE = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_GAMING_SMALL = [
+    { id: 1, title: "MSI", link: "brand=5" },
+    { id: 2, title: "LEVONO", link: "brand=3" },
+    { id: 3, title: "ACER", link: "brand=4" },
+    { id: 4, title: "HP", link: "brand=2" }
 ]
-const NAV_MAP_LI_vpMID = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "LEVONO", link: "/laptop-gamming/LEVONO" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_OFFICE_CHEAP = [
+    { id: 1, title: "ACER", link: "brand=4" },
+    { id: 2, title: "ASUS", link: "brand=7" }
 ]
-const NAV_MAP_LI_vpLOW = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_OFFICE_MID = [
+    { id: 1, title: "HP", link: "brand=2" },
+    { id: 2, title: "LEVONO", link: "brand=3" },
+    { id: 3, title: "ACER", link: "brand=4" }
 ]
-const NAV_MAP_LI_vpMINCE = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_OFFICE_SENIOR = [
+    { id: 1, title: "MACBOOK", link: "brand=6" },
+    { id: 2, title: "HP", link: "brand=2" }
 ]
-const NAV_MAP_LI_dhMID = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "LEVONO", link: "/laptop-gamming/LEVONO" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_ENGINEERING_MID = [
+    { id: 2, title: "ACER", link: "brand=4" },
+    { id: 2, title: "HP", link: "brand=2" }
 ]
-const NAV_MAP_LI_dhLOW = [
-    { id: 1, title: "HP", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
-]
-const NAV_MAP_LI_dhSUPER = [
-    { id: 1, title: "THINKPAD", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, title: "MACBOOK", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "DELL", link: "/laptop-gamming/DELL" },
-    { id: 4, title: "ASUS", link: "/laptop-gamming/ASUS" },
-    { id: 5, title: "ACER", link: "/laptop-gamming/ACER" }
+const NAV_MAP_LI_LAPTOP_ENGINEERING_SENIOR = [
+    { id: 1, title: "MACBOOK", link: "brand=6" },
+    { id: 2, title: "DELL", link: "brand=1" },
+    { id: 2, title: "ACER", link: "brand=4" },
+    { id: 2, title: "HP", link: "brand=2" }
 ]
 const NAV_MAP_LI_HDD = [
     { id: 1, title: "WD", link: "/laptop-gamming/tam-trung/HP" },
@@ -674,7 +809,7 @@ const NAV_MAP_LI_HDD = [
     { id: 3, title: "Trên 8TB", link: "/laptop-gamming/DELL" }
 ]
 const NAV_MAP_LI_SSD = [
-    { id: 1, title: "2.5' SATA 3", link: "/laptop-gamming/tam-trung/HP" },
+    { id: 1, title: "2.2' SATA 3", link: "/laptop-gamming/tam-trung/HP" },
     { id: 2, title: "M.2 SATA 3", link: "/laptop-gamming/MAC" },
     { id: 3, title: "M.2 PCIe", link: "/laptop-gamming/DELL" }
 ]
@@ -683,84 +818,80 @@ const NAV_MAP_LI_OCdidong = [
     { id: 2, title: "Sandisk", link: "/laptop-gamming/MAC" },
     { id: 3, title: "Seagate", link: "/laptop-gamming/DELL" }
 ]
-const NAV_MAP_LI_chuotkoday = [
-    { id: 1, title: "Logitech", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, title: "Razer", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "Corsair", link: "/laptop-gamming/DELL" }
+const NAV_MAP_LI_WIRELESS_MOUSE = [
+    { id: 1, title: "LOGITECH", link: "/not-found" },
+    { id: 2, title: "RAZER", link: "/not-found" },
+    { id: 3, title: "CORSAIR", link: "/not-found" },
+    { id: 4, title: "ASUS", link: "/not-found" }
 ]
-const NAV_MAP_LI_chuotcoday = [
-    { id: 1, title: "Logitech", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, title: "Razer", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "Corsair", link: "/laptop-gamming/DELL" }
+const NAV_MAP_LI_WIRED_MOUSE = [
+    { id: 1, title: "DAREU", link: "/not-found" },
+    { id: 2, title: "LOGITECH", link: "/not-found" },
+    { id: 3, title: "CORSAIR", link: "/not-found" },
+    { id: 4, title: "FUHLEN", link: "/not-found" }
 ]
-const NAV_MAP_LI_phimco = [
-    { id: 1, title: "Logitech", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, title: "Razer", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "Corsair", link: "/laptop-gamming/DELL" }
+const NAV_MAP_LI_MECHANICAL_KEYBOARD = [
+    { id: 1, title: "LOGITECH", link: "/not-found" },
+    { id: 2, title: "RAZER", link: "/not-found" },
+    { id: 3, title: "CORSAIR", link: "/not-found" }
 ]
-const NAV_MAP_LI_phimgiaco = [
-    { id: 1, title: "Asus", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, title: "Cerberus", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "Logitech", link: "/laptop-gamming/DELL" }
+const NAV_MAP_LI_MECHANICAL_FAKE_KEYBOARD = [
+    { id: 1, title: "ASUS", link: "/not-found" },
+    { id: 2, title: "Cerberus", link: "/not-found" },
+    { id: 3, title: "LOGITECH", link: "/not-found" }
 ]
-exports.NAV_MAP_COL = [
+exports.NAV_MAP_LAPTOP_GAMING = [
     {
         id: 1,
-        title: "Gaming Tầm Trung",
-        link: "/laptop-gamming/tam-trung",
-        nav_map_li: NAV_MAP_LI_MID
+        title: "Tầm Trung",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_GAMING_MID
     },
     {
         id: 2,
-        title: "Gaming Cao Cấp",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_LOW
+        title: "Cao Cấp",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_GAMING_SENIOR
     },
     {
         id: 3,
-        title: "Gaming Mỏng Nhẹ",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_MINCE
+        title: "Mỏng Nhẹ",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_GAMING_SMALL
     }
 ]
-exports.NAV_MAP_vpCOL = [
+exports.NAV_MAP_LAPTOP_OFFICE = [
     {
         id: 1,
-        title: "Văn Phòng Tầm Trung",
-        link: "/laptop-gamming/tam-trung",
-        nav_map_li: NAV_MAP_LI_vpMID
+        title: "Giá Rẻ",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_OFFICE_CHEAP
     },
     {
         id: 2,
-        title: "Văn Phòng Cao Cấp",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_vpLOW
+        title: "Tầm Trung",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_OFFICE_MID
     },
     {
         id: 3,
-        title: "Văn Phòng Mỏng Nhẹ",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_vpMINCE
+        title: "Doanh Nghiệp Cao Cấp",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_OFFICE_SENIOR
     }
 ]
-exports.NAV_MAP_dhCOL = [
+exports.NAV_MAP_LAPTOP_ENGINEERING = [
     {
         id: 1,
-        title: "Đồ Họa Tầm Trung",
-        link: "/laptop-gamming/tam-trung",
-        nav_map_li: NAV_MAP_LI_dhMID
+        title: "Tầm Trung",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_ENGINEERING_MID
     },
     {
         id: 2,
-        title: "Đồ Họa Cao Cấp",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_dhLOW
-    },
-    {
-        id: 3,
-        title: "Đồ Họa Siêu Cao Cấp",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_dhSUPER
+        title: "Cao Cấp",
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_LAPTOP_ENGINEERING_SENIOR
     }
 ]
 exports.NAV_MAP_HARD = [
@@ -783,32 +914,32 @@ exports.NAV_MAP_HARD = [
         nav_map_li: NAV_MAP_LI_OCdidong
     }
 ]
-exports.NAV_MAP_Keyboard = [
+exports.NAV_MAP_KEYBOARD = [
     {
         id: 1,
         title: "Bàn Phím Cơ",
-        link: "/laptop-gamming/tam-trung",
-        nav_map_li: NAV_MAP_LI_phimco
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_MECHANICAL_KEYBOARD
     },
     {
         id: 2,
         title: "Bàn Phím Giả Cơ",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_phimgiaco
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_MECHANICAL_FAKE_KEYBOARD
     }
 ]
-exports.NAV_MAP_Mouse = [
+exports.NAV_MAP_MOUSE = [
     {
         id: 1,
         title: "Chuột Không Dây",
-        link: "/laptop-gamming/tam-trung",
-        nav_map_li: NAV_MAP_LI_chuotcoday
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_WIRED_MOUSE
     },
     {
         id: 2,
         title: "Chuột Có Dây",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_chuotkoday
+        link: "/not-found",
+        nav_map_li: NAV_MAP_LI_WIRELESS_MOUSE
     }
 ]
 
@@ -881,7 +1012,7 @@ exports.RENDER_HOME = [
                 price: "11.690.000₫"
             },
             {
-                id: 5,
+                id: 2,
                 name: "Laptop Dell (999099ET)",
                 image:
                     "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
@@ -957,7 +1088,7 @@ exports.RENDER_HOME = [
                 price: "12.690.000₫"
             },
             {
-                id: 5,
+                id: 2,
                 name: "Laptop Asus 08 (JDC123)",
                 image:
                     "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
@@ -1013,7 +1144,7 @@ exports.RENDER_HOME = [
                 price: "11.690.000₫"
             },
             {
-                id: 5,
+                id: 2,
                 name: "Laptop Dell (999099ET)",
                 image:
                     "https://cdn.tgdd.vn/Products/Images/44/235376/dell-inspiron-3505-r3-y1n1t1-15-600x600.jpg",
@@ -1047,7 +1178,7 @@ exports.RENDER_HOME = [
 ]
 
 exports.RENDER_LAPTOP_DETAIL = {
-    id: 5,
+    id: 2,
     images: [
         {
             id: 16,
@@ -1084,7 +1215,7 @@ exports.RENDER_LAPTOP_DETAIL = {
 
 exports.RENDER_CART = [
     {
-        id: 5,
+        id: 2,
         image:
             "https://cdn.tgdd.vn/Products/Images/44/236315/lenovo-ideapad-slim-3-15iil05-i3-81we0132vn-600x600.jpg",
         name: "Levono Think 15 (Chính hãng)",
@@ -1157,7 +1288,7 @@ exports.DOSSIER_DATA_LAPTOP = [
         description: "Laptop Lenovo ThinkBook 15IIL i3 (20SM00D9VN) sở ..."
     },
     {
-        id: 5,
+        id: 2,
         brand: "LEVONO",
         name: "Laptop Lenovo ThinkBook 15IIL i3",
         cpu: "Intel 5011",

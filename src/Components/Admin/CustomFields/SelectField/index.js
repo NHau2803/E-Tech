@@ -7,7 +7,8 @@ const SelectField = props => {
         initialValue,
         rules,
         options,
-        disabled = false
+        disabled = false,
+        onChange
     } = props
 
     return (
@@ -32,12 +33,14 @@ const SelectField = props => {
                         .localeCompare(optionB.children.toLowerCase())
                 }
                 value={["1"]}
+                onChange={onChange}
             >
-                {options.map(item => (
-                    <Select.Option key={item.id} value={item.id}>
-                        {item.value}
-                    </Select.Option>
-                ))}
+                {options &&
+                    options.map(item => (
+                        <Select.Option key={item.id} value={item.id}>
+                            {item.value}
+                        </Select.Option>
+                    ))}
             </Select>
         </Form.Item>
     )

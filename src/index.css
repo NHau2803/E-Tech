@@ -542,7 +542,7 @@ textarea.input {
 }
 
 .category-nav .category-list>li+li {
-  border-top: 1px solid #DADADA;
+  /* border-top: 1px solid #DADADA; */
 }
 
 .category-nav .category-list>li.dropdown>.dropdown-toggle>i {
@@ -1823,3 +1823,5 @@ textarea.input {
   transform: translateY(-50%);
   top: 50%;
 }
+
+

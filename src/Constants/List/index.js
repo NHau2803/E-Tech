@@ -11,13 +11,13 @@ export const MENU = [
         id: 0,
         icon: <LaptopOutlined />,
         name: "Laptop",
-        link: "/admin/laptops"
+        link: "/admin/laptop"
     },
     {
         id: 1,
         icon: <HddOutlined />,
         name: "Drive",
-        link: "/admin/drives"
+        link: "/admin/drive"
     },
     {
         id: 2,

@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import axios from "axios"
-import queryString from "query-string"
 import Cookie from "js-cookie"
+import queryString from "query-string"
 const axiosClient = axios.create({
     baseURL: "http://139.162.35.64:8000",
     // baseURL: "http://localhost:3005",
-    timeout: 10000,
+    timeout: 15000,
     headers: {
         "content-type": "application/json",
         "Access-Control-Allow-Origin": "*"
@@ -27,13 +27,14 @@ axiosClient.interceptors.request.use(
 )
 axiosClient.interceptors.response.use(
     res => {
+        console.log("🚀 ~ file: ClientAxios.js ~ line 30 ~ res", res)
         //notify
         if (res && res.data) return res.data
+
         return res
     },
     err => {
         //Handle err
-        // eslint-disable-next-line no-console
         console.log(err)
     }
 )

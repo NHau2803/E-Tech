@@ -5,9 +5,10 @@ const getProducts = async () => {
     try {
         const resApi = await axiosClient.get(`${url}`)
         console.log(
-            `LHA:  ===> file: User.Api.js ===> line 8 ===> resApi`,
+            "🚀 ~ file: Product.Api.js ~ line 7 ~ getProducts ~ resApi",
             resApi
         )
+
         if (resApi)
             return {
                 success: true,
@@ -15,13 +16,13 @@ const getProducts = async () => {
             }
         return {
             success: false,
-            data: []
+            data: null
         }
     } catch (err) {
         console.log(err)
         return {
             success: false,
-            data: []
+            data: null
         }
     }
 }
@@ -30,10 +31,6 @@ const getProductDetail = async (productType, productId) => {
         const resApi = await axiosClient.get(
             `${url}products/${productType}/get/${productId}`
         )
-        console.log(
-            `LHA:  ===> file: User.Api.js ===> line 8 ===> resApi`,
-            resApi
-        )
         if (resApi)
             return {
                 success: true,
@@ -41,16 +38,42 @@ const getProductDetail = async (productType, productId) => {
             }
         return {
             success: false,
-            data: []
+            data: null
         }
     } catch (err) {
         console.log(err)
         return {
             success: false,
-            data: []
+            data: null
         }
     }
 }
 
-const productApi = { getProducts, getProductDetail }
+const getProductsFilter = async (type, body) => {
+    try {
+        const resApi = await axiosClient.post(
+            `${url}products/${type}/filter`,
+            body
+        )
+        console.log("🚀 ~ file: Product.Api.js ~ line 61 ~ resApi", resApi)
+
+        if (resApi)
+            return {
+                success: true,
+                data: resApi
+            }
+        return {
+            success: false,
+            data: null
+        }
+    } catch (err) {
+        console.log(err)
+        return {
+            success: false,
+            data: null
+        }
+    }
+}
+
+const productApi = { getProducts, getProductDetail, getProductsFilter }
 export default productApi

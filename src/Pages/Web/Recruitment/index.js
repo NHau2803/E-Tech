@@ -21,12 +21,12 @@ const Recruitment = () => {
                             quyết định vị trí cuối cùng của bạn.
                         </p>
 
-                        <button
+                        {/* <button
                             className="content-button"
                             //   onClick={() => window.scrollTo(0, 1000)}
                         >
                             Thông tin Tuyển dụng
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>

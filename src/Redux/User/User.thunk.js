@@ -5,10 +5,8 @@ export const login = body => async dispatch => {
     try {
         // const res = await api.post('/api/auth/login/', { username, password })
         const resLogin = await UserApi.login(body)
-        console.log(
-            `LHA:  ===> file: User.thunk.js ===> line 8 ===> resLogin`,
-            resLogin
-        )
+        console.log("🚀 ~ file: User.thunk.js ~ line 8 ~ resLogin", resLogin)
+
         if (resLogin.success) {
             Cookies.set("token", resLogin.data.token)
             Cookies.set("account", resLogin.data.info)
@@ -26,10 +24,7 @@ export const signup = body => async dispatch => {
     try {
         // const res = await api.post('/api/auth/login/', { username, password })
         const resSignup = await UserApi.signup(body)
-        console.log(
-            `LHA:  ===> file: User.thunk.js ===> line 30 ===> resLogin`,
-            resSignup
-        )
+        console.log("🚀 ~ file: User.thunk.js ~ line 27 ~ resSignup", resSignup)
 
         return resSignup
     } catch (e) {

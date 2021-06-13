@@ -6,7 +6,7 @@ import { changePriceToVND } from "Utils/Converter"
 
 const ProductBlock = props => {
     const {
-        brandId,
+        type,
         id,
         image,
         name,
@@ -58,11 +58,7 @@ const ProductBlock = props => {
                         ""
                     )}*/}
                     <button className="main-btn quick-view">
-                        <Link
-                            to={`${
-                                brandId > 7 ? PATH.DRIVE : PATH.LAPTOP
-                            }/${id}`}
-                        >
+                        <Link to={`${PATH.HOME}/${type}/${id}`}>
                             <i className="fa fa-search-plus"></i> Xem Chi Tiết
                         </Link>
                     </button>
@@ -71,9 +67,7 @@ const ProductBlock = props => {
                 <div className="product-body">
                     <h2 className="product-name">
                         <Link
-                            to={`${
-                                brandId > 7 ? PATH.DRIVE : PATH.LAPTOP
-                            }/${id}`}
+                            to={`${type > 7 ? PATH.DRIVE : PATH.LAPTOP}/${id}`}
                             className="product-name link"
                         >
                             {name}

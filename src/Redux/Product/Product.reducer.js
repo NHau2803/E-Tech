@@ -5,26 +5,48 @@ const slice = createSlice({
 
     initialState: {
         products: [],
+        productsFilter: {},
         productDetail: {},
-        is404: false
+        filters: {}
     },
 
     reducers: {
         productsSuccess: (state, action) => {
-            state.is404 = false
             state.products = action.payload
         },
         productsFail: (state, action) => {
-            state.is404 = true
-            state.products = []
+            state.products = null
         },
         productDetailSuccess: (state, action) => {
-            state.is404 = false
             state.productDetail = action.payload
         },
         productDetailFail: (state, action) => {
-            state.is404 = true
-            state.productDetail = {}
+            state.productDetail = null
+        },
+        productsFilterSuccess: (state, action) => {
+            state.productsFilter = action.payload.data
+            state.filters = action.payload.filter
+        },
+        productsFilterFail: (state, action) => {
+            state.productsFilter = null
+            state.filters = null
+        },
+        changeActiveFilter(state, action) {
+            const type = action.payload.type
+            const value = action.payload.value
+            const filtersOld = state.filters
+            const filtersNew =
+                filtersOld &&
+                filtersOld[type].map(item => {
+                    if (
+                        item.value === value ||
+                        (type === "brands" && item.id === value)
+                    )
+                        item.active = !item.active
+                    return item
+                })
+            filtersOld[type] = filtersNew
+            state.filters = filtersOld
         }
     }
 })
@@ -37,5 +59,8 @@ export const {
     productsSuccess,
     productsFail,
     productDetailSuccess,
-    productDetailFail
+    productDetailFail,
+    productsFilterSuccess,
+    productsFilterFail,
+    changeActiveFilter
 } = slice.actions

@@ -12,7 +12,3 @@ exports.PATH = {
     POLICY_PAY: "/etech/chinh-sach-thanh-toan",
     RECRUITMENT: "/etech/tuyen-dung"
 }
-exports.PATH_ADMIN = {
-    ADD_EDIT: "/post",
-    LAPTOP: "/laptop"
-}

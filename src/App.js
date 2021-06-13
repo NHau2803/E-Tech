@@ -3,7 +3,6 @@
 import LoaderComponent from "Components/Web/Common/Loader"
 import NotFoundComponent from "Components/Web/Common/NotFound"
 import Authentication from "HOC/BaseAuth"
-import TestAPI from "Pages/Admin/Test"
 import LoginPage from "Pages/Common/LoginPage"
 import SignupPage from "Pages/Common/SignUp"
 import { Suspense } from "react"
@@ -50,8 +49,6 @@ function App() {
                             />
 
                             <Route path="/etech" component={RouteWeb} />
-
-                            <Route path="/test-api" component={TestAPI} />
 
                             <Route
                                 render={props => (

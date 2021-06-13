@@ -1,55 +1,73 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
-import { Layout } from "antd"
+import { Button, Layout, Result } from "antd"
 import DashboardComponent from "Components/Admin/Common/Dashboard"
-import { TYPE_ADMIN_PAGE, TYPE_PRODUCT } from "Constants/Data"
+import { TYPE_PRODUCT } from "Constants/Data"
 import React, { useState } from "react"
-import { useHistory, useParams } from "react-router"
-import AddEditPage from "./AddEdit"
+import { useParams } from "react-router"
+import { useHistory } from "react-router-dom"
+import AddProductPage from "./AddPage"
 import "./AdminPage.css"
 import DossierData from "./Dossier"
-import UpdateDrivePage from "./Drive/Update"
-import UpdateLaptopPage from "./Laptop/Update"
+import MyAccount from "./MyAccount"
+import StatisticPage from "./Statistic"
+import UpdatePage from "./UpadatePage"
+import ViewManager from "./ViewManager"
 
 const { Header, Content } = Layout
 
-const AdminPage = props => {
-    const { productId, productType } = useParams()
-    console.log("🚀 ~ file: index.js ~ line 16 ~ productType", productType)
-    const isAddMode = !productId
+const AdminPage = () => {
+    const { productId, productType, page } = useParams()
     const history = useHistory()
-    const { typePage } = props
+    console.log("🚀 ~ file: index.js ~ line 16 ~ page", page)
+    const isAddMode = !productId
     const [toggle, setToggle] = useState(false)
 
     const renderContentComponent = () => {
-        if (isAddMode && !productType) {
-            return <AddEditPage />
+        if (isAddMode && !productType && page === "home") {
+            return <p>Home Page</p>
+        }
+        if (isAddMode && !productType && page === "add") {
+            return <AddProductPage />
+        }
+        if (isAddMode && !productType && page === "statistic") {
+            return <StatisticPage />
+        }
+        if (isAddMode && !productType && page === "view-manager") {
+            return <ViewManager />
+        }
+        if (isAddMode && !productType && page === "my-account") {
+            return <MyAccount />
         }
         if (
             !isAddMode &&
-            productType === TYPE_PRODUCT.LAPTOP &&
+            (productType === TYPE_PRODUCT.LAPTOP ||
+                productType === TYPE_PRODUCT.DRIVE) &&
             !isNaN(productId)
         ) {
-            return <UpdateLaptopPage />
+            return <UpdatePage />
         }
+
         if (
-            !isAddMode &&
-            productType === TYPE_PRODUCT.DRIVE &&
-            !isNaN(productId)
-        ) {
-            return <UpdateDrivePage />
-        }
-        // if (
-        //     !isAddMode &&
-        //     productType === TYPE_PRODUCT.DRIVE &&
-        //     !isNaN(productId)
-        // ) {
-        //     return <UpdateLaptopPage />
-        // }
-        if (
-            productType === TYPE_ADMIN_PAGE.DOSSIER_LAPTOP ||
-            productType === TYPE_ADMIN_PAGE.DOSSIER_DRIVE
+            productType === TYPE_PRODUCT.LAPTOP ||
+            productType === TYPE_PRODUCT.DRIVE
         ) {
             return <DossierData />
+        } else {
+            return (
+                <Result
+                    status="404"
+                    title="404"
+                    subTitle="Xin lỗi, không tìm thấy trang"
+                    extra={
+                        <Button
+                            type="primary"
+                            onClick={() => history.push("/admin/home")}
+                        >
+                            Trở lại trang chủ
+                        </Button>
+                    }
+                />
+            )
         }
     }
 

@@ -1,9 +1,8 @@
-import { BackTop, Spin } from "antd"
+import { BackTop, Result, Spin } from "antd"
 import FooterComponent from "Components/Web/Common/Footer"
 import HeaderMain from "Components/Web/Common/Header/HeaderMain"
 import HeaderNav from "Components/Web/Common/Header/HeaderNav"
 import HeaderTop from "Components/Web/Common/Header/HeaderTop"
-import NotFoundComponent from "Components/Web/Common/NotFound"
 import AboutPage from "Pages/Web/About"
 import PolicyPay from "Pages/Web/Policy/Pay"
 import PolicyTransport from "Pages/Web/Policy/Transport"
@@ -22,9 +21,7 @@ const CheckOut = React.lazy(() => import("../../Pages/Web/CheckOut"))
 const ProductFilter = React.lazy(() => import("../../Pages/Web/ProductFilter"))
 const RouteWeb = () => {
     const match = useRouteMatch()
-
     const loading = useSelector(state => state.SystemReducer.loading)
-
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -81,6 +78,14 @@ const RouteWeb = () => {
                             return <CheckOut />
                         }}
                     />
+
+                    <Route
+                        path={`${match.url}/:productType/filter/:p`}
+                        // key={document.location.href}
+                        render={() => {
+                            return <ProductFilter />
+                        }}
+                    />
                     <Route
                         path={`${match.url}/:productType/:productId`}
                         render={() => {
@@ -88,16 +93,13 @@ const RouteWeb = () => {
                         }}
                     />
                     <Route
-                        path={`${match.url}/:productType`}
-                        render={() => {
-                            return <ProductFilter />
-                        }}
-                    />
-
-                    <Route
-                        render={() => {
-                            return <NotFoundComponent />
-                        }}
+                        render={() => (
+                            <Result
+                                status="404"
+                                title="404"
+                                subTitle="Xin lỗi, không tìm thấy trang"
+                            />
+                        )}
                     />
                 </Switch>
                 <FooterComponent />

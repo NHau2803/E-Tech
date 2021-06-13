@@ -12,9 +12,10 @@ export const getTotalPriceOfCartInLocalStorage = () => {
     const carts = getLS("carts")
     let totalPrice = 0
     // let countItem = 0
-    carts.map(item => {
-        totalPrice += item.price
-    })
+    carts &&
+        carts.map(item => {
+            totalPrice += item.price
+        })
     return totalPrice
 }
 export const getQtyOfCartInLocalStorage = () => {

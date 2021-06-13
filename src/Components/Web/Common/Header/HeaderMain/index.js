@@ -109,7 +109,7 @@ const HeaderMain = () => {
                                                     : "none"
                                         }}
                                     >
-                                        <Link to="/admin/laptops">
+                                        <Link to="/admin/home">
                                             <BarChartOutlined
                                                 style={{
                                                     marginRight: "15px",

@@ -14,10 +14,132 @@ import "./FilterBlock.css"
 const FilterBlock = () => {
     const { productType } = useParams()
 
+    const a = {
+        brands: [
+            {
+                id: 1,
+                value: "Dell",
+                active: false
+            },
+            {
+                id: 2,
+                value: "Hp",
+                active: false
+            },
+            {
+                id: 3,
+                value: "Lenovo",
+                active: false
+            },
+            {
+                id: 4,
+                value: "Acer",
+                active: false
+            },
+            {
+                id: 5,
+                value: "Msi",
+                active: false
+            },
+            {
+                id: 6,
+                value: "Macbook",
+                active: false
+            },
+            {
+                id: 7,
+                value: "Asus",
+                active: false
+            }
+        ],
+        rams: [
+            {
+                value: "16 GB",
+                active: false
+            },
+            {
+                value: "2 GB",
+                active: false
+            },
+            {
+                value: "32 GB",
+                active: false
+            },
+            {
+                value: "4 GB",
+                active: false
+            },
+            {
+                value: "8 GB",
+                active: false
+            }
+        ],
+        screens: [
+            {
+                value: "13 inch",
+                active: false
+            },
+            {
+                value: "13.3 inch",
+                active: false
+            },
+            {
+                value: "13.4 inch",
+                active: false
+            },
+            {
+                value: "14 inch",
+                active: false
+            },
+            {
+                value: "15 inch",
+                active: false
+            },
+            {
+                value: "15.6 inch",
+                active: false
+            },
+            {
+                value: "17 inch",
+                active: false
+            }
+        ],
+        cpus: [
+            {
+                value: "AMD Ryzen 3",
+                active: false
+            },
+            {
+                value: "AMD Ryzen 5",
+                active: false
+            },
+            {
+                value: "Intel Celeron",
+                active: false
+            },
+            {
+                value: "Intel Core i3",
+                active: false
+            },
+            {
+                value: "Intel Core i5",
+                active: false
+            },
+            {
+                value: "Intel Core i7",
+                active: false
+            },
+            {
+                value: "Intel Pentium",
+                active: false
+            }
+        ]
+    }
+
     const getBrandFilterDefault = () => {
         switch (productType) {
             case TYPE_PRODUCT.LAPTOP:
-                return BRAND_LAPTOP_FILTER_WEB
+                return a.brands
             case TYPE_PRODUCT.DRIVE:
                 return BRAND_DRIVE_FILTER_WEB
             default:
@@ -28,11 +150,9 @@ const FilterBlock = () => {
     const [filterRecordsBrand, setFilterRecordsBrand] = useState(
         getBrandFilterDefault() || []
     )
-    const [filterRecordsRam, setFilterRecordsRam] = useState(
-        RAM_LAPTOP_FILTER_WEB || []
-    )
+    const [filterRecordsRam, setFilterRecordsRam] = useState(a.rams || [])
     const [filterRecordsScreen, setFilterRecordsScreen] = useState(
-        SCREEN_LAPTOP_FILTER_WEB || []
+        a.screens || []
     )
     const [filterRecordsConnect, setFilterRecordsConnect] = useState(
         CONNECT_LAPTOP_FILTER_WEB || []
@@ -46,23 +166,26 @@ const FilterBlock = () => {
             <div className="filter__icon">
                 <div className="css_icon">
                     <div className="filter__text">{title}</div>
-                    {filterRecordName.map(item => {
-                        return (
-                            <div
-                                className={
-                                    item.active
-                                        ? "filter__box__active"
-                                        : "filter__box"
-                                }
-                                key={item.id}
-                                onClick={() =>
-                                    changeRecord(changeRecordName, item.id)
-                                }
-                            >
-                                <div className="filter__link">{item.value}</div>
-                            </div>
-                        )
-                    })}
+                    {filterRecordName &&
+                        filterRecordName.map(item => {
+                            return (
+                                <div
+                                    className={
+                                        item.active
+                                            ? "filter__box__active"
+                                            : "filter__box"
+                                    }
+                                    key={item.id}
+                                    onClick={() =>
+                                        changeRecord(changeRecordName, item.id)
+                                    }
+                                >
+                                    <div className="filter__link">
+                                        {item.value}
+                                    </div>
+                                </div>
+                            )
+                        })}
                 </div>
             </div>
         )
@@ -74,21 +197,26 @@ const FilterBlock = () => {
         const paramsScreen = []
         const paramsConnect = []
         const paramsCapacity = []
-        filterRecordsBrand.map(item =>
-            item.active === true ? paramsBrand.push(item.value) : ""
-        )
-        filterRecordsRam.map(item =>
-            item.active === true ? paramsRam.push(item.value) : ""
-        )
-        filterRecordsScreen.map(item =>
-            item.active === true ? paramsScreen.push(item.value) : ""
-        )
-        filterRecordsConnect.map(item =>
-            item.active === true ? paramsConnect.push(item.value) : ""
-        )
-        filterRecordsCapacity.map(item =>
-            item.active === true ? paramsCapacity.push(item.value) : ""
-        )
+        filterRecordsBrand &&
+            filterRecordsBrand.map(item =>
+                item.active === true ? paramsBrand.push(item.value) : ""
+            )
+        filterRecordsRam &&
+            filterRecordsRam.map(item =>
+                item.active === true ? paramsRam.push(item.value) : ""
+            )
+        filterRecordsScreen &&
+            filterRecordsScreen.map(item =>
+                item.active === true ? paramsScreen.push(item.value) : ""
+            )
+        filterRecordsConnect &&
+            filterRecordsConnect.map(item =>
+                item.active === true ? paramsConnect.push(item.value) : ""
+            )
+        filterRecordsCapacity &&
+            filterRecordsCapacity.map(item =>
+                item.active === true ? paramsCapacity.push(item.value) : ""
+            )
 
         const paramsRequest = {
             brand: paramsBrand,

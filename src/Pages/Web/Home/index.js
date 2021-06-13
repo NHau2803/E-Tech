@@ -3,7 +3,7 @@ import HeaderBanner from "Components/Web/Common/Header/HeaderBanner"
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getCartLS } from "Redux/Cart/Cart.thunk"
-import { getProductApi } from "Redux/Product/Product.thunk"
+import { getProductsApi } from "Redux/Product/Product.thunk"
 import { setLS } from "Utils/Converter"
 import { emptyItemInLocalStorage } from "Utils/localStorageFunctions"
 const SelectBlock = React.lazy(() =>
@@ -17,7 +17,7 @@ const HomePage = () => {
             setLS("carts", [])
         }
         dispatch(getCartLS())
-        dispatch(getProductApi())
+        dispatch(getProductsApi())
     }, [])
     const products = useSelector(state => state.ProductReducer.products)
 
@@ -101,16 +101,16 @@ const HomePage = () => {
     return (
         <div>
             <HeaderBanner />
-            {products.map(item => {
-                return (
-                    <SelectBlock
-                        key={item.id}
-                        selectBlockTitle={item.brand}
-                        brandId={item.id}
-                        products={item.result}
-                    />
-                )
-            })}
+            {products &&
+                products.map(item => {
+                    return (
+                        <SelectBlock
+                            key={item.id}
+                            selectBlockTitle={item.brand}
+                            products={item.result}
+                        />
+                    )
+                })}
             {/* <BenefitComponent /> */}
         </div>
     )

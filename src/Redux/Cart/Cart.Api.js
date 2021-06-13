@@ -4,10 +4,8 @@ const url = "api/"
 const getCarts = async body => {
     try {
         const resApi = await axiosClient.post(`${url}cart_info`, body)
-        console.log(
-            `LHA:  ===> file: User.Api.js ===> line 8 ===> resApi`,
-            resApi
-        )
+        console.log("🚀 ~ file: Cart.Api.js ~ line 7 ~ resApi", resApi)
+
         if (resApi)
             return {
                 success: true,
@@ -29,10 +27,8 @@ const getCarts = async body => {
 const saveCarts = async body => {
     try {
         const resApi = await axiosClient.post(`${url}cart_post`, body)
-        console.log(
-            `LHA:  ===> file: User.Api.js ===> line 8 ===> resApi`,
-            resApi
-        )
+        console.log("🚀 ~ file: Cart.Api.js ~ line 30 ~ resApi", resApi)
+
         if (resApi)
             return {
                 success: true,

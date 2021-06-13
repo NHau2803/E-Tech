@@ -21,9 +21,10 @@ const LoginPage = () => {
             login({ email: values.email, password: values.password })
         )
         console.log(
-            `LHA:  ===> file: index.js ===> line 24 ===> isLogin`,
+            "🚀 ~ file: index.js ~ line 23 ~ LoginPage ~ isLogin",
             isLogin
         )
+
         if (isLogin) {
             redirectHomePage()
         } else {
@@ -87,19 +88,20 @@ const LoginPage = () => {
                             placeholder="Mật Khẩu"
                         />
                     </Form.Item>
-                    <Form.Item>
+
+                    <div className="option-password">
                         <Form.Item
                             // name="remember"
                             valuePropName="checked"
                             noStyle
                         >
-                            <Checkbox>Lưu Mật Khẩu</Checkbox>
+                            <Checkbox>Lưu mật khẩu</Checkbox>
                         </Form.Item>
 
                         <a className="login-form-forgot" href="/#">
-                            &emsp;Quên Mật Khẩu
+                            &emsp;Quên mật khẩu?
                         </a>
-                    </Form.Item>
+                    </div>
 
                     <Form.Item>
                         <Button

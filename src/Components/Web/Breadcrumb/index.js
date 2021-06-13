@@ -7,7 +7,7 @@ const BreadcrumbComponent = props => {
             <div className="container">
                 <ul className="breadcrumb">
                     <li>
-                        <Link to={"/etech"}>ETech</Link>
+                        <Link to={"/etech"}>ETECH</Link>
                     </li>
                     <li className="active">{pageName}</li>
                 </ul>
