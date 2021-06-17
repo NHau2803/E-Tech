@@ -23,11 +23,7 @@ const ProductReviews = () => {
                     <div className="product-reviews">
                         <div className="single-review">
                             <div className="review-heading">
-                                <div>
-                                    <a href="/#">
-                                        <i className="fa fa-user-o" /> Chủ shop
-                                    </a>
-                                </div>
+                                <div>Admin</div>
                                 <div>
                                     <a href="/#">
                                         <i className="fa fa-clock-o" />{" "}
@@ -43,7 +39,7 @@ const ProductReviews = () => {
                                 </div>
                             </div>
                             <div className="review-body">
-                                <p>Tất nhiên sản phẩm shop tui là nhất rồi!</p>
+                                <p>Tính năng đánh giá đang được cập nhật...</p>
                             </div>
                         </div>
                         {/* <div className="single-review">

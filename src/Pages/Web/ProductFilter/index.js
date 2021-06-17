@@ -22,95 +22,144 @@ const ProductFilter = () => {
     )
     const filters = useSelector(state => state.ProductReducer.filters)
     const dispatch = useDispatch()
+    const [indexBlock, setIndexBlock] = useState(0)
+    const getKeyBlock = () => {
+        setIndexBlock(indexBlock + 1)
+        return indexBlock + 1
+    }
 
-    //--------------------call api first-------------------
-    useEffect(() => {
-        if (p === "all") {
-            dispatch(
-                getProductsFilterApi(productType, {
+    //--------------------CHECK---------------------------
+
+    const getParamsDefault = () => {
+        switch (productType) {
+            case TYPE_PRODUCT.LAPTOP:
+                return {
                     laptop_rams: [],
                     laptop_screens: [],
                     laptop_cpus: [],
                     laptop_brands: [],
                     price: [],
                     page: 1
-                })
-            )
-        } else {
-            dispatch(
-                getProductsFilterApi(productType, {
+                }
+            case TYPE_PRODUCT.DRIVE:
+                return {
+                    drive_types: [],
+                    drive_capacities: [],
+                    brand_drive: [],
+                    price: [],
+                    page: 1
+                }
+            default:
+                return {}
+        }
+    }
+
+    const getParams = () => {
+        switch (productType) {
+            case TYPE_PRODUCT.LAPTOP:
+                return {
                     laptop_rams: [...params.getAll("ram")],
                     laptop_screens: [...params.getAll("screen")],
                     laptop_cpus: [...params.getAll("cpu")],
                     laptop_brands: [...params.getAll("brand")],
                     price: [],
                     page: 1
-                })
-            )
+                }
+            case TYPE_PRODUCT.DRIVE:
+                return {
+                    drive_types: [...params.getAll("types")],
+                    drive_capacities: [...params.getAll("capacities")],
+                    brand_drive: [...params.getAll("brand")],
+                    price: [],
+                    page: 1
+                }
+            default:
+                return {}
+        }
+    }
+
+    //--------------------GET DATA FIRST-------------------
+    useEffect(() => {
+        if (p === "all") {
+            dispatch(getProductsFilterApi(productType, getParamsDefault()))
+        } else {
+            dispatch(getProductsFilterApi(productType, getParams()))
         }
     }, [])
 
-    //-----------------call api by url--------------------
+    //-----------------GET DATA BY URL--------------------
     useEffect(() => {
         console.log("call api by url ", params.toString())
-        dispatch(
-            getProductsFilterApi(productType, {
-                laptop_rams: [...params.getAll("ram")],
-                laptop_screens: [...params.getAll("screen")],
-                laptop_cpus: [...params.getAll("cpu")],
-                laptop_brands: [...params.getAll("brand")],
-                price: [],
-                page: 1
-            })
-        )
+        dispatch(getProductsFilterApi(productType, getParams()))
     }, [productType, p])
 
-    // const getBrandFilterDefault = () => {
-    //     switch (productType) {
-    //         case TYPE_PRODUCT.LAPTOP:
-    //             return filters.brands
-    //         case TYPE_PRODUCT.DRIVE:
-    //             return BRAND_DRIVE_FILTER_WEB
-    //         default:
-    //             break
-    //     }
-    // }
     const [checkChange, setCheckChange] = useState(false)
     const changeRecord = (type, value) => {
-        // console.log(
-        //     "🚀 ~ file: index.js ~ line 64 ~ changeRecord ~ type, value",
-        //     type,
-        //     value
-        // )
-        //-------------------add redux-----------------
+        console.log(
+            "🚀 ~ file: index.js ~ line 64 ~ changeRecord ~ type, value",
+            type,
+            value
+        )
+        //-------------------REDUX-----------------
         dispatch(changeActiveFilter({ type, value }))
         setCheckChange(!checkChange)
     }
     function isEmpty(obj) {
-        return Object.keys(obj).length === 0
+        if (obj) {
+            return Object.keys(obj).length === 0
+        }
+        return false
     }
+
     useEffect(() => {
         if (p && !isEmpty(filters)) {
             let newParams = new URLSearchParams("")
 
-            filters.brands.map(item =>
-                item.active === true ? newParams.append("brand", item.id) : ""
-            )
+            if (productType && productType === TYPE_PRODUCT.LAPTOP) {
+                filters.brands.map(item =>
+                    item.active === true
+                        ? newParams.append("brand", item.id)
+                        : ""
+                )
 
-            filters.rams.map(item =>
-                item.active === true ? newParams.append("ram", item.value) : ""
-            )
+                filters.rams.map(item =>
+                    item.active === true
+                        ? newParams.append("ram", item.value)
+                        : ""
+                )
 
-            filters.screens.map(item =>
-                item.active === true
-                    ? newParams.append("screen", item.value)
-                    : ""
-            )
+                filters.screens.map(item =>
+                    item.active === true
+                        ? newParams.append("screen", item.value)
+                        : ""
+                )
 
-            filters.cpus.map(item =>
-                item.active === true ? newParams.append("cpu", item.value) : ""
-            )
-            console.log("xxxxxxxxxxx>", newParams.toString())
+                filters.cpus.map(item =>
+                    item.active === true
+                        ? newParams.append("cpu", item.value)
+                        : ""
+                )
+            }
+            if (productType && productType === TYPE_PRODUCT.DRIVE) {
+                filters.brands.map(item =>
+                    item.active === true
+                        ? newParams.append("brand", item.id)
+                        : ""
+                )
+
+                filters.types.map(item =>
+                    item.active === true
+                        ? newParams.append("types", item.value)
+                        : ""
+                )
+
+                filters.capacities.map(item =>
+                    item.active === true
+                        ? newParams.append("capacities", item.value)
+                        : ""
+                )
+            }
+            // console.log("xxxxxxxxxxx>", newParams.toString())
             if (newParams.toString() !== "") {
                 history.push(
                     `${PATH.HOME}/${productType}/filter/${newParams.toString()}`
@@ -161,26 +210,23 @@ const ProductFilter = () => {
                 {renderFilter("Thương hiệu", filters.brands, "brands")}
                 {renderFilter("Cpu", filters.cpus, "cpus")}
                 {renderFilter("Ram", filters.rams, "rams")}
-                {renderFilter("Mànhình", filters.screens, "screens")}
+                {renderFilter("Màn hình", filters.screens, "screens")}
             </div>
         )
     }
     const renderDriveFilters = () => {
         return (
             <div>
-                update
-                {/* {renderFilter("Thương hiệu", filterRecordsBrand, "brands")}
-                {renderFilter("Chuẩn kết nối", filterRecordsConnect, "connect")}
-                {renderFilter("Dung lượng", filterRecordsCapacity, "capacity")} */}
+                {renderFilter("Thương hiệu", filters.brands, "brands")}
+                {renderFilter("Loại ổ cứng", filters.types, "types")}
+                {renderFilter("Dung lượng", filters.capacities, "capacities")}
             </div>
         )
     }
 
     return (
         <div>
-            <BreadcrumbComponent
-                pageName={productType && productType.toUpperCase()}
-            />
+            <BreadcrumbComponent pageName={"Bộ lọc sản phẩm"} />
             {/* <FilterBlock /> */}
 
             <div className="container">
@@ -271,7 +317,7 @@ const ProductFilter = () => {
             {/* render data */}
             {
                 <SelectBlock
-                    key={0}
+                    key={() => getKeyBlock()}
                     selectBlockTitle={"Kết quả tìm kiếm"}
                     products={isEmpty(productsFilter) ? null : productsFilter}
                 />

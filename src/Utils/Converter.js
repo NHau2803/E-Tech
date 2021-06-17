@@ -7,5 +7,8 @@ export const setLS = (name, data) => {
 }
 
 export const changePriceToVND = price => {
-    return price.toLocaleString("it-IT", { style: "currency", currency: "VND" })
+    return (
+        price &&
+        price.toLocaleString("it-IT", { style: "currency", currency: "VND" })
+    )
 }

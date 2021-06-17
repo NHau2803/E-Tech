@@ -1,18 +1,14 @@
-import {
-    productsSuccess,
-    productsFail,
-    productDetailSuccess,
-    productDetailFail,
-    productsFilterSuccess,
-    productsFilterFail
-} from "./Product.reducer"
-import {
-    isSuccess,
-    isNotFound,
-    isServerProblem
-} from "../Status/Status.reducer"
-import ProductApi from "./Product.Api"
+import { isNotFound, isSuccess } from "../Status/Status.reducer"
 import { changeLoading } from "../System/System.reducer.js"
+import ProductApi from "./Product.Api"
+import {
+    productDetailFail,
+    productDetailSuccess,
+    productsFail,
+    productsFilterFail,
+    productsFilterSuccess,
+    productsSuccess
+} from "./Product.reducer"
 export const getProductsApi = () => async dispatch => {
     try {
         dispatch(changeLoading(true))
@@ -34,18 +30,7 @@ export const getProductsApi = () => async dispatch => {
 export const getProductsFilterApi = (type, body) => async dispatch => {
     try {
         dispatch(changeLoading(true))
-        const resApi = await ProductApi.getProductsFilter(
-            type,
-            type === "laptop"
-                ? body
-                : {
-                      drive_types: [],
-                      drive_capacities: [],
-                      brand_drive: [],
-                      price: [250000, 3000000],
-                      page: 1
-                  }
-        )
+        const resApi = await ProductApi.getProductsFilter(type, body)
         console.log("🚀 ~ file: Product.thunk.js ~ line 50 ~ resApi", resApi)
         if (resApi.success) {
             dispatch(productsFilterSuccess(resApi.data))

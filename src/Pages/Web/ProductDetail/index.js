@@ -8,7 +8,6 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
 import {
-    getProductsApi,
     getProductDetailApi,
     getProductsFilterApi
 } from "Redux/Product/Product.thunk"
@@ -87,12 +86,21 @@ const ProductDetailPage = () => {
     }, [productId])
 
     function isEmpty(obj) {
-        return Object.keys(obj).length === 0
+        if (obj) {
+            return Object.keys(obj).length === 0
+        }
+        return false
     }
 
     return (
         <div>
-            <BreadcrumbComponent pageName={"LAPTOP DETAIL"} />
+            <BreadcrumbComponent
+                pageName={
+                    productType === TYPE_PRODUCT.LAPTOP
+                        ? "Chi tiết Laptop"
+                        : "Chi tiết Ổ Cứng"
+                }
+            />
             <div className="section">
                 <div className="container">
                     <div className="row">

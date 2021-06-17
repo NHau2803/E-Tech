@@ -1,56 +1,110 @@
-import { FileSearchOutlined } from "@ant-design/icons"
-import { Button, Table, Tag } from "antd"
-import Modal from "antd/lib/modal/Modal"
+import { FileSearchOutlined, ReloadOutlined } from "@ant-design/icons"
+import { Button, Table, Tag, Modal, notification } from "antd"
+import Search from "antd/lib/input/Search"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
-import React, { useState } from "react"
-
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { handleSearchByName } from "Redux/Admin/Bill/BillAdmin.reducer"
+import {
+    changeStatusBillApi,
+    getBillListApi
+} from "Redux/Admin/Bill/BillAdmin.thunk"
+import { changePriceToVND } from "Utils/Converter"
+const STATUS = [
+    {
+        text: "Đang chờ xác nhận",
+        value: "AWAIT_FOR_CONFIRMATION"
+    },
+    {
+        text: "Đang giao",
+        value: "ON_GOING"
+    },
+    {
+        text: "Đã giao",
+        value: "DELIVERED"
+    },
+    {
+        text: "Hủy đơn",
+        value: "CANCELLED"
+    }
+]
 const ViewManager = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [billDetail, setBillDetail] = useState(null)
     const handleCancel = () => {
         setIsModalVisible(false)
     }
-    const STATUS = [
-        {
-            text: "AWAIT_FOR_CONFIRMATION",
-            value: "AWAIT_FOR_CONFIRMATION"
-        },
-        {
-            text: "ON_GOING",
-            value: "ON_GOING"
-        },
-        {
-            text: "DELIVERED",
-            value: "DELIVERED"
-        },
-        {
-            text: "CANCELLED",
-            value: "CANCELLED"
-        }
-    ]
+    const dispatch = useDispatch()
+
+    const billsFilter = useSelector(state => state.BillReducer.billsFilter)
+    console.log(
+        "🚀 ~ file: index.js ~ line 118 ~ ViewManager ~ billsFilter",
+        billsFilter
+    )
+
+    useEffect(() => {
+        dispatch(getBillListApi())
+    }, [])
+
+    // ---------------------EVEN---------------------
+
+    const openNotify = (type, title, message) => {
+        notification[type]({
+            message: title,
+            description: message
+        })
+    }
 
     const showBillDetail = record => {
         console.log("🚀 ~ file: index.js ~ line 22 ~ record", record)
         setIsModalVisible(true)
         setBillDetail(record)
     }
+
+    const changeBillStatus = (billId, status) => {
+        dispatch(changeStatusBillApi(billId, status)).then(notify =>
+            openNotify(notify.type, notify.title, notify.message)
+        )
+        setIsModalVisible(false)
+        dispatch(getBillListApi())
+    }
+
+    const changeStatusVN = status => {
+        switch (status) {
+            case "AWAIT_FOR_CONFIRMATION":
+                return "Đang chờ xác nhận"
+            case "ON_GOING":
+                return "Đang giao"
+            case "DELIVERED":
+                return "Đã giao"
+            case "CANCELLED":
+                return "Hủy đơn"
+            default:
+                return "-----"
+        }
+    }
+
+    // ---------------------COL---------------------
+
     const columns = [
         {
             id: 1,
             key: "userId",
-            title: "Mã khách hàng",
+            title: "Mã KH",
             dataIndex: "userId",
-            width: 130,
+            width: 150,
+            sorter: (a, b) => a.userId - b.userId,
             fixed: "left"
         },
         {
             id: 2,
             key: "name",
             title: "Tên khách hàng",
-            dataIndex: "name"
+            dataIndex: "name",
+            sorter: (a, b) => a.name.localeCompare(b.name)
         },
         {
-            id: 2,
+            id: 3,
             key: "email",
             title: "Email",
             dataIndex: "email"
@@ -89,7 +143,7 @@ const ViewManager = () => {
                     }
                     key={status}
                 >
-                    {status}
+                    {changeStatusVN(status)}
                 </Tag>
             )
             // width: 220,
@@ -112,136 +166,25 @@ const ViewManager = () => {
         }
     ]
 
-    const data = [
-        {
-            userId: 8,
-            name: "Nguyen cong hau",
-            email: "hau2803nch@gmail.com",
-            address: "P7 Go Vap HCM",
-            phone: "0946432121",
-            status: "AWAIT_FOR_CONFIRMATION",
-            bill: {
-                billId: 47,
-                totalPrice: 25500000, // for => ( price * qty )
-                timeBuy: "08:00:00 13/06/2021",
-                products: [
-                    {
-                        id: 49,
-                        name: "Laptop ab",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/235378/dell-inspiron-7501-i7-x3mry1-600x600.jpg",
-                        price: 25000000,
-                        qty: 1
-                    },
-                    {
-                        id: 50,
-                        name: "O cung HHD 567",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/235378/dell-inspiron-7501-i7-x3mry1-600x600.jpg",
-                        price: 500000,
-                        qty: 1
-                    },
-                    {
-                        id: 51,
-                        name: "O cung HHD 567",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/235378/dell-inspiron-7501-i7-x3mry1-600x600.jpg",
-                        price: 500000,
-                        qty: 1
-                    },
-                    {
-                        id: 52,
-                        name: "O cung HHD 567",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/235378/dell-inspiron-7501-i7-x3mry1-600x600.jpg",
-                        price: 500000,
-                        qty: 1
-                    }
-                ]
-            }
-        },
-        {
-            userId: 2,
-            name: "Nguyen cong hau 2",
-            email: "hau2803nch@gmail.com",
-            address: "P7 Go Vap HCM",
-            phone: "0946432121",
-            status: "ON_GOING",
-            bill: {
-                billId: 48,
-                totalPrice: 25000000,
-                timeBuy: "08:00:00 13/06/2021",
-                products: [
-                    {
-                        id: 49,
-                        name: "Laptop ab",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/235378/dell-inspiron-7501-i7-x3mry1-600x600.jpg",
-                        price: 25000000,
-                        qty: 1
-                    }
-                ]
-            }
-        },
-        {
-            userId: 15,
-            name: "Nguyen cong hau 15",
-            email: "hau2803nch@gmail.com",
-            address: "P7 Go Vap HCM",
-            phone: "0946432121",
-            status: "DELIVERED",
-            bill: {
-                billId: 49,
-                totalPrice: 25000000,
-                timeBuy: "08:00:00 13/06/2021",
-                products: [
-                    {
-                        id: 49,
-                        name: "Laptop ab",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/235378/dell-inspiron-7501-i7-x3mry1-600x600.jpg",
-                        price: 25000000,
-                        qty: 1
-                    }
-                ]
-            }
-        },
-        {
-            userId: 3,
-            name: "Nguyen cong hau 3",
-            email: "hau2803nch@gmail.com",
-            address: "P7 Go Vap HCM",
-            phone: "0946432121",
-            status: "CANCELLED",
-            bill: {
-                billId: 50,
-                totalPrice: 25000000,
-                timeBuy: "08:00:00 13/06/2021",
-                timeCanceled: "08:00:00 13/06/2021",
-                products: [
-                    {
-                        id: 49,
-                        name: "Laptop ab",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/235378/dell-inspiron-7501-i7-x3mry1-600x600.jpg",
-                        price: 25000000,
-                        qty: 1
-                    }
-                ]
-            }
-        }
-    ]
     const columnsProduct = [
         {
             id: 10,
             title: "Mã sản phẩm",
             dataIndex: "id",
             key: "id",
-            width: 200,
+            width: 160,
             align: "center"
         },
         {
             id: 11,
+            title: "Tên sản phẩm",
+            dataIndex: "name",
+            key: "name",
+            width: 250,
+            align: "center"
+        },
+        {
+            id: 12,
             title: "Ảnh",
             dataIndex: "image",
             key: "image",
@@ -250,18 +193,20 @@ const ViewManager = () => {
             align: "center"
         },
         {
-            id: 12,
+            id: 13,
             title: "Giá",
             dataIndex: "price",
             key: "price",
+            render: price => changePriceToVND(price),
             align: "center"
         },
         {
-            id: 13,
+            id: 14,
             title: "Số lượng",
             dataIndex: "qty",
             key: "qty",
-            align: "center"
+            align: "center",
+            width: 120
         }
     ]
 
@@ -269,10 +214,24 @@ const ViewManager = () => {
         <>
             <BreadcrumbField list={["Admin", "Quản lí đơn hàng"]} />
             <br />
+            <Button
+                type="primary"
+                style={{ marginBottom: 5, width: 80 }}
+                icon={<ReloadOutlined />}
+                onClick={() => dispatch(getBillListApi())}
+            />
+            <Search
+                placeholder="Tìm kiếm tên sản phẩm"
+                style={{ width: 200, marginLeft: 5 }}
+                onChange={e => {
+                    dispatch(handleSearchByName(e.target.value))
+                }}
+            />
+            <br />
             <Table
                 className="components-table-demo-nested"
                 columns={columns}
-                dataSource={data}
+                dataSource={billsFilter}
                 pagination={{
                     defaultPageSize: 10,
                     showSizeChanger: true,
@@ -287,8 +246,50 @@ const ViewManager = () => {
                 onCancel={handleCancel}
                 width={1000}
                 footer={[
-                    <Button key="submit" type="primary">
+                    <Button
+                        type="primary"
+                        onClick={() =>
+                            changeBillStatus(
+                                billDetail && billDetail.billId,
+                                "AWAIT_FOR_CONFIRMATION"
+                            )
+                        }
+                    >
+                        Chờ xác nhận
+                    </Button>,
+                    <Button
+                        type="primary"
+                        onClick={() =>
+                            changeBillStatus(
+                                billDetail && billDetail.billId,
+                                "ON_GOING"
+                            )
+                        }
+                    >
                         Giao hàng
+                    </Button>,
+                    <Button
+                        type="primary"
+                        onClick={() =>
+                            changeBillStatus(
+                                billDetail && billDetail.billId,
+                                "DELIVERED"
+                            )
+                        }
+                    >
+                        Đã giao
+                    </Button>,
+                    <Button
+                        danger
+                        type="primary"
+                        onClick={() =>
+                            changeBillStatus(
+                                billDetail && billDetail.billId,
+                                "CANCELLED"
+                            )
+                        }
+                    >
+                        Hủy đơn
                     </Button>
                 ]}
             >
@@ -298,21 +299,25 @@ const ViewManager = () => {
                         pagination={false}
                         dataSource={billDetail && billDetail.products}
                         title={() => (
-                            <p>{`Mã hóa đơn: ${
+                            <b>{`Mã hóa đơn: ${
                                 billDetail && billDetail.billId
                             } | Thời gian mua: ${
-                                billDetail && billDetail.timeBuy
-                            }`}</p>
+                                billDetail &&
+                                new Date(billDetail.timeBuy).toLocaleString(
+                                    "en-GB"
+                                )
+                            }`}</b>
                         )}
                         footer={() => (
-                            <p
+                            <b
                                 style={{
                                     display: "flex",
                                     justifyContent: "right"
                                 }}
                             >{`Tổng đơn: ${
-                                billDetail && billDetail.totalPrice
-                            }`}</p>
+                                billDetail &&
+                                changePriceToVND(billDetail.totalPrice)
+                            }`}</b>
                         )}
                     />
                 }

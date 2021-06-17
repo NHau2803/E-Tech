@@ -1,12 +1,10 @@
 import { useDispatch } from "react-redux"
-import { useRouteMatch } from "react-router"
 import { addCart } from "Redux/Cart/Cart.reducer"
 import { changePriceToVND } from "Utils/Converter"
 import ProductSpec from "./ProductSpec"
 
 const ProductDetail = props => {
     const { detail, images, id } = props
-    const match = useRouteMatch()
     // console.log("🚀 ~ file: index.js ~ line 9 ~ match", match)
     // console.log("🚀 ~ file: index.js ~ line 6 ~ images", images)
     // console.log("🚀 ~ file: index.js ~ line 6 ~ detail", detail)
@@ -79,7 +77,7 @@ const ProductDetail = props => {
                             className="main-btn icon-btn"
                             onClick={() => {
                                 navigator.clipboard.writeText(
-                                    "http://localhost:3000" + match.url
+                                    window.location.href
                                 )
                             }}
                         >

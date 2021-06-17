@@ -2,11 +2,18 @@ import { TYPE_DRIVE } from "Constants/Data"
 
 //update function  : https://www.tutorialrepublic.com/faq/how-to-check-if-an-array-includes-an-object-in-javascript.php
 
-export const checkDiveType = type_id => {
-    if (type_id === 1 || type_id === 3) {
-        return TYPE_DRIVE.IS_HHD
+// export const checkDiveType = type_id => {
+//     if (type_id === 1 || type_id === 3) {
+//         return TYPE_DRIVE.IS_HHD
+//     }
+//     return TYPE_DRIVE.IS_SSD
+// }
+
+export const isEmpty = obj => {
+    if (obj) {
+        return Object.keys(obj).length === 0
     }
-    return TYPE_DRIVE.IS_SSD
+    return false
 }
 
 // export const checkNumber = val => {

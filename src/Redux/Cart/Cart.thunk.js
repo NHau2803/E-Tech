@@ -1,8 +1,7 @@
-import { getCartsSuccess, getCartsFail } from "./Cart.reducer"
-import CartApi from "./Cart.Api"
-import { changeLoading } from "../System/System.reducer.js"
-import { notification } from "antd"
 import { getLS, setLS } from "Utils/Converter"
+import { changeLoading } from "../System/System.reducer.js"
+import CartApi from "./Cart.Api"
+import { getCartsFail, getCartsSuccess } from "./Cart.reducer"
 export const getCartApi = () => async dispatch => {
     try {
         dispatch(changeLoading(true))
@@ -20,17 +19,40 @@ export const getCartApi = () => async dispatch => {
 }
 
 export const saveCartApi = body => async dispatch => {
-    const resApi = await CartApi.saveCarts(body)
-    if (resApi.notify && resApi.notify) {
-        dispatch(CartApi.getCarts)
-        notification["success"]({
-            message: "Cảm ơn",
-            description: "Bạn đã đặt hàng thành công!"
-        })
-    } else {
-        dispatch(getCartsFail())
+    try {
+        const resApi = await CartApi.saveCarts(body)
+        console.log("🚀 ~ file: Cart.thunk.js ~ line 25 ~ resApi", resApi)
+        if (resApi.success) {
+            setLS("carts", [])
+            dispatch(getCartsFail([]))
+
+            return {
+                success: true,
+                status: "success",
+                title: "Đặt hàng thành công",
+                subTitle:
+                    "Mã hóa đơn: xxxx, hệ thống sẽ phản hồi qua mail, Cảm ơn!"
+            }
+        }
+        dispatch(changeLoading(false))
+        return {
+            success: false,
+            status: "error",
+            title: "Đặt hàng chưa thành công",
+            subTitle:
+                "Xin lỗi hệ thống đang gặp vấn đề, mời bạn quay lại sau vài phút!"
+        }
+    } catch (err) {
+        console.log("🚀 ~ file: Cart.thunk.js ~ line 46 ~ err", err)
+        dispatch(changeLoading(false))
+        return {
+            success: false,
+            status: "error",
+            title: "Đặt hàng chưa thành công",
+            subTitle:
+                "Xin lỗi hệ thống đang gặp vấn đề, mời bạn quay lại sau vài phút!"
+        }
     }
-    dispatch(changeLoading(false))
 }
 
 export const getCartLS = () => async dispatch => {

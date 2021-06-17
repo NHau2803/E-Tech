@@ -16,7 +16,7 @@ const ProductTab = props => {
                 <ul className="tab-nav">
                     <li className={tabDescription ? "active" : ""}>
                         <a data-toggle="tab" onClick={onChangeTab}>
-                            Mô tả chi tiết
+                            Mô tả sản phẩm
                         </a>
                     </li>
 

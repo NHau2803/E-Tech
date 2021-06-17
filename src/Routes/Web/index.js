@@ -4,6 +4,7 @@ import HeaderMain from "Components/Web/Common/Header/HeaderMain"
 import HeaderNav from "Components/Web/Common/Header/HeaderNav"
 import HeaderTop from "Components/Web/Common/Header/HeaderTop"
 import AboutPage from "Pages/Web/About"
+import HistoryBill from "Pages/Web/HistoryBill"
 import PolicyPay from "Pages/Web/Policy/Pay"
 import PolicyTransport from "Pages/Web/Policy/Transport"
 import Recruitment from "Pages/Web/Recruitment"
@@ -73,12 +74,18 @@ const RouteWeb = () => {
                     />
                     <Route
                         exact
-                        path={`${match.url}/thanh-toan`}
+                        path={`${match.url}/gio-hang`}
                         render={() => {
                             return <CheckOut />
                         }}
                     />
-
+                    <Route
+                        exact
+                        path={`${match.url}/lich-su`}
+                        render={() => {
+                            return <HistoryBill />
+                        }}
+                    />
                     <Route
                         path={`${match.url}/:productType/filter/:p`}
                         // key={document.location.href}

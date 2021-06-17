@@ -1,9 +1,4 @@
-import {
-    DeleteOutlined,
-    FileSearchOutlined,
-    FormOutlined,
-    ReloadOutlined
-} from "@ant-design/icons"
+import { DeleteOutlined, FormOutlined, ReloadOutlined } from "@ant-design/icons"
 import {
     Button,
     Form,
@@ -57,15 +52,26 @@ const DossierData = () => {
         dispatch(getProductsApi(productType))
     }, [productType])
 
-    // ---------------------even---------------------
+    // ---------------------EVEN---------------------
+
+    const openNotification = (title, message) => {
+        notification.open({
+            message: title,
+            description: message,
+            title
+        })
+    }
 
     const handleDelete = key => {
-        //----------call api delete data--------
         console.log(key)
         return <MessageField />
     }
+    const reloadData = () => {
+        setIndexTable(indexTable + 1)
+        dispatch(getProductsApi(productType))
+    }
 
-    // ---------------------table---------------------
+    // ---------------------COL---------------------
     const columnsLaptop = [
         {
             id: 1,
@@ -265,14 +271,6 @@ const DossierData = () => {
         }
     ]
 
-    const openNotification = (title, message) => {
-        notification.open({
-            message: title,
-            description: message,
-            title
-        })
-    }
-
     return (
         <Layout className="site-layout">
             <BreadcrumbField
@@ -293,7 +291,7 @@ const DossierData = () => {
                     type="primary"
                     style={{ marginBottom: 5, width: 80 }}
                     icon={<ReloadOutlined />}
-                    onClick={() => openNotification()}
+                    onClick={() => reloadData()}
                 />
                 <Search
                     placeholder="Tìm kiếm tên sản phẩm"

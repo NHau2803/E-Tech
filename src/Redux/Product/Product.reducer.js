@@ -46,6 +46,7 @@ const slice = createSlice({
                     return item
                 })
             filtersOld[type] = filtersNew
+            console.log("====================>", filtersOld.toString())
             state.filters = filtersOld
         }
     }

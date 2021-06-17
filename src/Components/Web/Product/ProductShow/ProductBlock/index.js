@@ -1,6 +1,6 @@
 import { PATH } from "Constants/Path"
 import { useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { addCart } from "Redux/Cart/Cart.reducer"
 import { changePriceToVND } from "Utils/Converter"
 
@@ -16,20 +16,8 @@ const ProductBlock = props => {
         spec2,
         valueSale
     } = props
-    // console.log("🚀 ~ file: index.js ~ line 6 ~ price", changePriceToVND(price))
-    //--------------------------giong nut ben kia--------
-    // const saveProductToLocalStorage = () => {
-    //     let cartItem = {
-    //         id: id,
-    //         image: image,
-    //         name: name,
-    //         price: price,
-    //         spec1: spec1,
-    //         spec2: spec2,
-    //         qty: 1
-    //     }
-    //     handleSaveCartItem(cartItem)
-    // }
+
+    const history = useHistory()
     const dispatch = useDispatch()
     const saveProductToLocalStorage = () => {
         let cartItem = {
@@ -39,7 +27,8 @@ const ProductBlock = props => {
             price: price,
             spec1: spec1,
             spec2: spec2,
-            qty: 1
+            qty: 1,
+            type: type
         }
         dispatch(addCart(cartItem))
     }
@@ -47,7 +36,10 @@ const ProductBlock = props => {
     return (
         <div className="col-md-3 col-sm-6 col-xs-6">
             <div className="product product-single">
-                <div className="product-thumb">
+                <div
+                    className="product-thumb"
+                    onClick={() => history.push(`${PATH.HOME}/${type}/${id}`)}
+                >
                     {/* {valueSale ? (
         console.log("🚀 ~ file: index.js ~ line 32 ~ saveProductToLocalStorage ~ handleSaveCartItem", handleSaveCartItem)
                         <div className="product-label">
@@ -67,7 +59,7 @@ const ProductBlock = props => {
                 <div className="product-body">
                     <h2 className="product-name">
                         <Link
-                            to={`${type > 7 ? PATH.DRIVE : PATH.LAPTOP}/${id}`}
+                            to={`${PATH.HOME}/${type}/${id}`}
                             className="product-name link"
                         >
                             {name}

@@ -7,6 +7,7 @@ import SystemReducer from "./System/System.reducer"
 import CartReducer from "./Cart/Cart.reducer"
 import StatusReducer from "./Status/Status.reducer"
 import NotifyReducer from "./Notify/Notify.reducer"
+import BillReducer from "./Admin/Bill/BillAdmin.reducer"
 const reducer = combineReducers({
     UserReducer,
     ProductReducer,
@@ -14,8 +15,8 @@ const reducer = combineReducers({
     CartReducer,
     StatusReducer,
     ProductAdminReducer,
-    NotifyReducer
-
+    NotifyReducer,
+    BillReducer
     // here we will be adding reducers
 })
 const store = configureStore({

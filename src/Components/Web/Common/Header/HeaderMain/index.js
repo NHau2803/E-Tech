@@ -99,7 +99,15 @@ const HeaderMain = () => {
                                         {/* &emsp;<i className="fa fa-caret-down"></i> */}
                                     </strong>
                                 </div>
-                                <Link to={PATH.LOGIN}>Đăng nhập</Link>
+                                <Link
+                                    to={PATH.LOGIN}
+                                    style={{
+                                        display:
+                                            account === null ? "block" : "none"
+                                    }}
+                                >
+                                    Đăng nhập
+                                </Link>
                                 <ul className="custom-menu">
                                     <li
                                         style={{

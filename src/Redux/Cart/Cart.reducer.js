@@ -15,6 +15,8 @@ const slice = createSlice({
         },
         getCartsFail: (state, action) => {
             state.carts = []
+            state.totalPrice = 0
+            state.totalPriceBill = 0
         },
         getTotalPriceSuccess: (state, action) => {
             state.totalPrice = 0

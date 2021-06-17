@@ -794,14 +794,14 @@ const NAV_MAP_LI_LAPTOP_OFFICE_SENIOR = [
     { id: 2, title: "HP", link: "brand=2" }
 ]
 const NAV_MAP_LI_LAPTOP_ENGINEERING_MID = [
-    { id: 2, title: "ACER", link: "brand=4" },
+    { id: 1, title: "ACER", link: "brand=4" },
     { id: 2, title: "HP", link: "brand=2" }
 ]
 const NAV_MAP_LI_LAPTOP_ENGINEERING_SENIOR = [
     { id: 1, title: "MACBOOK", link: "brand=6" },
     { id: 2, title: "DELL", link: "brand=1" },
-    { id: 2, title: "ACER", link: "brand=4" },
-    { id: 2, title: "HP", link: "brand=2" }
+    { id: 3, title: "ACER", link: "brand=4" },
+    { id: 4, title: "HP", link: "brand=2" }
 ]
 const NAV_MAP_LI_HDD = [
     { id: 1, title: "WD", link: "/laptop-gamming/tam-trung/HP" },
@@ -894,7 +894,7 @@ exports.NAV_MAP_LAPTOP_ENGINEERING = [
         nav_map_li: NAV_MAP_LI_LAPTOP_ENGINEERING_SENIOR
     }
 ]
-exports.NAV_MAP_HARD = [
+exports.NAV_MAP_DRIVE = [
     {
         id: 1,
         title: "Ổ Cứng HDD",
