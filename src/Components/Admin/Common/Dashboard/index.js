@@ -1,5 +1,7 @@
 import { Layout, Menu } from "antd"
+import Images from "Constants/Images"
 import { MENU } from "Constants/List"
+import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
 const { Sider } = Layout
 const {
@@ -9,7 +11,8 @@ const {
     UserOutlined,
     HddOutlined,
     HomeOutlined,
-    FundViewOutlined
+    FundViewOutlined,
+    LinkOutlined
 } = require("@ant-design/icons")
 
 const DashboardComponent = props => {
@@ -30,7 +33,7 @@ const DashboardComponent = props => {
         {
             id: 2,
             icon: <HddOutlined />,
-            name: "Drive",
+            name: "Ổ cứng",
             link: "/admin/products/drive"
         },
         {
@@ -42,26 +45,32 @@ const DashboardComponent = props => {
         {
             id: 4,
             icon: <BarChartOutlined />,
-            name: "Statistic",
+            name: "Thống kê",
             link: "/admin/statistic"
         },
         {
             id: 5,
             icon: <FundViewOutlined />,
-            name: "View Manager",
+            name: "Quản lí đơn hàng",
             link: "/admin/view-manager"
         },
         {
             id: 6,
             icon: <UserOutlined />,
-            name: "My Account",
+            name: "Tài khoản của tôi",
             link: "/admin/my-account"
+        },
+        {
+            id: 7,
+            icon: <LinkOutlined />,
+            name: "Website ETech",
+            link: PATH.HOME
         }
     ]
 
     return (
         <Sider collapsed={toggle}>
-            <div
+            {/* <div
                 className="logo"
                 style={{
                     backgroundColor: "#33c9dc",
@@ -75,7 +84,8 @@ const DashboardComponent = props => {
                 <Link to="/etech" style={{ color: "white" }}>
                     ETech
                 </Link>
-            </div>
+            </div> */}
+            <img alt="Logo" src={Images.Logo_Admin} width={"100%"}></img>
             <Menu
                 theme="dark"
                 mode="inline"

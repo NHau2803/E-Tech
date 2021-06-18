@@ -1,6 +1,7 @@
 import {
     BarChartOutlined,
     HeartOutlined,
+    HistoryOutlined,
     PoweroffOutlined,
     RightCircleOutlined,
     ShoppingCartOutlined,
@@ -11,13 +12,13 @@ import Images from "Constants/Images"
 import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import {
     getTotalPriceBillSuccess,
     getTotalPriceSuccess
 } from "Redux/Cart/Cart.reducer"
 import { getCartLS, setCartLS } from "Redux/Cart/Cart.thunk"
-import { getUserCookie, logoutUser } from "Redux/User/User.thunk"
+import { logoutUser } from "Redux/User/User.thunk"
 import { changePriceToVND } from "Utils/Converter"
 
 const HeaderMain = () => {
@@ -130,18 +131,6 @@ const HeaderMain = () => {
                                     </li>
                                     <li>
                                         <Link to="/#">
-                                            <UserOutlined
-                                                style={{
-                                                    marginRight: "15px",
-                                                    color:
-                                                        "var(--color-primary)"
-                                                }}
-                                            />
-                                            TK của bạn
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/#">
                                             <HeartOutlined
                                                 style={{
                                                     marginRight: "15px",
@@ -169,6 +158,44 @@ const HeaderMain = () => {
                                                 }}
                                             />
                                             Tạo tài khoản
+                                        </Link>
+                                    </li>
+                                    <li
+                                        style={{
+                                            display:
+                                                account === null
+                                                    ? "none"
+                                                    : "block"
+                                        }}
+                                    >
+                                        <Link to={`${PATH.HOME}/lich-su`}>
+                                            <HistoryOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
+                                            Lịch sử mua hàng
+                                        </Link>
+                                    </li>
+                                    <li
+                                        style={{
+                                            display:
+                                                account === null
+                                                    ? "none"
+                                                    : "block"
+                                        }}
+                                    >
+                                        <Link to={`${PATH.HOME}/tai-khoan`}>
+                                            <UserOutlined
+                                                style={{
+                                                    marginRight: "15px",
+                                                    color:
+                                                        "var(--color-primary)"
+                                                }}
+                                            />
+                                            Tài khoản của tôi
                                         </Link>
                                     </li>
                                     <li

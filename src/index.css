@@ -77,7 +77,7 @@ Table OF Contents
 }
 
 body {
-  font-family:sans-serif;
+  font-family:system-ui;;
   color: #4A4E5A;
   overflow-x: hidden;
 }
@@ -362,7 +362,7 @@ textarea.input {
 
 .header-logo .logo>img {
   width: 100%;
-  max-height: 70px;
+  max-height: 72px;
 }
 
 /*----------------------------*\

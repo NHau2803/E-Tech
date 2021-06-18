@@ -1,4 +1,5 @@
 import { PhoneOutlined } from "@ant-design/icons"
+import { notification } from "antd"
 import {
     NAV_MAP_DRIVE,
     NAV_MAP_KEYBOARD,
@@ -428,7 +429,17 @@ const HeaderNav = () => {
                             </li>
 
                             <li>
-                                <Link to="/#">Khuyến Mãi</Link>
+                                <Link
+                                    onClick={() =>
+                                        notification.warning({
+                                            message: "Thông báo",
+                                            description:
+                                                "Tính năng đang cập nhật"
+                                        })
+                                    }
+                                >
+                                    Khuyến Mãi
+                                </Link>
                             </li>
                             <li>
                                 <Link to={PATH.ABOUT}>Giới Thiệu</Link>

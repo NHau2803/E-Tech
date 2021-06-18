@@ -46,8 +46,25 @@ const slice = createSlice({
                     return item
                 })
             filtersOld[type] = filtersNew
-            console.log("====================>", filtersOld.toString())
+            // console.log("====================>", filtersOld.toString())
             state.filters = filtersOld
+        },
+        sortPrice(state, action) {
+            if (state.productsFilter && action.payload.type === "INCREASE") {
+                state.productsFilter =
+                    state.productsFilter &&
+                    state.productsFilter.sort((a, b) =>
+                        a.price > b.price ? 1 : -1
+                    )
+            }
+            if (state.productsFilter && action.payload.type === "REDUCED") {
+                state.productsFilter =
+                    state.productsFilter &&
+                    state.productsFilter.sort((a, b) =>
+                        a.price < b.price ? 1 : -1
+                    )
+            }
+            // console.log("==================>", state.productsFilter.toString())
         }
     }
 })
@@ -63,5 +80,6 @@ export const {
     productDetailFail,
     productsFilterSuccess,
     productsFilterFail,
-    changeActiveFilter
+    changeActiveFilter,
+    sortPrice
 } = slice.actions

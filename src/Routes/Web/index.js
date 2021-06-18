@@ -5,6 +5,7 @@ import HeaderNav from "Components/Web/Common/Header/HeaderNav"
 import HeaderTop from "Components/Web/Common/Header/HeaderTop"
 import AboutPage from "Pages/Web/About"
 import HistoryBill from "Pages/Web/HistoryBill"
+import MyAccount from "Pages/Web/MyAccount"
 import PolicyPay from "Pages/Web/Policy/Pay"
 import PolicyTransport from "Pages/Web/Policy/Transport"
 import Recruitment from "Pages/Web/Recruitment"
@@ -84,6 +85,13 @@ const RouteWeb = () => {
                         path={`${match.url}/lich-su`}
                         render={() => {
                             return <HistoryBill />
+                        }}
+                    />
+                    <Route
+                        exact
+                        path={`${match.url}/tai-khoan`}
+                        render={() => {
+                            return <MyAccount />
                         }}
                     />
                     <Route

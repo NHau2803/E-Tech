@@ -5,7 +5,7 @@ import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
-import { changeActiveFilter } from "Redux/Product/Product.reducer"
+import { changeActiveFilter, sortPrice } from "Redux/Product/Product.reducer"
 import { getProductsFilterApi } from "Redux/Product/Product.thunk"
 import "./ProductFilter.css"
 
@@ -23,9 +23,31 @@ const ProductFilter = () => {
     const filters = useSelector(state => state.ProductReducer.filters)
     const dispatch = useDispatch()
     const [indexBlock, setIndexBlock] = useState(0)
+    const [priceIncrease, setPriceIncrease] = useState(false)
+    const [priceReduced, setPriceReduced] = useState(false)
+
     const getKeyBlock = () => {
         setIndexBlock(indexBlock + 1)
         return indexBlock + 1
+    }
+
+    //----------------------ENV--------------------------
+
+    const getProductsByPriceIncrease = type => {
+        console.log(
+            "🚀 ~ file: index.js ~ line 37 ~ ProductFilter ~ type",
+            type
+        )
+        if (type === "INCREASE") {
+            dispatch(sortPrice({ type: type }))
+            setPriceIncrease(true)
+            setPriceReduced(false)
+        }
+        if (type === "REDUCED") {
+            dispatch(sortPrice({ type: type }))
+            setPriceReduced(true)
+            setPriceIncrease(false)
+        }
     }
 
     //--------------------CHECK---------------------------
@@ -174,7 +196,7 @@ const ProductFilter = () => {
         return (
             <div className="filter__icon">
                 <div className="css_icon">
-                    <div className="filter__text">{title}</div>
+                    <div className="filter__text">{title && title}</div>
                     {filterType &&
                         filterType.map(item => {
                             return (
@@ -207,19 +229,35 @@ const ProductFilter = () => {
     const renderLaptopFilters = () => {
         return (
             <div>
-                {renderFilter("Thương hiệu", filters.brands, "brands")}
-                {renderFilter("Cpu", filters.cpus, "cpus")}
-                {renderFilter("Ram", filters.rams, "rams")}
-                {renderFilter("Màn hình", filters.screens, "screens")}
+                {renderFilter(
+                    "Thương hiệu",
+                    filters && filters.brands,
+                    "brands"
+                )}
+                {renderFilter("Cpu", filters && filters.cpus, "cpus")}
+                {renderFilter("Ram", filters && filters.rams, "rams")}
+                {renderFilter(
+                    "Màn hình",
+                    filters && filters.screens,
+                    "screens"
+                )}
             </div>
         )
     }
     const renderDriveFilters = () => {
         return (
             <div>
-                {renderFilter("Thương hiệu", filters.brands, "brands")}
-                {renderFilter("Loại ổ cứng", filters.types, "types")}
-                {renderFilter("Dung lượng", filters.capacities, "capacities")}
+                {renderFilter(
+                    "Thương hiệu",
+                    filters && filters.brands,
+                    "brands"
+                )}
+                {renderFilter("Loại ổ cứng", filters && filters.types, "types")}
+                {renderFilter(
+                    "Dung lượng",
+                    filters && filters.capacities,
+                    "capacities"
+                )}
             </div>
         )
     }
@@ -255,8 +293,30 @@ const ProductFilter = () => {
                                 >
                                     Sắp xếp theo giá
                                 </div>
-                                <div className="filter__box">Giá giảm dần</div>
-                                <div className="filter__box">Giá tăng dần</div>
+                                <div
+                                    className={
+                                        priceIncrease
+                                            ? "filter__box__active"
+                                            : "filter__box"
+                                    }
+                                    onClick={() =>
+                                        getProductsByPriceIncrease("INCREASE")
+                                    }
+                                >
+                                    Giá tăng dần
+                                </div>
+                                <div
+                                    className={
+                                        priceReduced
+                                            ? "filter__box__active"
+                                            : "filter__box"
+                                    }
+                                    onClick={() => {
+                                        getProductsByPriceIncrease("REDUCED")
+                                    }}
+                                >
+                                    Giá giảm dần
+                                </div>
                                 <div>
                                     <input
                                         type="text"

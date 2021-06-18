@@ -15,13 +15,13 @@ const ProductTab = props => {
             <div className="product-tab">
                 <ul className="tab-nav">
                     <li className={tabDescription ? "active" : ""}>
-                        <a data-toggle="tab" onClick={onChangeTab}>
+                        <a data-toggle="tab" href onClick={onChangeTab}>
                             Mô tả sản phẩm
                         </a>
                     </li>
 
                     <li className={!tabDescription ? "active" : ""}>
-                        <a data-toggle="tab" onClick={onChangeTab}>
+                        <a data-toggle="tab" href onClick={onChangeTab}>
                             Đánh giá của khách hàng
                         </a>
                     </li>

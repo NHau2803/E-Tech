@@ -1,11 +1,10 @@
 import {
-    AuditOutlined,
     GlobalOutlined,
     MailOutlined,
     PhoneOutlined,
     UserOutlined
 } from "@ant-design/icons"
-import { Button, InputNumber, Modal, Result } from "antd"
+import { Alert, InputNumber, Modal, notification, Result } from "antd"
 import BreadcrumbComponent from "Components/Web/Breadcrumb"
 import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
@@ -211,52 +210,6 @@ const CheckOut = () => {
                                             Thông Tin Khách Hàng
                                         </h3>
                                     </div>
-                                    {/* <div className="form-group">
-                                        <input
-                                            className="input"
-                                            type="text"
-                                            name="name"
-                                            placeholder="Họ Tên"
-                                            value={
-                                                (account && account.name) || ""
-                                            }
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            className="input"
-                                            type="text"
-                                            name="address"
-                                            placeholder="Địa chỉ"
-                                            value={
-                                                (account && account.address) ||
-                                                ""
-                                            }
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            className="input"
-                                            type="text"
-                                            name="email"
-                                            placeholder="Email"
-                                            value={
-                                                (account && account.email) || ""
-                                            }
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            className="input"
-                                            type="text"
-                                            name="phone"
-                                            placeholder="Số điện thoại"
-                                            value={
-                                                (account && account.phone) || ""
-                                            }
-                                        />
-                                    </div> */}
-
                                     <h4>
                                         <UserOutlined />
                                         &ensp;
@@ -333,7 +286,15 @@ const CheckOut = () => {
                                     </table>
                                     <button
                                         className="primary-btn"
-                                        onClick={() => handlePay()}
+                                        onClick={() => {
+                                            isEmpty(carts)
+                                                ? notification.warning({
+                                                      message: "Thông báo",
+                                                      description:
+                                                          "Chưa có sản phẩm nào để thanh toán"
+                                                  })
+                                                : handlePay()
+                                        }}
                                     >
                                         Thanh toán
                                     </button>

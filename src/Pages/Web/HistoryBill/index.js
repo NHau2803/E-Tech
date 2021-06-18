@@ -4,6 +4,40 @@ import { changePriceToVND } from "Utils/Converter"
 const HistoryBill = () => {
     const billDetail = [
         {
+            billId: 21,
+            userId: 26,
+            name: "NCH",
+            phone: "0943258374",
+            email: "hau2803nch@gmail.com",
+            address: "nguyen thai son, phuong 7, go vap",
+            status: "AWAIT_FOR_CONFIRMATION",
+            bill: {
+                billId: 21,
+                totalPrice: 120310000,
+                timeBuy: "2021-06-18 06:14:59",
+                products: [
+                    {
+                        id: 51,
+                        name: "Laptop HP Omen 15 ek0078TX",
+                        image:
+                            "https://cdn.tgdd.vn/Products/Images/44/236426/hp-omen-15-ek0078tx-i7-26y68pa-1-org.jpg",
+                        price: 48860000,
+                        qty: 2
+                    },
+                    {
+                        id: 52,
+                        name: "Laptop HP Envy 13 ba1027TU",
+                        image:
+                            "https://cdn.tgdd.vn/Products/Images/44/230238/hp-envy-13-ba1027tu-i5-2k0b1pa-1-2-org.jpg",
+                        price: 22590000,
+                        qty: 1
+                    }
+                ]
+            }
+        }
+    ]
+    const billDetail2 = [
+        {
             billId: 3,
             status: "ON_GOING",
             totalPrice: 201056119,
@@ -71,10 +105,12 @@ const HistoryBill = () => {
             <b>
                 <p>{`Mã hóa đơn: ${item && item.billId}`}</p>
                 <p>{`Thời gian mua: ${
-                    item && new Date(item.timeBuy).toLocaleString("en-GB")
+                    item.bill.timeBuy &&
+                    new Date(item.bill.timeBuy).toLocaleString("en-GB")
                 }`}</p>
                 <p>{`Tổng đơn: ${
-                    item && changePriceToVND(item.totalPrice)
+                    item.bill.totalPrice &&
+                    changePriceToVND(item.bill.totalPrice)
                 }`}</p>
                 <p
                     style={{ color: "blue" }}
@@ -111,22 +147,6 @@ const HistoryBill = () => {
         },
         {
             id: 13,
-            title: "Thông số cơ bản",
-            dataIndex: "spec1",
-            key: "spec1",
-            align: "center",
-            width: 200
-        },
-        {
-            id: 14,
-            title: "Thông số cơ bản",
-            dataIndex: "spec2",
-            key: "spec2",
-            align: "center",
-            width: 200
-        },
-        {
-            id: 15,
             title: "Giá",
             dataIndex: "price",
             key: "price",
@@ -134,7 +154,7 @@ const HistoryBill = () => {
             align: "center"
         },
         {
-            id: 16,
+            id: 14,
             title: "Số lượng",
             dataIndex: "qty",
             key: "qty",
@@ -152,12 +172,14 @@ const HistoryBill = () => {
                             <Table
                                 columns={columnsProduct}
                                 pagination={false}
-                                dataSource={item && item.products}
+                                dataSource={item && item.bill.products}
                                 title={() => getTitle(item && item)}
                                 footer={() => <p></p>}
                             />
                         )
                     })}
+                <br />
+                <h4>Cảm ơn bạn đã đặt hàng!</h4>
             </div>
         </div>
     )

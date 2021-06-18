@@ -1,20 +1,20 @@
-import { Rate, Button, Pagination, message } from "antd"
+import { Button, notification, Rate } from "antd"
 const ProductReviews = () => {
     function showTotal(total) {
         return `Total ${total} items`
     }
 
     const key = "updatable"
-    const openMessage = () => {
-        message.loading({ content: "Loading...", key })
-        setTimeout(() => {
-            message.success({
-                content: "Xin lỗi, tính năng comment đang cập nhật... !",
-                key,
-                duration: 2
-            })
-        }, 1000)
-    }
+    // const openMessage = () => {
+    //     message.loading({ content: "Loading...", key })
+    //     setTimeout(() => {
+    //         message.success({
+    //             content: "Xin lỗi, tính năng comment đang cập nhật... !",
+    //             key,
+    //             duration: 2
+    //         })
+    //     }, 1000)
+    // }
 
     return (
         <div id="tab2" className="tab-pane fade in active">
@@ -125,7 +125,7 @@ const ProductReviews = () => {
                             />
                         </div>
 
-                        {/* test đánh giá       */}
+                        {/* Test đánh giá  */}
                         <strong className="text-uppercase">: Đánh Giá</strong>
                         <div style={{ float: "left", marginTop: "-8px" }}>
                             <Rate defaultValue={0} />
@@ -135,7 +135,15 @@ const ProductReviews = () => {
                         <br />
 
                         {/* Nút Xác nhận bảng đáng giá */}
-                        <Button type="submit" onClick={openMessage}>
+                        <Button
+                            type="submit"
+                            onClick={() =>
+                                notification.warning({
+                                    message: "Thông báo",
+                                    description: "Tính năng đang cập nhật"
+                                })
+                            }
+                        >
                             Xác Nhận
                         </Button>
                     </form>

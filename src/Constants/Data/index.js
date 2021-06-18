@@ -804,20 +804,20 @@ const NAV_MAP_LI_LAPTOP_ENGINEERING_SENIOR = [
     { id: 4, title: "HP", link: "brand=2" }
 ]
 const NAV_MAP_LI_HDD = [
-    { id: 1, title: "WD", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "Seagate", link: "/laptop-gamming/LEVONO" },
-    { id: 3, title: "Trên 8TB", link: "/laptop-gamming/DELL" }
+    { id: 1, title: "WD", link: "brand=8" },
+    { id: 2, title: "SamSung", link: "brand=9" },
+    { id: 3, title: "KINGSTON", link: "brand=10" },
+    { id: 4, title: "KINGMAX", link: "brand=11" },
+    { id: 5, title: "SANDISK", link: "brand=12" }
 ]
 const NAV_MAP_LI_SSD = [
-    { id: 1, title: "2.2' SATA 3", link: "/laptop-gamming/tam-trung/HP" },
-    { id: 2, title: "M.2 SATA 3", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "M.2 PCIe", link: "/laptop-gamming/DELL" }
+    { id: 1, title: "SANDISK", link: "brand=12" },
+    { id: 2, title: "SamSung", link: "brand=9" },
+    { id: 3, title: "KINGMAX", link: "brand=11" },
+    { id: 4, title: "WD", link: "brand=8" },
+    { id: 5, title: "KINGSTON", link: "brand=10" }
 ]
-const NAV_MAP_LI_OCdidong = [
-    { id: 1, title: "WD", link: "/laptop-gamming/tam-trung/THINKPAD" },
-    { id: 2, title: "Sandisk", link: "/laptop-gamming/MAC" },
-    { id: 3, title: "Seagate", link: "/laptop-gamming/DELL" }
-]
+
 const NAV_MAP_LI_WIRELESS_MOUSE = [
     { id: 1, title: "LOGITECH", link: "/not-found" },
     { id: 2, title: "RAZER", link: "/not-found" },
@@ -898,20 +898,14 @@ exports.NAV_MAP_DRIVE = [
     {
         id: 1,
         title: "Ổ Cứng HDD",
-        link: "/laptop-gamming/tam-trung",
+        link: "/not-found",
         nav_map_li: NAV_MAP_LI_HDD
     },
     {
         id: 2,
         title: "Ổ Cứng SSD",
-        link: "/laptop-gamming/cao-cap",
+        link: "/not-found",
         nav_map_li: NAV_MAP_LI_SSD
-    },
-    {
-        id: 3,
-        title: "Ổ Cứng Di Động",
-        link: "/laptop-gamming/cao-cap",
-        nav_map_li: NAV_MAP_LI_OCdidong
     }
 ]
 exports.NAV_MAP_KEYBOARD = [

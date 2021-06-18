@@ -8,16 +8,11 @@ const FooterComponent = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-3 col-sm-6 col-xs-6">
-                        <div className="footer-logo">
-                            <a className="logo" href="/#">
-                                <img alt="Logo" src={Images.Logo}></img>
-                            </a>
-                        </div>
-
-                        <p>
-                            Chuyên môn - Thân thiện - Chân thành - Nhiệt huyết -
-                            Công nghệ.
-                        </p>
+                        <img
+                            alt="Logo"
+                            src={Images.Logo_Footer}
+                            width={"80%"}
+                        ></img>
                     </div>
 
                     <div className="col-md-3 col-sm-6 col-xs-6">
@@ -80,9 +75,9 @@ const FooterComponent = () => {
                                 <li>
                                     <Link to="/#">CÂU HỎI THƯỜNG GẶP</Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link to="/#">TÌM SHOP(5)</Link>
-                                </li>
+                                </li> */}
                             </ul>
                         </div>
                     </div>
@@ -130,7 +125,7 @@ const FooterComponent = () => {
                             with &thinsp;
                             <i className="fa fa-heart-o" aria-hidden="true"></i>
                             &thinsp; &thinsp;
-                            <b style={{ color: "#33c9dc" }}>BY ETECH</b>
+                            <b style={{ color: "#33c9dc" }}>BY ETECH TEAM</b>
                         </div>
                     </div>
                 </div>
