@@ -1034,6 +1034,9 @@ textarea.input {
   margin-bottom: 15px;
 }
 
+.product-thumb{
+  height: 255px;
+}
 .product.product-widget .product-thumb {
   position: absolute;
   left: 0;

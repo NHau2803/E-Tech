@@ -53,18 +53,25 @@ const CheckOut = () => {
     const [notify, setNotify] = useState(null)
 
     const handlePay = () => {
-        if (account && !isEmpty(carts)) {
-            let order = []
+        if (account) {
+            if (!isEmpty(carts)) {
+                let order = []
 
-            carts.map(item => order.push({ id: item.id, qty: item.qty }))
-            dispatch(saveCartApi({ order: order })).then(res => {
-                setIsModalVisible(true)
-                setNotify(res)
-            })
+                carts.map(item => order.push({ id: item.id, qty: item.qty }))
+                dispatch(saveCartApi({ order: order })).then(res => {
+                    setIsModalVisible(true)
+                    setNotify(res)
+                })
+            } else {
+                notification.warning({
+                    message: "Thông báo",
+                    description: "Chưa có sản phẩm nào trong giỏ hàng"
+                })
+            }
         } else {
             notification.warning({
                 message: "Thông báo",
-                description: "Chưa có sản phẩm nào để thanh toán"
+                description: "Bạn cần đăng nhập để thanh toán"
             })
         }
     }
@@ -166,15 +173,24 @@ const CheckOut = () => {
                                                                 <InputNumber
                                                                     size="large"
                                                                     min={1}
-                                                                    max={99}
-                                                                    defaultValue={
+                                                                    max={6}
+                                                                    value={
                                                                         item.qty
                                                                     }
                                                                     onChange={e =>
-                                                                        onChangeQty(
-                                                                            item.id,
-                                                                            e
-                                                                        )
+                                                                        e > 5
+                                                                            ? notification.info(
+                                                                                  {
+                                                                                      message:
+                                                                                          "Thông báo",
+                                                                                      description:
+                                                                                          "Nếu bạn muốn mua số lượng lớn, Vui lòng liên hệ với cửa hàng qua số 0946601833 để được nhận ưu đãi hấp dẫn, Cảm ơn quý khách đã tin tưởng."
+                                                                                  }
+                                                                              )
+                                                                            : onChangeQty(
+                                                                                  item.id,
+                                                                                  e
+                                                                              )
                                                                     }
                                                                 />
                                                             </td>

@@ -35,8 +35,10 @@ export const getBillsHistoryApi = () => async dispatch => {
 
 export const saveCartApi = body => async dispatch => {
     try {
+        dispatch(changeLoading(true))
         const resApi = await CartApi.saveCarts(body)
         if (resApi.success) {
+            dispatch(changeLoading(false))
             setLS("carts", [])
             dispatch(getCartsFail([]))
 
