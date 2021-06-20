@@ -1,9 +1,9 @@
 
 .filter {
-  margin-top: 10px;
+  margin-top: 6px;
   border: 1px solid rgba(0 , 0, 0, 0.125);
   border-radius: 10px;
-  background: #F2F2F2;
+  background: #F6F7F8;
   font-family: Arial, Helvetica, sans-serif;
 }
 .filter__top {
@@ -40,8 +40,8 @@
   margin-left: 16px;
 }
 .css_icon {
-  display: flex;  
-  grid-template-columns: 1fr 5fr ;  
+  /* display: flex;  
+  grid-template-columns: 1fr 5fr ;   */
 }
 .filter__text {
   font-weight: bold;
@@ -54,10 +54,10 @@
   border-radius: 4px;
   display: inline-block;
   border: 1px solid rgb(224, 224, 224);
-  background-color: #E6E6E6;
+  background-color: #F6F7F8;
   position: relative;
   overflow: hidden;
-  margin-right: 20px;
+  margin-right: 10px;
   margin-bottom: 0.3rem;
   margin-top: 5px;
   padding: 8px 20px;
@@ -87,4 +87,13 @@
   background-color: white;
   color: #000;
   opacity: 1;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

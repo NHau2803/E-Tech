@@ -1,3 +1,4 @@
+import { notification } from "antd"
 import { PATH } from "Constants/Path"
 import { useDispatch } from "react-redux"
 import { Link, useHistory } from "react-router-dom"
@@ -31,6 +32,10 @@ const ProductBlock = props => {
             type: type
         }
         dispatch(addCart(cartItem))
+        notification.success({
+            message: "Thông báo",
+            description: "Thêm vào giỏ hàng thành công!"
+        })
     }
 
     return (

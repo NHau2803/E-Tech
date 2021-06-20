@@ -8,6 +8,7 @@ import {
     UserAddOutlined,
     UserOutlined
 } from "@ant-design/icons"
+import { notification } from "antd"
 import Images from "Constants/Images"
 import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
@@ -130,7 +131,15 @@ const HeaderMain = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to="/#">
+                                        <Link
+                                            onClick={() =>
+                                                notification.warning({
+                                                    message: "Thông báo",
+                                                    description:
+                                                        "Tính năng đang cập nhật"
+                                                })
+                                            }
+                                        >
                                             <HeartOutlined
                                                 style={{
                                                     marginRight: "15px",

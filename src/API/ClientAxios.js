@@ -3,8 +3,7 @@ import axios from "axios"
 import Cookie from "js-cookie"
 import queryString from "query-string"
 const axiosClient = axios.create({
-    baseURL: "http://139.162.35.64:8000",
-    // baseURL: "http://localhost:3005",
+    baseURL: "http://54.254.245.18:8000",
     timeout: 15000,
     headers: {
         "content-type": "application/json",

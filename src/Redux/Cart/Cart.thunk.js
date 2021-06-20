@@ -1,20 +1,41 @@
 import { getLS, setLS } from "Utils/Converter"
 import { changeLoading } from "../System/System.reducer.js"
 import CartApi from "./Cart.Api"
-import { getCartsFail, getCartsSuccess } from "./Cart.reducer"
-export const getCartApi = () => async dispatch => {
+import {
+    getBillsHistoryFail,
+    getBillsHistorySuccess,
+    getCartsFail,
+    getCartsSuccess
+} from "./Cart.reducer"
+// export const getCartApi = () => async dispatch => {
+//     try {
+//         dispatch(changeLoading(true))
+//         const resApi = await CartApi.getCarts()
+//         if (resApi.success) {
+//             dispatch(getCartsSuccess(resApi.data))
+//         } else {
+//             dispatch(getCartsFail([]))
+//         }
+//         dispatch(changeLoading(false))
+//     } catch (err) {
+//         dispatch(getCartsFail([]))
+//         dispatch(changeLoading(false))
+//     }
+// }
+export const getBillsHistoryApi = () => async dispatch => {
     try {
         dispatch(changeLoading(true))
-        const resApi = await CartApi.getCarts
+        const resApi = await CartApi.getBillsHistory()
+        console.log("🚀 ~ file: Cart.thunk.js ~ line 24 ~ resApi", resApi)
+        dispatch(changeLoading(false))
         if (resApi.success) {
-            dispatch(getCartsSuccess(resApi.data))
+            return resApi.data
         } else {
-            dispatch(getCartsFail([]))
+            return null
         }
-        dispatch(changeLoading(false))
     } catch (err) {
-        dispatch(getCartsFail([]))
         dispatch(changeLoading(false))
+        return null
     }
 }
 

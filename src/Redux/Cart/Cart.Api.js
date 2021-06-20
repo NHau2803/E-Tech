@@ -1,10 +1,35 @@
 import axiosClient from "API/ClientAxios"
 
 const url = "api/"
-const getCarts = async body => {
+// const getCarts = async body => {
+//     try {
+//         const resApi = await axiosClient.post(`${url}cart_info`, body)
+//         console.log("🚀 ~ file: Cart.Api.js ~ line 7 ~ resApi", resApi)
+
+//         if (resApi)
+//             return {
+//                 success: true,
+//                 data: resApi
+//             }
+//         return {
+//             success: false,
+//             data: []
+//         }
+//     } catch (err) {
+//         console.log(err)
+//         return {
+//             success: false,
+//             data: []
+//         }
+//     }
+// }
+const getBillsHistory = async () => {
     try {
-        const resApi = await axiosClient.post(`${url}cart_info`, body)
-        console.log("🚀 ~ file: Cart.Api.js ~ line 7 ~ resApi", resApi)
+        const resApi = await axiosClient.get(`${url}orders`)
+        console.log(
+            "🚀 ~ file: Cart.Api.js ~ line 29 ~ getBillsHistory ~ resApi",
+            resApi
+        )
 
         if (resApi)
             return {
@@ -13,13 +38,13 @@ const getCarts = async body => {
             }
         return {
             success: false,
-            data: []
+            data: null
         }
     } catch (err) {
         console.log(err)
         return {
             success: false,
-            data: []
+            data: null
         }
     }
 }
@@ -47,5 +72,5 @@ const saveCarts = async body => {
     }
 }
 
-const cartApi = { getCarts, saveCarts }
+const cartApi = { saveCarts, getBillsHistory }
 export default cartApi

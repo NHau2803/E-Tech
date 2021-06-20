@@ -1063,6 +1063,7 @@ textarea.input {
 
 .product.product-widget .product-name {
   font-size: 14px;
+  width: 90%;
 }
 
 .product.product-widget .cancel-btn {
@@ -1581,6 +1582,9 @@ textarea.input {
 .shopping-cart-table>tbody>tr>.details>a {
   font-size: 18px;
   font-weight: 700;
+}
+.details{
+  width: 35%;
 }
 
 .shopping-cart-table>tbody>tr>.thumb>img {

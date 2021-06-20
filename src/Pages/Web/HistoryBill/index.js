@@ -1,89 +1,99 @@
-import { Table } from "antd"
+import { Statistic, Table } from "antd"
 import BreadcrumbComponent from "Components/Web/Breadcrumb"
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { getBillsHistoryApi } from "Redux/Cart/Cart.thunk"
 import { changePriceToVND } from "Utils/Converter"
 const HistoryBill = () => {
-    const billDetail = [
-        {
-            billId: 21,
-            userId: 26,
-            name: "NCH",
-            phone: "0943258374",
-            email: "hau2803nch@gmail.com",
-            address: "nguyen thai son, phuong 7, go vap",
-            status: "AWAIT_FOR_CONFIRMATION",
-            bill: {
-                billId: 21,
-                totalPrice: 120310000,
-                timeBuy: "2021-06-18 06:14:59",
-                products: [
-                    {
-                        id: 51,
-                        name: "Laptop HP Omen 15 ek0078TX",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/236426/hp-omen-15-ek0078tx-i7-26y68pa-1-org.jpg",
-                        price: 48860000,
-                        qty: 2
-                    },
-                    {
-                        id: 52,
-                        name: "Laptop HP Envy 13 ba1027TU",
-                        image:
-                            "https://cdn.tgdd.vn/Products/Images/44/230238/hp-envy-13-ba1027tu-i5-2k0b1pa-1-2-org.jpg",
-                        price: 22590000,
-                        qty: 1
-                    }
-                ]
-            }
-        }
-    ]
-    const billDetail2 = [
-        {
-            billId: 3,
-            status: "ON_GOING",
-            totalPrice: 201056119,
-            timeBuy: "2021-06-16 05:26:15",
-            products: [
-                {
-                    id: 7,
-                    name: "k6RLMQNCO1kLA2DWR3hk",
-                    image:
-                        "https://cdn.tgdd.vn/Products/Images/44/235499/msi-gl65-leopard-10scxk-i7-093vn-16-600x600.jpg",
-                    spec1: "8 GB, DDR4, 2133 MHz",
-                    spec2: "HDD 500GB SATA3, Hỗ trợ khe cắm SSD M.2 PCIe",
-                    price: 8062596,
-                    qty: 4
-                },
-                {
-                    id: 8,
-                    name: "W8E9gUFVyP3hnhghXZeL",
-                    spec1: "8 GB, DDR4, 2133 MHz",
-                    spec2: "HDD 500GB SATA3, Hỗ trợ khe cắm SSD M.2 PCIe",
-                    image:
-                        "https://cdn.tgdd.vn/Products/Images/44/238607/msi-gf65-thin-10ue-i5-10500h-16gb-512gb-6gb-rtx306-600x600.jpg",
-                    price: 8975147,
-                    qty: 5
-                }
-            ]
-        },
-        {
-            billId: 4,
-            status: "ON_GOING",
-            totalPrice: 201056119,
-            timeBuy: "2021-06-16 05:26:15",
-            products: [
-                {
-                    id: 7,
-                    name: "k6RLMQNCO1kLA2DWR3hk",
-                    spec1: "8 GB, DDR4, 2133 MHz",
-                    spec2: "HDD 500GB SATA3, Hỗ trợ khe cắm SSD M.2 PCIe",
-                    image:
-                        "https://cdn.tgdd.vn/Products/Images/44/235499/msi-gl65-leopard-10scxk-i7-093vn-16-600x600.jpg",
-                    price: 8062596,
-                    qty: 4
-                }
-            ]
-        }
-    ]
+    // const billDetail = [
+    //     {
+    //         billId: 21,
+    //         userId: 26,
+    //         name: "NCH",
+    //         phone: "0943258374",
+    //         email: "hau2803nch@gmail.com",
+    //         address: "nguyen thai son, phuong 7, go vap",
+    //         status: "AWAIT_FOR_CONFIRMATION",
+    //         bill: {
+    //             billId: 21,
+    //             totalPrice: 120310000,
+    //             timeBuy: "2021-06-18 06:14:59",
+    //             products: [
+    //                 {
+    //                     id: 51,
+    //                     name: "Laptop HP Omen 15 ek0078TX",
+    //                     image:
+    //                         "https://cdn.tgdd.vn/Products/Images/44/236426/hp-omen-15-ek0078tx-i7-26y68pa-1-org.jpg",
+    //                     price: 48860000,
+    //                     qty: 2
+    //                 },
+    //                 {
+    //                     id: 52,
+    //                     name: "Laptop HP Envy 13 ba1027TU",
+    //                     image:
+    //                         "https://cdn.tgdd.vn/Products/Images/44/230238/hp-envy-13-ba1027tu-i5-2k0b1pa-1-2-org.jpg",
+    //                     price: 22590000,
+    //                     qty: 1
+    //                 }
+    //             ]
+    //         }
+    //     }
+    // ]
+    // const billDetail2 = [
+    //     {
+    //         billId: 3,
+    //         status: "ON_GOING",
+    //         totalPrice: 201056119,
+    //         timeBuy: "2021-06-16 05:26:15",
+    //         products: [
+    //             {
+    //                 id: 7,
+    //                 name: "k6RLMQNCO1kLA2DWR3hk",
+    //                 image:
+    //                     "https://cdn.tgdd.vn/Products/Images/44/235499/msi-gl65-leopard-10scxk-i7-093vn-16-600x600.jpg",
+    //                 spec1: "8 GB, DDR4, 2133 MHz",
+    //                 spec2: "HDD 500GB SATA3, Hỗ trợ khe cắm SSD M.2 PCIe",
+    //                 price: 8062596,
+    //                 qty: 4
+    //             },
+    //             {
+    //                 id: 8,
+    //                 name: "W8E9gUFVyP3hnhghXZeL",
+    //                 spec1: "8 GB, DDR4, 2133 MHz",
+    //                 spec2: "HDD 500GB SATA3, Hỗ trợ khe cắm SSD M.2 PCIe",
+    //                 image:
+    //                     "https://cdn.tgdd.vn/Products/Images/44/238607/msi-gf65-thin-10ue-i5-10500h-16gb-512gb-6gb-rtx306-600x600.jpg",
+    //                 price: 8975147,
+    //                 qty: 5
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         billId: 4,
+    //         status: "ON_GOING",
+    //         totalPrice: 201056119,
+    //         timeBuy: "2021-06-16 05:26:15",
+    //         products: [
+    //             {
+    //                 id: 7,
+    //                 name: "k6RLMQNCO1kLA2DWR3hk",
+    //                 spec1: "8 GB, DDR4, 2133 MHz",
+    //                 spec2: "HDD 500GB SATA3, Hỗ trợ khe cắm SSD M.2 PCIe",
+    //                 image:
+    //                     "https://cdn.tgdd.vn/Products/Images/44/235499/msi-gl65-leopard-10scxk-i7-093vn-16-600x600.jpg",
+    //                 price: 8062596,
+    //                 qty: 4
+    //             }
+    //         ]
+    //     }
+    // ]
+
+    const dispatch = useDispatch()
+    const [billDetail, setBillDetail] = useState(null)
+
+    useEffect(() => {
+        dispatch(getBillsHistoryApi()).then(res => setBillDetail(res))
+    }, [])
 
     const changeStatusVN = status => {
         switch (status) {
@@ -108,15 +118,28 @@ const HistoryBill = () => {
                     item.bill.timeBuy &&
                     new Date(item.bill.timeBuy).toLocaleString("en-GB")
                 }`}</p>
-                <p>{`Tổng đơn: ${
-                    item.bill.totalPrice &&
-                    changePriceToVND(item.bill.totalPrice)
-                }`}</p>
-                <p
-                    style={{ color: "blue" }}
-                >{`Trạng thái đơn hàng: ${changeStatusVN(
-                    item && item.status
-                )}`}</p>
+                <div
+                    style={{
+                        display: "flex",
+                        width: "max-content",
+                        justifyContent: "flex-end"
+                    }}
+                >
+                    <Statistic
+                        title="Trạng thái đơn hàng"
+                        value={changeStatusVN(item && item.status)}
+                        style={{
+                            marginRight: 32
+                        }}
+                    />
+                    <Statistic
+                        title="Tổng đơn"
+                        value={
+                            item.bill.totalPrice &&
+                            changePriceToVND(item.bill.totalPrice)
+                        }
+                    />
+                </div>
             </b>
         )
     }
@@ -170,6 +193,7 @@ const HistoryBill = () => {
                     billDetail.map(item => {
                         return (
                             <Table
+                                key={item.billId}
                                 columns={columnsProduct}
                                 pagination={false}
                                 dataSource={item && item.bill.products}
@@ -179,7 +203,11 @@ const HistoryBill = () => {
                         )
                     })}
                 <br />
-                <h4>Cảm ơn bạn đã đặt hàng!</h4>
+                {billDetail ? (
+                    <h4>Cảm ơn bạn đã đặt hàng!</h4>
+                ) : (
+                    <h4>Bạn chưa có hóa đơn nào, hãy đặt hàng ngay nhé!</h4>
+                )}
             </div>
         </div>
     )

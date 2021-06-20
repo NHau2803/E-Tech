@@ -1,3 +1,4 @@
+import { notification } from "antd"
 import { useDispatch } from "react-redux"
 import { addCart } from "Redux/Cart/Cart.reducer"
 import { changePriceToVND } from "Utils/Converter"
@@ -20,6 +21,10 @@ const ProductDetail = props => {
             qty: 1
         }
         dispatch(addCart(cartItem))
+        notification.success({
+            message: "Thông báo",
+            description: "Thêm vào giỏ hàng thành công!"
+        })
     }
 
     return (

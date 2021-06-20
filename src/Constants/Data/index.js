@@ -14,6 +14,21 @@ exports.TYPE_PRODUCT = {
     KEYBOARD: "keyboard",
     HEADPHONES: "headphones"
 }
+// ---------------------------WEB TYPE-----------------------------//
+
+exports.TYPE_FILTER_PRICE = {
+    INCREASE: "INCREASE",
+    REDUCED: "REDUCED",
+    UNDER_1M: "UNDER_1M",
+    BETWEEN_1M_2M: "BETWEEN_1M_2M",
+    UNDER_5M: "UNDER_5M",
+    UNDER_10M: "UNDER_10M",
+    UP_10M: "UP_10M",
+    BETWEEN_10M_15M: "BETWEEN_10M_15M",
+    BETWEEN_15M_20M: "BETWEEN_15M_20M",
+    BETWEEN_20M_25M: "BETWEEN_20M_25M",
+    UP_25M: "UP_25M"
+}
 
 // ---------------------------ADMIN RENDER-----------------------------//
 exports.LIST_RENDER_DEFAULT = []

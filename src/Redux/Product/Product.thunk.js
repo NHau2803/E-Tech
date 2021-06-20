@@ -63,7 +63,6 @@ export const getProductDetailApi = (
             }
         } else {
             dispatch(productDetailFail({}))
-
             return {
                 success: false
             }

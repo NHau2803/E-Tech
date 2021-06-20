@@ -11,6 +11,8 @@ import {
     getProductDetailApi,
     getProductsFilterApi
 } from "Redux/Product/Product.thunk"
+import { isEmpty } from "Utils/CheckType"
+import { getRandomInteger } from "Utils/func"
 
 // const ProductDetail = React.lazy(() =>
 //     import("../../../Components/Web/Product/ProductDetail")
@@ -52,18 +54,28 @@ const ProductDetailPage = () => {
     // )
 
     useEffect(() => {
-        //dispatch(getProductsApi())
         dispatch(
-            getProductsFilterApi(productType, {
-                laptop_rams: [],
-                laptop_screens: [],
-                laptop_cpus: [],
-                laptop_brands: [Math.floor(Math.random() * 7) + 1],
-                price: [],
-                page: 1
-            })
+            getProductsFilterApi(
+                productType,
+                productType === TYPE_PRODUCT.LAPTOP
+                    ? {
+                          laptop_rams: [],
+                          laptop_screens: [],
+                          laptop_cpus: [],
+                          laptop_brands: [getRandomInteger(1, 7)],
+                          price: [],
+                          page: 1
+                      }
+                    : {
+                          drive_types: [],
+                          drive_capacities: [],
+                          brand_drive: [getRandomInteger(8, 12)],
+                          price: [],
+                          page: 1
+                      }
+            )
         )
-    }, [])
+    }, [productId])
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -84,13 +96,6 @@ const ProductDetailPage = () => {
             history.push("/etech/not-found")
         }
     }, [productId])
-
-    function isEmpty(obj) {
-        if (obj) {
-            return Object.keys(obj).length === 0
-        }
-        return false
-    }
 
     return (
         <div>

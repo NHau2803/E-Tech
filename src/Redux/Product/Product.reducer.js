@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { TYPE_FILTER_PRICE } from "Constants/Data"
 
 const slice = createSlice({
     name: "product",
@@ -7,7 +8,11 @@ const slice = createSlice({
         products: [],
         productsFilter: {},
         productDetail: {},
-        filters: {}
+        filters: {},
+        cur_page: null,
+        max_page: null,
+        priceFrom: 0,
+        priceTo: 100000000
     },
 
     reducers: {
@@ -26,10 +31,14 @@ const slice = createSlice({
         productsFilterSuccess: (state, action) => {
             state.productsFilter = action.payload.data
             state.filters = action.payload.filter
+            state.cur_page = action.payload.cur_page
+            state.max_page = action.payload.max_page
         },
         productsFilterFail: (state, action) => {
             state.productsFilter = null
             state.filters = null
+            state.cur_page = null
+            state.max_page = null
         },
         changeActiveFilter(state, action) {
             const type = action.payload.type
@@ -49,15 +58,28 @@ const slice = createSlice({
             // console.log("====================>", filtersOld.toString())
             state.filters = filtersOld
         },
+        changeCurPageFilter(state, action) {
+            state.cur_page = action.payload.cur_page
+        },
+        changePriceFilter(state, action) {
+            state.priceFrom = action.payload.priceFrom
+            state.priceTo = action.payload.priceTo
+        },
         sortPrice(state, action) {
-            if (state.productsFilter && action.payload.type === "INCREASE") {
+            if (
+                state.productsFilter &&
+                action.payload.type === TYPE_FILTER_PRICE.INCREASE
+            ) {
                 state.productsFilter =
                     state.productsFilter &&
                     state.productsFilter.sort((a, b) =>
                         a.price > b.price ? 1 : -1
                     )
             }
-            if (state.productsFilter && action.payload.type === "REDUCED") {
+            if (
+                state.productsFilter &&
+                action.payload.type === TYPE_FILTER_PRICE.REDUCED
+            ) {
                 state.productsFilter =
                     state.productsFilter &&
                     state.productsFilter.sort((a, b) =>
@@ -81,5 +103,7 @@ export const {
     productsFilterSuccess,
     productsFilterFail,
     changeActiveFilter,
-    sortPrice
+    sortPrice,
+    changeCurPageFilter,
+    changePriceFilter
 } = slice.actions
