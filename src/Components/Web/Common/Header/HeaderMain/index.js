@@ -59,17 +59,26 @@ const HeaderMain = () => {
                         </div>
 
                         <div className="header-search">
-                            <form>
+                            <div className="form-search">
                                 <input
                                     className="input search-input"
                                     type="text"
                                     placeholder="Tìm sản phẩm..."
                                 />
 
-                                <button className="search-btn">
+                                <button
+                                    className="search-btn"
+                                    onClick={() =>
+                                        notification.warning({
+                                            message: "Thông báo",
+                                            description:
+                                                "Tính năng đang cập nhật"
+                                        })
+                                    }
+                                >
                                     <i className="fa fa-search"></i>
                                 </button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                     <div className="pull-right">
@@ -215,7 +224,10 @@ const HeaderMain = () => {
                                                     : "block"
                                         }}
                                     >
-                                        <Link to="/#" onClick={() => logout()}>
+                                        <Link
+                                            to={PATH.HOME}
+                                            onClick={() => logout()}
+                                        >
                                             <PoweroffOutlined
                                                 style={{
                                                     marginRight: "15px",

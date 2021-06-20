@@ -24,25 +24,12 @@ const { Content } = Layout
 
 const DossierData = () => {
     const { productType } = useParams()
-    console.log(
-        "🚀 ~ file: index.js ~ line 22 ~ DossierData ~ productType",
-        productType
-    )
     const [indexTable, setIndexTable] = useState(1)
-
     // const products = useSelector(state => state.ProductAdminReducer.products)
     const productsFilter = useSelector(
         state => state.ProductAdminReducer.productsFilter
     )
-    console.log(
-        "🚀 ~ file: index.js ~ line 33 ~ DossierData ~ productsFilter",
-        productsFilter
-    )
     const filters = useSelector(state => state.ProductAdminReducer.filters)
-    console.log(
-        "🚀 ~ file: index.js ~ line 31 ~ DossierData ~ filters",
-        filters
-    )
 
     const match = useRouteMatch()
     const dispatch = useDispatch()
@@ -63,7 +50,7 @@ const DossierData = () => {
     }
 
     const handleDelete = key => {
-        console.log(key)
+        //console.log(key)
         return <MessageField />
     }
     const reloadData = () => {

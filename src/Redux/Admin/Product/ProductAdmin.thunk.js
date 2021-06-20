@@ -32,10 +32,7 @@ export const getProductsApi = type => async dispatch => {
     try {
         dispatch(changeLoading(true))
         const resApi = await ProductApi.getProducts(type)
-        console.log(
-            "🚀 ~ file: ProductAdmin.thunk.js ~ line 32 ~ resApi",
-            resApi
-        )
+
         if (resApi.success) {
             dispatch(productsSuccess(resApi.data.data))
             dispatch(filtersSuccess(resApi.data.filter))
@@ -57,10 +54,6 @@ export const getProductApi = (type, id) => async dispatch => {
     try {
         dispatch(changeLoading(true))
         const resApi = await ProductApi.getProduct(type, id)
-        console.log(
-            "🚀 ~ file: ProductAdmin.thunk.js ~ line 61 ~ resApi",
-            resApi
-        )
 
         if (resApi.success) {
             dispatch(changeLoading(false))
@@ -85,10 +78,7 @@ export const createProductsApi = (type, body) => async dispatch => {
     try {
         dispatch(changeLoading(true))
         const resApi = await ProductApi.createProduct(type, body)
-        console.log(
-            "🚀 ~ file: ProductAdmin.thunk.js ~ line 32 ~ resApi",
-            resApi
-        )
+
         if (resApi.success) {
             dispatch(changeLoading(false))
             return {
@@ -116,14 +106,10 @@ export const createProductsApi = (type, body) => async dispatch => {
 }
 
 export const updateProductsApi = (type, body) => async dispatch => {
-    console.log("🚀 ~ file: ProductAdmin.thunk.js ~ line 120 ~ body", body)
     try {
         dispatch(changeLoading(true))
         const resApi = await ProductApi.updateProduct(type, body)
-        console.log(
-            "🚀 ~ file: ProductAdmin.thunk.js ~ line 32 ~ resApi",
-            resApi
-        )
+
         if (resApi.success) {
             dispatch(changeLoading(false))
             return {

@@ -1,12 +1,7 @@
 import { getLS, setLS } from "Utils/Converter"
 import { changeLoading } from "../System/System.reducer.js"
 import CartApi from "./Cart.Api"
-import {
-    getBillsHistoryFail,
-    getBillsHistorySuccess,
-    getCartsFail,
-    getCartsSuccess
-} from "./Cart.reducer"
+import { getCartsFail, getCartsSuccess } from "./Cart.reducer"
 // export const getCartApi = () => async dispatch => {
 //     try {
 //         dispatch(changeLoading(true))
@@ -26,7 +21,6 @@ export const getBillsHistoryApi = () => async dispatch => {
     try {
         dispatch(changeLoading(true))
         const resApi = await CartApi.getBillsHistory()
-        console.log("🚀 ~ file: Cart.thunk.js ~ line 24 ~ resApi", resApi)
         dispatch(changeLoading(false))
         if (resApi.success) {
             return resApi.data
@@ -42,7 +36,6 @@ export const getBillsHistoryApi = () => async dispatch => {
 export const saveCartApi = body => async dispatch => {
     try {
         const resApi = await CartApi.saveCarts(body)
-        console.log("🚀 ~ file: Cart.thunk.js ~ line 25 ~ resApi", resApi)
         if (resApi.success) {
             setLS("carts", [])
             dispatch(getCartsFail([]))
@@ -64,7 +57,6 @@ export const saveCartApi = body => async dispatch => {
                 "Xin lỗi hệ thống đang gặp vấn đề, mời bạn quay lại sau vài phút!"
         }
     } catch (err) {
-        console.log("🚀 ~ file: Cart.thunk.js ~ line 46 ~ err", err)
         dispatch(changeLoading(false))
         return {
             success: false,
@@ -78,7 +70,6 @@ export const saveCartApi = body => async dispatch => {
 
 export const getCartLS = () => async dispatch => {
     const data = getLS("carts")
-    console.log("🚀 ~ file: Cart.thunk.js ~ line 38 ~ data", data)
     dispatch(getCartsSuccess(data))
 }
 

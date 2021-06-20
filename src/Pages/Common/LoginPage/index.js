@@ -11,7 +11,7 @@ const LoginPage = () => {
     const [form] = Form.useForm()
     const history = useHistory()
     localStorage.clear()
-    const redirectHomePage = () => history.push("/etech")
+    const redirectHomePage = () => history.push(PATH.HOME)
 
     const dispatch = useDispatch()
     const onFinish = async values => {
@@ -19,10 +19,6 @@ const LoginPage = () => {
         // setAccount(values)
         const isLogin = await dispatch(
             login({ email: values.email, password: values.password })
-        )
-        console.log(
-            "🚀 ~ file: index.js ~ line 23 ~ LoginPage ~ isLogin",
-            isLogin
         )
 
         if (isLogin) {
@@ -98,7 +94,7 @@ const LoginPage = () => {
                             <Checkbox>Lưu mật khẩu</Checkbox>
                         </Form.Item>
 
-                        <a className="login-form-forgot" href="/#">
+                        <a className="login-form-forgot" href>
                             &emsp;Quên mật khẩu?
                         </a>
                     </div>

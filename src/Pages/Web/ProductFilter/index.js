@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router"
 import {
     changeActiveFilter,
-    sortPrice,
     changeCurPageFilter,
-    changePriceFilter
+    changePriceFilter,
+    sortPrice
 } from "Redux/Product/Product.reducer"
 import { getProductsFilterApi } from "Redux/Product/Product.thunk"
 import { isEmpty } from "Utils/CheckType"
@@ -31,15 +31,8 @@ const ProductFilter = () => {
     const cur_page = useSelector(state => state.ProductReducer.cur_page)
     const max_page = useSelector(state => state.ProductReducer.max_page)
     const priceFrom = useSelector(state => state.ProductReducer.priceFrom)
-    console.log(
-        "🚀 ~ file: index.js ~ line 34 ~ ProductFilter ~ priceFrom",
-        priceFrom
-    )
+
     const priceTo = useSelector(state => state.ProductReducer.priceTo)
-    console.log(
-        "🚀 ~ file: index.js ~ line 36 ~ ProductFilter ~ priceTo",
-        priceTo
-    )
 
     const [indexBlock, setIndexBlock] = useState(0)
     //--------------------STATE FOR FILTER PRICE-----------------
@@ -63,10 +56,6 @@ const ProductFilter = () => {
     //----------------------ENV--------------------------
 
     const getProductsByPrice = type => {
-        console.log(
-            "🚀 ~ file: index.js ~ line 43 ~ ProductFilter ~ type",
-            type
-        )
         switch (type) {
             case TYPE_FILTER_PRICE.INCREASE:
                 dispatch(sortPrice({ type: type }))
@@ -205,11 +194,6 @@ const ProductFilter = () => {
     }
 
     const changePage = (page, pageSize) => {
-        console.log(
-            "🚀 ~ file: index.js ~ line 82 ~ changePage ~ page, pageSize",
-            page,
-            pageSize
-        )
         //check no data, check default, wrong url
         dispatch(changeCurPageFilter({ cur_page: page }))
     }
@@ -275,18 +259,11 @@ const ProductFilter = () => {
 
     //-----------------GET DATA BY URL-------------------------
     useEffect(() => {
-        console.log("call api by url ", params.toString())
         dispatch(getProductsFilterApi(productType, getParams()))
     }, [productType, p, cur_page, priceFrom, priceTo])
 
     const [checkChange, setCheckChange] = useState(false)
     const changeRecord = (type, value) => {
-        console.log(
-            "🚀 ~ file: index.js ~ line 64 ~ changeRecord ~ type, value",
-            type,
-            value
-        )
-        //-------------------REDUX-----------------
         dispatch(changeActiveFilter({ type, value }))
         setCheckChange(!checkChange)
     }
@@ -340,7 +317,6 @@ const ProductFilter = () => {
                         : ""
                 )
             }
-            // console.log("xxxxxxxxxxx>", newParams.toString())
             if (newParams.toString() !== "") {
                 history.push(
                     `${PATH.HOME}/${productType}/filter/${newParams.toString()}`

@@ -4,10 +4,6 @@ const url = "api/"
 const getBillList = async () => {
     try {
         const resApi = await axiosClient.get(`${url}admin/orders`)
-        console.log(
-            "🚀 ~ file: BillAdmin.Api.js ~ line 7 ~ getBillList ~ resApi",
-            resApi
-        )
 
         if (resApi)
             return {
@@ -30,10 +26,6 @@ const changeStatusBill = async (billId, status) => {
     try {
         const resApi = await axiosClient.get(
             `${url}admin/orderStat/order_id/${billId}/stat/${status}`
-        )
-        console.log(
-            "🚀 ~ file: BillAdmin.Api.js ~ line 34 ~ changeStatusBill ~ resApi",
-            resApi
         )
 
         if (resApi)

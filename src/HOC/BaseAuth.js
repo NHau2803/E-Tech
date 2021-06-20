@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { PATH } from "Constants/Path"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
@@ -12,24 +13,19 @@ const Authentication = (SpecificComponent, option, adminRoute = null) => {
 
         const fetchAuth = async () => {
             const res = await dispatch(getAuthCookie())
-            console.log(
-                "🚀 ~ file: BaseAuth.js ~ line 16 ~ fetchAuth ~ res",
-                res
-            )
+
             if (res && !res.isLogin) {
                 //true => bat dang nhap
-                console.log("!isLogin")
                 if (option) {
-                    history.push("/dang-nhap")
+                    history.push(PATH.LOGIN)
                 }
             } else {
-                console.log("isLogin")
                 if (adminRoute && res && !res.isAdmin) {
                     //Kiểm tra khong phai admin
-                    history.push("/etech")
+                    history.push(PATH.HOME)
                 } else {
                     if (option === false) {
-                        history.push("/etech")
+                        history.push(PATH.HOME)
                     }
                 }
             }

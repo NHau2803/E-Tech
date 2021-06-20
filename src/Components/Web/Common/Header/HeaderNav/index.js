@@ -445,7 +445,7 @@ const HeaderNav = () => {
                                 <Link to={PATH.ABOUT}>Giới Thiệu</Link>
                             </li>
                             <li>
-                                <Link to="/#" style={{ color: "#33c9dc" }}>
+                                <Link style={{ color: "#33c9dc" }}>
                                     HOSTLINE &thinsp;
                                     <PhoneOutlined />
                                     0944445555

@@ -1,3 +1,5 @@
+import Images from "Constants/Images"
+
 const AboutPage = () => {
     window.scrollTo(0, 0)
     return (
@@ -20,12 +22,7 @@ const AboutPage = () => {
                     chất lượng phục vụ nhu cầu cao nhất của người dùng.
                 </p>
                 <br></br>
-                <img
-                    alt="img"
-                    src={
-                        "https://lumen.thinkpro.vn//backend/uploads/baiviet/2020/8/17/thinkpro-laptop-chinh-hang.jpg"
-                    }
-                ></img>
+                <img alt="img" src={Images.QC}></img>
                 <br></br>
                 <h2>Giá Trị Cốt Lõi</h2>
                 <p>

@@ -87,10 +87,7 @@ const AddProductPage = () => {
                         img3: values.img3
                     }
                 }
-                console.log(
-                    "🚀 ~ file: index.js ~ line 93 ~ AddProductPage ~ bodyLaptop",
-                    bodyLaptop
-                )
+
                 dispatch(createProductsApi("laptop", bodyLaptop)).then(notify =>
                     openNotify(notify.type, notify.title, notify.message)
                 )
@@ -125,10 +122,6 @@ const AddProductPage = () => {
                         img3: values.img3
                     }
                 }
-                console.log(
-                    "🚀 ~ file: index.js ~ line 125 ~ AddProductPage ~ bodyDrive",
-                    bodyDrive
-                )
                 dispatch(createProductsApi("drive", bodyDrive)).then(notify =>
                     openNotify(notify.type, notify.title, notify.message)
                 )

@@ -1,3 +1,4 @@
+import Images from "Constants/Images"
 import React from "react"
 import "./Recruitment.css"
 const Recruitment = () => {
@@ -7,7 +8,7 @@ const Recruitment = () => {
             <div className="content-banner-area">
                 <div className="content-area">
                     <div className="content">
-                        <h2>Phát Triển Cung Nhau</h2>
+                        <h2>Phát Triển Cùng Nhau</h2>
 
                         <p style={{ color: "white" }}>
                             &emsp;ETech tin rằng nhân viên là cốt lõi của bền
@@ -93,12 +94,7 @@ const Recruitment = () => {
                         và sự sáng tạo, hành trình phát triển của ETech cũng sẽ
                         là hành trình phát triển sự nghiệp của chính bạn.
                     </p>
-                    <img
-                        alt="IMG"
-                        src={
-                            "http://www.vietnet24h.vn/data/files/2021/01/thinkpro.png"
-                        }
-                    ></img>
+                    <img alt="IMG" src={Images.Store}></img>
                 </div>
 
                 <div className="content">

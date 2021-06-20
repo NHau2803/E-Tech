@@ -4,10 +4,6 @@ const url = "api/admin/products/"
 const getSpecList = async () => {
     try {
         const resApi = await axiosClient.get(`${url}spec_list`)
-        console.log(
-            "🚀 ~ file: Product.Api.js ~ line 7 ~ getSpecList ~ resApi",
-            resApi
-        )
 
         if (resApi)
             return {
@@ -29,10 +25,6 @@ const getSpecList = async () => {
 const getProducts = async type => {
     try {
         const resApi = await axiosClient.get(`${url}${type}/index`)
-        console.log(
-            "🚀 ~ file: ProductAdmin.Api.js ~ line 32 ~ getProducts ~ resApi",
-            resApi
-        )
 
         if (resApi)
             return {
@@ -54,10 +46,6 @@ const getProducts = async type => {
 const getProduct = async (type, id) => {
     try {
         const resApi = await axiosClient.get(`${url}${type}/update/${id}`)
-        console.log(
-            "🚀 ~ file: ProductAdmin.Api.js ~ line 32 ~ getProducts ~ resApi",
-            resApi
-        )
 
         if (resApi)
             return {
@@ -79,10 +67,6 @@ const getProduct = async (type, id) => {
 const createProduct = async (type, body) => {
     try {
         const resApi = await axiosClient.post(`${url}${type}/create`, body)
-        console.log(
-            "🚀 ~ file: ProductAdmin.Api.js ~ line 57 ~ createProduct ~ resApi",
-            resApi
-        )
 
         if (resApi && resApi.notify)
             return {
@@ -101,10 +85,6 @@ const createProduct = async (type, body) => {
 const updateProduct = async (type, body) => {
     try {
         const resApi = await axiosClient.post(`${url}${type}/update`, body)
-        console.log(
-            "🚀 ~ file: ProductAdmin.Api.js ~ line 104 ~ updateProduct ~ resApi",
-            resApi
-        )
 
         if (resApi && resApi.notify)
             return {

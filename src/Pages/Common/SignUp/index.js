@@ -1,4 +1,5 @@
 import { Button, Checkbox, Form, Input, notification, Select } from "antd"
+import { PATH } from "Constants/Path"
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router"
@@ -48,7 +49,7 @@ const SignupPage = () => {
         form.resetFields()
     }
     const history = useHistory()
-    const redirectHomePage = () => history.push("/etech")
+    const redirectHomePage = () => history.push(PATH.HOME)
     const dispatch = useDispatch()
     const onFinish = async values => {
         const body = {
@@ -59,7 +60,6 @@ const SignupPage = () => {
             address: values.address
         }
         const res = await dispatch(signup(body))
-        console.log("🚀 ~ file: index.js ~ line 63 ~ SignupPage ~ res", res)
         if (res.data.date && res.data.success === true) {
             const isLogin = dispatch(
                 login({

@@ -1,10 +1,7 @@
 import {
     BRAND_DRIVE_FILTER_WEB,
-    BRAND_LAPTOP_FILTER_WEB,
     CAPACITY_DRIVE_FILTER_WEB,
     CONNECT_LAPTOP_FILTER_WEB,
-    RAM_LAPTOP_FILTER_WEB,
-    SCREEN_LAPTOP_FILTER_WEB,
     TYPE_PRODUCT
 } from "Constants/Data"
 import { useEffect, useState } from "react"
@@ -225,10 +222,7 @@ const FilterBlock = () => {
             connect: paramsConnect,
             capacity: paramsCapacity
         }
-        console.log(
-            "🚀 ~ file: index.js ~ line 100 ~ useEffect ~ paramsRequest",
-            JSON.stringify(paramsRequest)
-        )
+
         setLS("paramsRequest", paramsRequest)
     }, [checkChange])
 

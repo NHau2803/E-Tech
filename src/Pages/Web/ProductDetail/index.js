@@ -26,21 +26,9 @@ const ProductDetailPage = () => {
     const productsFilter = useSelector(
         state => state.ProductReducer.productsFilter
     )
-    console.log(
-        "🚀 ~ file: index.js ~ line 25 ~ ProductDetailPage ~ products",
-        productsFilter
-    )
+
     const productDetail = useSelector(
         state => state.ProductReducer.productDetail
-    )
-    console.log(
-        "🚀 ~ file: index.js ~ line 25 ~ ProductDetailPage ~ productDetail",
-        productDetail
-    )
-    const isNotFound = useSelector(state => state.StatusReducer.isNotFound)
-    console.log(
-        "🚀 ~ file: index.js ~ line 33 ~ ProductDetailPage ~ isNotFound",
-        isNotFound
     )
 
     // if (is404) {
@@ -84,10 +72,6 @@ const ProductDetailPage = () => {
             Object.values(TYPE_PRODUCT).includes(productType)
         ) {
             dispatch(getProductDetailApi(productType, productId)).then(res => {
-                console.log(
-                    "🚀 ~ file: index.js ~ line 76 ~ dispatch ~ res",
-                    res
-                )
                 if (!res.success) {
                     history.push("/etech/not-found")
                 }

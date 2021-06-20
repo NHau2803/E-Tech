@@ -9,7 +9,6 @@ const HeaderTop = () => {
     const account = useSelector(state => state.UserReducer.user)
 
     useEffect(() => {
-        console.log("HeaderTop")
         dispatch(getUserCookie())
     }, [])
 
@@ -17,10 +16,7 @@ const HeaderTop = () => {
         <div id="top-header">
             <div className="container">
                 <div className="pull-left">
-                    <span>
-                        Hello {(account && account.name) || "Bạn"} | E-shop vững
-                        tin mua hàng!
-                    </span>
+                    <span>Hello, {(account && account.name) || "Bạn"}</span>
                 </div>
 
                 {/* <div className="pull-right">

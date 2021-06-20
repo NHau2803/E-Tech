@@ -4,10 +4,6 @@ const url = "api/"
 const getProducts = async () => {
     try {
         const resApi = await axiosClient.get(`${url}`)
-        console.log(
-            "🚀 ~ file: Product.Api.js ~ line 7 ~ getProducts ~ resApi",
-            resApi
-        )
 
         if (resApi)
             return {
@@ -55,7 +51,6 @@ const getProductsFilter = async (type, body) => {
             `${url}products/${type}/filter`,
             body
         )
-        console.log("🚀 ~ file: Product.Api.js ~ line 61 ~ resApi", resApi)
 
         if (resApi)
             return {

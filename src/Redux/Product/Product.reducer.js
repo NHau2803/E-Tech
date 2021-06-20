@@ -55,7 +55,6 @@ const slice = createSlice({
                     return item
                 })
             filtersOld[type] = filtersNew
-            // console.log("====================>", filtersOld.toString())
             state.filters = filtersOld
         },
         changeCurPageFilter(state, action) {
@@ -86,7 +85,6 @@ const slice = createSlice({
                         a.price < b.price ? 1 : -1
                     )
             }
-            // console.log("==================>", state.productsFilter.toString())
         }
     }
 })

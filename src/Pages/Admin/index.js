@@ -18,7 +18,6 @@ const { Header, Content } = Layout
 const AdminPage = () => {
     const { productId, productType, page } = useParams()
     const history = useHistory()
-    console.log("🚀 ~ file: index.js ~ line 16 ~ page", page)
     const isAddMode = !productId
     const [toggle, setToggle] = useState(false)
 

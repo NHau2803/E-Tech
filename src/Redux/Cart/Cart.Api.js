@@ -26,10 +26,6 @@ const url = "api/"
 const getBillsHistory = async () => {
     try {
         const resApi = await axiosClient.get(`${url}orders`)
-        console.log(
-            "🚀 ~ file: Cart.Api.js ~ line 29 ~ getBillsHistory ~ resApi",
-            resApi
-        )
 
         if (resApi)
             return {
@@ -52,7 +48,6 @@ const getBillsHistory = async () => {
 const saveCarts = async body => {
     try {
         const resApi = await axiosClient.post(`${url}cart_post`, body)
-        console.log("🚀 ~ file: Cart.Api.js ~ line 30 ~ resApi", resApi)
 
         if (resApi)
             return {

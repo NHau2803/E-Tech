@@ -34,22 +34,13 @@ const UpdatePage = () => {
     const isSSDForCreateDrive = useSelector(
         state => state.ProductAdminReducer.isSSDForCreateDrive
     )
-    console.log(
-        "🚀 ~ file: index.js ~ line 34 ~ UpdatePage ~ isSSDForCreateDrive",
-        isSSDForCreateDrive
-    )
     const [productUpdating, setProductUpdating] = useState(null)
-    console.log(
-        "🚀 ~ file: index.js ~ line 34 ~ UpdatePage ~ productUpdating",
-        productUpdating
-    )
     const [cancel, setCancel] = useState(false)
 
-    //----------------------GET DATA FOR UPDATE----------
+    //----------------------GET DATA FOR UPDATE-----------------------
     useEffect(() => {
         dispatch(getSpecListApi())
         dispatch(getProductApi(productType, productId)).then(res => {
-            console.log("🚀 ~ file: index.js ~ line 52 ~ dispatch ~ res", res)
             if (res && res.info) {
                 setProductUpdating(res)
             } else {
@@ -79,19 +70,11 @@ const UpdatePage = () => {
     const onFinish = values => {
         if (!cancel) {
             if (productUpdating && productUpdating.info.type_id === 1) {
-                console.log(
-                    "🚀 ~ file: index.js ~ line 63 ~ UpdatePage ~ values",
-                    values
-                )
                 const imgs = {}
                 productUpdating.image &&
                     productUpdating.image.forEach(item => {
                         imgs[item.id] = values[item.id]
                     })
-                console.log(
-                    "🚀 ~ file: index.js ~ line 80 ~ UpdatePage ~ imgs",
-                    imgs
-                )
 
                 const bodyLaptop = {
                     info: {
@@ -117,10 +100,7 @@ const UpdatePage = () => {
                     },
                     images: imgs
                 }
-                console.log(
-                    "🚀 ~ file: index.js ~ line 93 ~ UpdatePage ~ bodyLaptop",
-                    bodyLaptop
-                )
+
                 dispatch(updateProductsApi("laptop", bodyLaptop)).then(notify =>
                     openNotify(notify.type, notify.title, notify.message)
                 )
@@ -132,10 +112,6 @@ const UpdatePage = () => {
                     productUpdating.image.forEach(item => {
                         imgs[item.id] = values[item.id]
                     })
-                console.log(
-                    "🚀 ~ file: index.js ~ line 118 ~ UpdatePage ~ imgs",
-                    imgs
-                )
 
                 const bodyDrive = {
                     info: {
@@ -163,10 +139,7 @@ const UpdatePage = () => {
                     },
                     images: imgs
                 }
-                console.log(
-                    "🚀 ~ file: index.js ~ line 125 ~ UpdatePage ~ bodyDrive",
-                    bodyDrive
-                )
+
                 dispatch(updateProductsApi("drive", bodyDrive)).then(notify =>
                     openNotify(notify.type, notify.title, notify.message)
                 )
@@ -324,7 +297,6 @@ const UpdatePage = () => {
                         LIST_RENDER_DEFAULT
                     }
                     onChange={value => {
-                        console.log(value)
                         dispatch(
                             setIsSSDForCreateDrive(
                                 value % 2 === 0 ? true : false

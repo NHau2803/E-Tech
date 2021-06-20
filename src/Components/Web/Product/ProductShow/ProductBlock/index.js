@@ -45,15 +45,6 @@ const ProductBlock = props => {
                     className="product-thumb"
                     onClick={() => history.push(`${PATH.HOME}/${type}/${id}`)}
                 >
-                    {/* {valueSale ? (
-        console.log("🚀 ~ file: index.js ~ line 32 ~ saveProductToLocalStorage ~ handleSaveCartItem", handleSaveCartItem)
-                        <div className="product-label">
-                            <span>New</span>
-                            <span className="sale">{valueSale}</span>
-                        </div>
-                    ) : (
-                        ""
-                    )}*/}
                     <button className="main-btn quick-view">
                         <Link to={`${PATH.HOME}/${type}/${id}`}>
                             <i className="fa fa-search-plus"></i> Xem Chi Tiết

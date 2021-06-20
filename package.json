@@ -48,7 +48,7 @@
     "prettier": "prettier --check \"src//(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
     "prettier:fix": "prettier --write \"src//(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
     "dev": "npm run lint:fix && npm start",
-    "deploy": "npm run build && mv build/index.html build/200.html && surge build"
+    "deploy": "npm run build && cd build && cp index.html 200.html && surge"
   },
   "eslintConfig": {
     "extends": [

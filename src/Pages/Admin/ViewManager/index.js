@@ -1,5 +1,5 @@
 import { FileSearchOutlined, ReloadOutlined } from "@ant-design/icons"
-import { Button, Table, Tag, Modal, notification } from "antd"
+import { Button, Modal, notification, Table, Tag } from "antd"
 import Search from "antd/lib/input/Search"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import React, { useEffect, useState } from "react"
@@ -37,10 +37,6 @@ const ViewManager = () => {
     const dispatch = useDispatch()
 
     const billsFilter = useSelector(state => state.BillReducer.billsFilter)
-    console.log(
-        "🚀 ~ file: index.js ~ line 118 ~ ViewManager ~ billsFilter",
-        billsFilter
-    )
 
     useEffect(() => {
         dispatch(getBillListApi())
@@ -56,7 +52,6 @@ const ViewManager = () => {
     }
 
     const showBillDetail = record => {
-        console.log("🚀 ~ file: index.js ~ line 22 ~ record", record)
         setIsModalVisible(true)
         setBillDetail(record)
     }

@@ -8,6 +8,9 @@ const HeaderBanner = () => {
                 <div className="home-wrap">
                     <Carousel autoplay effect={"scrollx"} dotPosition={"top"}>
                         <div className="banner banner-1">
+                            <img alt="Logo" src={Images.Banner_Levono_2}></img>
+                        </div>
+                        <div className="banner banner-1">
                             <img alt="Logo" src={Images.Banner_HP_Envy}></img>
                         </div>
                         <div className="banner banner-1">

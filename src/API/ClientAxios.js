@@ -27,7 +27,6 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     res => {
         console.log("🚀 ~ file: ClientAxios.js ~ line 30 ~ res", res)
-        //notify
         if (res && res.data) return res.data
 
         return res

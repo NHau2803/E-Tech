@@ -20,25 +20,25 @@ const FooterComponent = () => {
                             <h3 className="footer-header">HỖ TRỢ KHÁCH HÀNG</h3>
                             <ul className="list-links">
                                 <li>
-                                    <a href="/#">
+                                    <a href>
                                         GỌI MUA HÀNG: <PhoneOutlined />
                                         0955556666
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/#">
+                                    <a href>
                                         GỌI BẢO HÀNH: <PhoneOutlined />
                                         0944446666
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/#">
+                                    <a href>
                                         GỌI KHIẾU NẠI: <PhoneOutlined />
                                         0944447777
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/#">
+                                    <a href>
                                         GỌI KỸ THUẬT: <PhoneOutlined />
                                         0944448888
                                     </a>
@@ -73,7 +73,7 @@ const FooterComponent = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/#">CÂU HỎI THƯỜNG GẶP</Link>
+                                    <Link>CÂU HỎI THƯỜNG GẶP</Link>
                                 </li>
                                 {/* <li>
                                     <Link to="/#">TÌM SHOP(5)</Link>
@@ -89,7 +89,7 @@ const FooterComponent = () => {
                             </h3>
                             <ul className="list-links">
                                 <li>
-                                    <a href="/#">HỢP TÁC DOANH NGHIỆP</a>
+                                    <a href>HỢP TÁC DOANH NGHIỆP</a>
                                 </li>
                             </ul>
                             <br />
@@ -98,7 +98,7 @@ const FooterComponent = () => {
                             </h3>
                             <ul className="footer-social">
                                 <li>
-                                    <a href="/#">
+                                    <a href>
                                         <FacebookFilled
                                             style={{ fontSize: "20px" }}
                                         />
@@ -106,7 +106,7 @@ const FooterComponent = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/#">
+                                    <a href>
                                         <MailFilled
                                             style={{ fontSize: "20px" }}
                                         />

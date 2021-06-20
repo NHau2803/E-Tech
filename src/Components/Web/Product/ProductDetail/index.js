@@ -6,9 +6,6 @@ import ProductSpec from "./ProductSpec"
 
 const ProductDetail = props => {
     const { detail, images, id } = props
-    // console.log("🚀 ~ file: index.js ~ line 9 ~ match", match)
-    // console.log("🚀 ~ file: index.js ~ line 6 ~ images", images)
-    // console.log("🚀 ~ file: index.js ~ line 6 ~ detail", detail)
     const dispatch = useDispatch()
     const saveProductToLocalStorage = () => {
         let cartItem = {

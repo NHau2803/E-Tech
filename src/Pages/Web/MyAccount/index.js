@@ -1,17 +1,5 @@
-import {
-    AuditOutlined,
-    FieldTimeOutlined,
-    FormOutlined,
-    GlobalOutlined,
-    MailOutlined,
-    PhoneOutlined,
-    PoweroffOutlined,
-    UserOutlined
-} from "@ant-design/icons"
-import { Button, Card, notification, Popconfirm } from "antd"
-import Layout, { Content } from "antd/lib/layout/layout"
-import Sider from "antd/lib/layout/Sider"
-import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
+import { FormOutlined } from "@ant-design/icons"
+import { Card, notification } from "antd"
 import BreadcrumbComponent from "Components/Web/Breadcrumb"
 import { PATH } from "Constants/Path"
 import Cookie from "js-cookie"
@@ -21,10 +9,7 @@ import { useHistory } from "react-router-dom"
 import { logoutUser } from "Redux/User/User.thunk"
 const MyAccount = () => {
     const [account, setAccount] = useState(Cookie.getJSON("account") || {})
-    console.log(
-        "🚀 ~ file: index.js ~ line 15 ~ MyAccount ~ account",
-        Cookie.getJSON("account")
-    )
+
     const dispatch = useDispatch()
     const history = useHistory()
     const logout = () => {

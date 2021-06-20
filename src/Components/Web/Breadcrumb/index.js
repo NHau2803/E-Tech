@@ -1,3 +1,4 @@
+import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
 
 const BreadcrumbComponent = props => {
@@ -7,7 +8,7 @@ const BreadcrumbComponent = props => {
             <div className="container">
                 <ul className="breadcrumb">
                     <li>
-                        <Link to={"/etech"}>ETech</Link>
+                        <Link to={PATH.HOME}>ETech</Link>
                     </li>
                     <li className="active">{pageName}</li>
                 </ul>

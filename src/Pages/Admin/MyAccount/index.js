@@ -18,10 +18,6 @@ import { useHistory } from "react-router-dom"
 import { logoutUser } from "Redux/User/User.thunk"
 const MyAccount = () => {
     const [account, setAccount] = useState(Cookie.getJSON("account") || {})
-    console.log(
-        "🚀 ~ file: index.js ~ line 15 ~ MyAccount ~ account",
-        Cookie.getJSON("account")
-    )
     const dispatch = useDispatch()
     const history = useHistory()
     const logout = () => {

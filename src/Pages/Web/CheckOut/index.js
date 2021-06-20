@@ -4,7 +4,7 @@ import {
     PhoneOutlined,
     UserOutlined
 } from "@ant-design/icons"
-import { Alert, InputNumber, Modal, notification, Result } from "antd"
+import { InputNumber, Modal, notification, Result } from "antd"
 import BreadcrumbComponent from "Components/Web/Breadcrumb"
 import { PATH } from "Constants/Path"
 import { useEffect, useState } from "react"
@@ -51,17 +51,22 @@ const CheckOut = () => {
 
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [notify, setNotify] = useState(null)
-    console.log("🚀 ~ file: index.js ~ line 56 ~ CheckOut ~ notify", notify)
 
     const handlePay = () => {
-        let order = []
-        console.log("🚀 ~ file: index.js ~ line 50 ~ handlePay ~ order", order)
-        carts.map(item => order.push({ id: item.id, qty: item.qty }))
-        //console.log("=====>",{order:order})
-        dispatch(saveCartApi({ order: order })).then(res => {
-            setIsModalVisible(true)
-            setNotify(res)
-        })
+        if (account && !isEmpty(carts)) {
+            let order = []
+
+            carts.map(item => order.push({ id: item.id, qty: item.qty }))
+            dispatch(saveCartApi({ order: order })).then(res => {
+                setIsModalVisible(true)
+                setNotify(res)
+            })
+        } else {
+            notification.warning({
+                message: "Thông báo",
+                description: "Chưa có sản phẩm nào để thanh toán"
+            })
+        }
     }
 
     return (
@@ -70,7 +75,7 @@ const CheckOut = () => {
             <Modal
                 title="Thông báo"
                 visible={isModalVisible}
-                onOk={() => history.push("/etech")}
+                onOk={() => history.push(PATH.HOME)}
                 onCancel={() => setIsModalVisible(false)}
                 okText="Mua tiếp"
                 cancelText="Thoát"
@@ -287,7 +292,7 @@ const CheckOut = () => {
                                     <button
                                         className="primary-btn"
                                         onClick={() => {
-                                            isEmpty(carts)
+                                            account && isEmpty(carts)
                                                 ? notification.warning({
                                                       message: "Thông báo",
                                                       description:

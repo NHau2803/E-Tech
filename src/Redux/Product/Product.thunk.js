@@ -31,7 +31,6 @@ export const getProductsFilterApi = (type, body) => async dispatch => {
     try {
         dispatch(changeLoading(true))
         const resApi = await ProductApi.getProductsFilter(type, body)
-        console.log("🚀 ~ file: Product.thunk.js ~ line 50 ~ resApi", resApi)
         if (resApi.success) {
             dispatch(productsFilterSuccess(resApi.data))
             dispatch(isSuccess())
@@ -54,7 +53,6 @@ export const getProductDetailApi = (
     try {
         dispatch(changeLoading(true))
         const resApi = await ProductApi.getProductDetail(productType, productId)
-        console.log("🚀 ~ file: Product.thunk.js ~ line 31 ~ resApi", resApi)
         if (resApi.success) {
             dispatch(productDetailSuccess(resApi.data))
             dispatch(changeLoading(false))

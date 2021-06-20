@@ -1,3 +1,4 @@
+import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
 import "./ServerProblem.css"
 const ServerProblemComponent = props => {
@@ -9,7 +10,7 @@ const ServerProblemComponent = props => {
                 <h2>Máy Chủ Không Phản Hồi</h2>
                 <h1>500</h1>
                 <p>Rất tiếc, bạn không thể truy cập</p>
-                <Link to="/etech">Quay lại Trang Chủ</Link>
+                <Link to={PATH.HOME}>Quay lại Trang Chủ</Link>
             </div>
         )
     }
@@ -19,7 +20,7 @@ const ServerProblemComponent = props => {
                 <h3 style={{ marginTop: "15px" }}>
                     500 | Máy chủ không phản hồi!
                 </h3>
-                <Link to="/etech">Quay lại Trang Chủ</Link>
+                <Link to={PATH.HOME}>Quay lại Trang Chủ</Link>
             </div>
         )
     }

@@ -5,7 +5,6 @@ const url = "api/"
 const login = async body => {
     try {
         const resApi = await axiosClient.post(`${url}login`, body)
-        console.log("🚀 ~ file: User.Api.js ~ line 8 ~ resApi", resApi)
 
         if (resApi && resApi.info)
             return {
@@ -28,7 +27,6 @@ const login = async body => {
 const signup = async body => {
     try {
         const resApi = await axiosClient.post(`${url}register`, body)
-        console.log("🚀 ~ file: User.Api.js ~ line 31 ~ resApi", resApi)
 
         if (resApi && resApi.success)
             return {

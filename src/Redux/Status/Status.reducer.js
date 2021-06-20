@@ -17,7 +17,6 @@ const slice = createSlice({
             state.isNotFound = action.payload
         },
         isServerProblem: (state, action) => {
-            console.log(action.payload)
             state.isServerProblem = action.payload
         }
     }

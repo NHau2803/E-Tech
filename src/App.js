@@ -2,6 +2,7 @@
 
 import LoaderComponent from "Components/Web/Common/Loader"
 import NotFoundComponent from "Components/Web/Common/NotFound"
+import { PATH } from "Constants/Path"
 import Authentication from "HOC/BaseAuth"
 import LoginPage from "Pages/Common/LoginPage"
 import SignupPage from "Pages/Common/SignUp"
@@ -24,18 +25,17 @@ function App() {
                 <Suspense fallback={() => <LoaderComponent />}>
                     <Router>
                         <Switch>
-                            <Redirect exact from="/" to="/etech" />
+                            <Redirect exact from="/" to={PATH.HOME} />
 
                             <Route
                                 exact
-                                path="/dang-nhap"
-                                s
+                                path={PATH.LOGIN}
                                 component={LoginPage}
                             />
 
                             <Route
                                 exact
-                                path="/dang-ky"
+                                path={PATH.SIGNUP}
                                 component={SignupPage}
                             />
 
@@ -48,7 +48,7 @@ function App() {
                                 )}
                             />
 
-                            <Route path="/etech" component={RouteWeb} />
+                            <Route path={PATH.HOME} component={RouteWeb} />
 
                             <Route
                                 render={props => (

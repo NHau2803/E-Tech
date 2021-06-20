@@ -1,3 +1,4 @@
+import { PATH } from "Constants/Path"
 import { Link } from "react-router-dom"
 import "./NotFound.css"
 const NotFoundComponent = props => {
@@ -9,7 +10,7 @@ const NotFoundComponent = props => {
                 <h2>Không tìm thấy trang</h2>
                 <h1>404</h1>
                 <p>Rất tiếc, bạn không thể truy cập</p>
-                <Link to="/etech">Quay lại Trang Chủ</Link>
+                <Link to={PATH.HOME}>Quay lại Trang Chủ</Link>
             </div>
         )
     }
@@ -17,7 +18,7 @@ const NotFoundComponent = props => {
         return (
             <div className="container">
                 <h3 style={{ marginTop: "15px" }}>404 | Không tìm thấy!</h3>
-                <Link to="/etech">Quay lại Trang Chủ</Link>
+                <Link to={PATH.HOME}>Quay lại Trang Chủ</Link>
             </div>
         )
     }

@@ -25,7 +25,7 @@ const ProductReviews = () => {
                             <div className="review-heading">
                                 <div>Admin</div>
                                 <div>
-                                    <a href="/#">
+                                    <a href>
                                         <i className="fa fa-clock-o" />{" "}
                                         18/05/2021 09:49 PM
                                     </a>

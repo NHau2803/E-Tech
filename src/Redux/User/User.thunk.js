@@ -1,11 +1,10 @@
-import { loginSuccess, logoutSuccess, getAuth } from "./User.reducer"
-import UserApi from "./User.Api"
 import Cookies from "js-cookie"
+import UserApi from "./User.Api"
+import { getAuth, loginSuccess, logoutSuccess } from "./User.reducer"
 export const login = body => async dispatch => {
     try {
         // const res = await api.post('/api/auth/login/', { username, password })
         const resLogin = await UserApi.login(body)
-        console.log("🚀 ~ file: User.thunk.js ~ line 8 ~ resLogin", resLogin)
 
         if (resLogin.success) {
             Cookies.set("token", resLogin.data.token)
@@ -24,7 +23,6 @@ export const signup = body => async dispatch => {
     try {
         // const res = await api.post('/api/auth/login/', { username, password })
         const resSignup = await UserApi.signup(body)
-        console.log("🚀 ~ file: User.thunk.js ~ line 27 ~ resSignup", resSignup)
 
         return resSignup
     } catch (e) {
@@ -66,13 +64,8 @@ export const getAuthApi = () => async dispatch => {
 export const getAuthCookie = () => async dispatch => {
     try {
         const data = Cookies.getJSON("account")
-        console.log(
-            "🚀 ~ file: User.thunk.js ~ line 59 ~ data",
-            data !== undefined
-        )
-        if (data) {
-            console.log("🚀 ~ file: User.thunk.js ~ line 61 ~ data", data)
 
+        if (data) {
             return {
                 isLogin: true,
                 isAdmin: data.admin === 1
@@ -103,7 +96,6 @@ export const logoutUser = () => async dispatch => {
 export const getUserCookie = () => async dispatch => {
     const data = Cookies.getJSON("account")
     if (data) {
-        console.log("🚀 ~ file: User.thunk.js ~ line 97 ~ data", data)
         dispatch(loginSuccess(data))
     }
 }
