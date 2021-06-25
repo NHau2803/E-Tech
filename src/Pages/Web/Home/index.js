@@ -29,7 +29,7 @@ const HomePage = () => {
             //DRIVE = MOBILE
             notification.warning({
                 message: "Thông báo",
-                description: "Xin lỗi, web chưa được tối ưu trên điện thoại"
+                description: "Xin lỗi, web chưa được tối ưu trên điện thoại."
             })
         }
     }, [])
