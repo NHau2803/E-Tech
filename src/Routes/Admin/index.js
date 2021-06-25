@@ -2,6 +2,8 @@ import { BackTop, Button, Result, Spin } from "antd"
 import React from "react"
 import { useSelector } from "react-redux"
 import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom"
+
+//-------------------RENDER FRAME ADMIN PAGE------------------------------------------
 const AdminPage = React.lazy(() => import("../../Pages/Admin"))
 const RouteAdmin = () => {
     const match = useRouteMatch()

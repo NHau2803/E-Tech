@@ -1,5 +1,13 @@
-import { CloseOutlined, LinkOutlined, SaveOutlined } from "@ant-design/icons"
+import {
+    CloseOutlined,
+    EditOutlined,
+    LinkOutlined,
+    SaveOutlined
+} from "@ant-design/icons"
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import CKEditor from "@ckeditor/ckeditor5-react"
 import { Button, Col, Form, notification, Row, Space } from "antd"
+import Modal from "antd/lib/modal/Modal"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import InputField from "Components/Admin/CustomFields/InputField"
 import SelectField from "Components/Admin/CustomFields/SelectField"
@@ -36,6 +44,12 @@ const UpdatePage = () => {
     )
     const [productUpdating, setProductUpdating] = useState(null)
     const [cancel, setCancel] = useState(false)
+    const [ckeditorOutput, setCkeditorOutput] = useState(null)
+    console.log(
+        "🚀 ~ file: index.js ~ line 48 ~ UpdatePage ~ ckeditorOutput",
+        ckeditorOutput
+    )
+    const [isModalVisible, setIsModalVisible] = useState(false)
 
     //----------------------GET DATA FOR UPDATE-----------------------
     useEffect(() => {
@@ -80,7 +94,7 @@ const UpdatePage = () => {
                     info: {
                         id: productUpdating.info.id,
                         name: values.name,
-                        description: values.description,
+                        description: ckeditorOutput,
                         guarantee: Number(values.guarantee),
                         price: Number(values.price),
                         brand_id: Number(values.brand_id),
@@ -117,7 +131,7 @@ const UpdatePage = () => {
                     info: {
                         id: productUpdating.info.id,
                         name: values.name,
-                        description: values.description,
+                        description: ckeditorOutput,
                         guarantee: Number(values.guarantee),
                         price: Number(values.price),
                         brand_id: Number(values.brand_id),
@@ -149,11 +163,7 @@ const UpdatePage = () => {
                 !productUpdating.info.type_id === 1 ||
                 !productUpdating.info.type_id === 2
             ) {
-                openNotify(
-                    "info",
-                    "Thêm chưa thành công!",
-                    "Tính năng đang cập nhật"
-                )
+                openNotify("info", "Thông báo", "Cập nhật chưa thành công!")
             }
         }
     }
@@ -432,7 +442,8 @@ const UpdatePage = () => {
                     rules={[{ required: true }]}
                 />
 
-                {productUpdating.image &&
+                {productUpdating &&
+                    productUpdating.image &&
                     productUpdating.image.map(item => {
                         return (
                             <InputField
@@ -446,14 +457,40 @@ const UpdatePage = () => {
                         )
                     })}
                 <InputField
-                    typeInput={TYPE_CUSTOM_FIELD.TEXTAREA}
+                    typeInput={TYPE_CUSTOM_FIELD.BUTTON}
                     name={"description"}
-                    label={"Mô tả sản phẩm"}
-                    initialValue={
-                        productUpdating && productUpdating.info.description
+                    button={
+                        <Button
+                            type="primary"
+                            icon={<EditOutlined />}
+                            onClick={() => setIsModalVisible(true)}
+                        ></Button>
                     }
-                    rules={[{ required: true }]}
+                    label={"Mô tả sản phẩm"}
+                    //rules={[{ required: true }]}
                 />
+                <Modal
+                    title="Chỉnh sửa mô tả sản phẩm"
+                    width={"80%"}
+                    visible={isModalVisible}
+                    okText="Lưu"
+                    cancelText="Thoát"
+                    onOk={() => setIsModalVisible(false)}
+                    onCancel={() => setIsModalVisible(false)}
+                >
+                    <div>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            data={
+                                productUpdating &&
+                                productUpdating.info.description
+                            }
+                            onChange={(event, editor) =>
+                                setCkeditorOutput(editor.getData())
+                            }
+                        />
+                    </div>
+                </Modal>
                 <InputField
                     typeInput={TYPE_CUSTOM_FIELD.INPUT}
                     name={"price"}
@@ -531,6 +568,7 @@ const UpdatePage = () => {
                     {productUpdating && productUpdating.info
                         ? handleRenderInfo()
                         : ""}
+
                     {/* RENDER SPEC */}
                     {handleRenderSpec()}
                     <Row

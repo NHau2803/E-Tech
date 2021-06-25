@@ -1831,4 +1831,13 @@ textarea.input {
   top: 50%;
 }
 
-
+.image{
+  overflow: hidden;
+  max-width: 800px;
+  height:444px;
+  object-fit: scale-down
+}
+/* .ck-editor__editable {
+  min-height: 200px;
+  min-width: 1080px;
+} */

@@ -314,6 +314,12 @@ const CheckOut = () => {
                                                       description:
                                                           "Chưa có sản phẩm nào để thanh toán"
                                                   })
+                                                : totalPriceBill > 100000000
+                                                ? notification.info({
+                                                      message: "Thông báo",
+                                                      description:
+                                                          "Nếu bạn muốn mua số lượng lớn, Vui lòng liên hệ với cửa hàng qua số 0946601833 để được nhận ưu đãi hấp dẫn, Cảm ơn quý khách đã tin tưởng."
+                                                  })
                                                 : handlePay()
                                         }}
                                     >

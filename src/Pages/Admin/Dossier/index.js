@@ -1,26 +1,23 @@
-import { DeleteOutlined, FormOutlined, ReloadOutlined } from "@ant-design/icons"
 import {
-    Button,
-    Form,
-    Layout,
-    notification,
-    Space,
-    Table,
-    Tag,
-    Tooltip
-} from "antd"
+    DeleteOutlined,
+    FileSearchOutlined,
+    FormOutlined,
+    ReloadOutlined
+} from "@ant-design/icons"
+import { Button, Space, Table } from "antd"
 import Search from "antd/lib/input/Search"
+import Modal from "antd/lib/modal/Modal"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import MessageField from "Components/Admin/CustomFields/Message"
 import { TYPE_PRODUCT } from "Constants/Data"
+import { PATH } from "Constants/Path"
+import { Markup } from "interweave"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams, useRouteMatch } from "react-router-dom"
 import { handleSearchByName } from "Redux/Admin/Product/ProductAdmin.reducer"
 import { getProductsApi } from "Redux/Admin/Product/ProductAdmin.thunk"
 import { changePriceToVND } from "Utils/Converter"
-
-const { Content } = Layout
 
 const DossierData = () => {
     const { productType } = useParams()
@@ -33,6 +30,13 @@ const DossierData = () => {
 
     const match = useRouteMatch()
     const dispatch = useDispatch()
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [description, setDescription] = useState("Chưa có dữ liệu...")
+    const [productId, setProductId] = useState(0)
+    console.log(
+        "🚀 ~ file: index.js ~ line 37 ~ DossierData ~ productId",
+        productId
+    )
 
     useEffect(() => {
         setIndexTable(indexTable + 1)
@@ -40,14 +44,6 @@ const DossierData = () => {
     }, [productType])
 
     // ---------------------EVEN---------------------
-
-    const openNotification = (title, message) => {
-        notification.open({
-            message: title,
-            description: message,
-            title
-        })
-    }
 
     const handleDelete = key => {
         //console.log(key)
@@ -58,17 +54,22 @@ const DossierData = () => {
         dispatch(getProductsApi(productType))
     }
 
+    const showDescription = description => {
+        setIsModalVisible(true)
+        setDescription(description)
+    }
+
     // ---------------------COL---------------------
     const columnsLaptop = [
         {
-            id: 1,
+            key: "name",
             title: "Tên sản phẩm",
             dataIndex: "name",
             width: 220,
             fixed: "left"
         },
         {
-            id: 10,
+            key: "image",
             title: "Ảnh",
             dataIndex: "image",
             render: image => <img alt="IMG" src={image} width="100%"></img>,
@@ -76,7 +77,7 @@ const DossierData = () => {
             fixed: "left"
         },
         {
-            id: 20,
+            key: "price",
             title: "Giá bán",
             dataIndex: "price",
             sorter: (a, b) => a.price - b.price,
@@ -84,7 +85,7 @@ const DossierData = () => {
             width: 150
         },
         {
-            id: 2,
+            key: 2,
             title: "Hãng",
             dataIndex: "brand",
             filters: filters && filters.Brand,
@@ -92,7 +93,7 @@ const DossierData = () => {
             width: 100
         },
         {
-            id: 3,
+            key: "cpu",
             title: "Vi xử lí",
             dataIndex: "cpu",
             filters: filters && filters.Cpu,
@@ -101,7 +102,7 @@ const DossierData = () => {
             width: 180
         },
         {
-            id: 4,
+            key: "ram",
             title: "Ram",
             dataIndex: "ram",
             filters: filters && filters.Ram,
@@ -109,7 +110,7 @@ const DossierData = () => {
             width: 180
         },
         {
-            id: 5,
+            key: "rom",
             title: "Lưu trữ",
             dataIndex: "rom",
             filters: filters && filters.Rom,
@@ -117,26 +118,35 @@ const DossierData = () => {
             width: 180
         },
         {
-            id: 6,
-            title: "Mô tả sản phẩm",
-            dataIndex: "description",
-            with: 300,
-            render: description => (
-                <Tooltip
-                    title={description.toUpperCase()}
-                    color={"#8c8c8c"}
-                    key={description}
-                >
-                    <Tag key={description}>
-                        {description.length > 25
-                            ? description.slice(0, 25).toUpperCase() + "..."
-                            : description.toUpperCase()}
-                    </Tag>
-                </Tooltip>
+            title: "Mô tả",
+            width: 80,
+            align: "center",
+            render: (text, record) => (
+                <Button
+                    type="primary"
+                    icon={<FileSearchOutlined />}
+                    onClick={() => {
+                        setProductId(record.id)
+                        showDescription(record.description)
+                    }}
+                ></Button>
             )
+            // render: description => (
+            //     <Tooltip
+            //         title={description.toUpperCase()}
+            //         color={"#8c8c8c"}
+            //         key={description}
+            //     >
+            //         <p key={description}>
+            //             {description.length > 25
+            //                 ? description.slice(0, 25).toUpperCase() + "..."
+            //                 : description.toUpperCase()}
+            //         </p>
+            //     </Tooltip>
+            // )
         },
         {
-            id: 7,
+            key: "action",
             title: "Chức năng",
             dataIndex: "action",
             width: 120,
@@ -164,14 +174,14 @@ const DossierData = () => {
     ]
     const columnsDrive = [
         {
-            id: 1,
+            key: "name",
             title: "Tên sản phẩm",
             dataIndex: "name",
             width: 220,
             fixed: "left"
         },
         {
-            id: 10,
+            key: "image",
             title: "Ảnh",
             dataIndex: "image",
             render: image => <img alt="IMG" src={image} width="100%"></img>,
@@ -179,7 +189,7 @@ const DossierData = () => {
             fixed: "left"
         },
         {
-            id: 20,
+            key: "price",
             title: "Giá bán",
             dataIndex: "price",
             sorter: (a, b) => a.price - b.price,
@@ -187,7 +197,7 @@ const DossierData = () => {
             width: 150
         },
         {
-            id: 2,
+            key: "brand",
             title: "Hãng",
             dataIndex: "brand",
             filters: filters && filters.Brand,
@@ -196,7 +206,7 @@ const DossierData = () => {
         },
 
         {
-            id: 3,
+            key: "type",
             title: "Loại ổ cứng",
             dataIndex: "type",
             filters: filters && filters.type,
@@ -204,7 +214,7 @@ const DossierData = () => {
             width: 120
         },
         {
-            id: 4,
+            key: "capacity",
             title: "Dung lượng",
             dataIndex: "capacity",
             filters: filters && filters.capacity,
@@ -212,26 +222,36 @@ const DossierData = () => {
             width: 120
         },
         {
-            id: 5,
-            title: "Mô tả sản phẩm",
-            dataIndex: "description",
-            width: 200,
-            render: description => (
-                <Tooltip
-                    title={description.toUpperCase()}
-                    color={"#8c8c8c"}
-                    key={description}
-                >
-                    <Tag key={description}>
-                        {description.length > 25
-                            ? description.slice(0, 25).toUpperCase() + "..."
-                            : description.toUpperCase()}
-                    </Tag>
-                </Tooltip>
+            key: "description",
+            title: "Mô tả",
+            width: 80,
+            align: "center",
+            render: (text, record) => (
+                <Button
+                    type="primary"
+                    icon={<FileSearchOutlined />}
+                    onClick={() => {
+                        setProductId(record.id)
+                        showDescription(record.description)
+                    }}
+                ></Button>
             )
+            // render: description => (
+            //     <Tooltip
+            //         title={description.toUpperCase()}
+            //         color={"#8c8c8c"}
+            //         key={description}
+            //     >
+            //         <Tag key={description}>
+            //             {description.length > 25
+            //                 ? description.slice(0, 25).toUpperCase() + "..."
+            //                 : description.toUpperCase()}
+            //         </Tag>
+            //     </Tooltip>
+            // )
         },
         {
-            id: 7,
+            key: "action",
             title: "Chức năng",
             dataIndex: "action",
             width: 100,
@@ -259,7 +279,7 @@ const DossierData = () => {
     ]
 
     return (
-        <Layout className="site-layout">
+        <>
             <BreadcrumbField
                 list={[
                     "Admin",
@@ -268,49 +288,56 @@ const DossierData = () => {
                         : "Danh sách Ổ Cứng"
                 ]}
             />
-            <Content
-                key={indexTable}
-                style={{
-                    overflow: "initial"
+            <br />
+            <Button
+                type="primary"
+                style={{ marginBottom: 5, width: 80 }}
+                icon={<ReloadOutlined />}
+                onClick={() => reloadData()}
+            />
+            <Search
+                placeholder="Tìm kiếm tên sản phẩm"
+                style={{ width: 200, marginLeft: 5 }}
+                onChange={e => {
+                    dispatch(handleSearchByName(e.target.value))
                 }}
-            >
-                <Button
-                    type="primary"
-                    style={{ marginBottom: 5, width: 80 }}
-                    icon={<ReloadOutlined />}
-                    onClick={() => reloadData()}
-                />
-                <Search
-                    placeholder="Tìm kiếm tên sản phẩm"
-                    style={{ width: 200, marginLeft: 5 }}
-                    onChange={e => {
-                        dispatch(handleSearchByName(e.target.value))
-                    }}
-                />
+            />
+            <br />
 
-                <Form component={false}>
-                    <Table
-                        key={indexTable}
-                        bordered
-                        dataSource={productsFilter}
-                        columns={
-                            productType === "laptop"
-                                ? columnsLaptop
-                                : productType === "drive"
-                                ? columnsDrive
-                                : []
-                        }
-                        pagination={{
-                            defaultPageSize: 10,
-                            showSizeChanger: true,
-                            pageSizeOptions: ["10", "20", "30"]
-                        }}
-                        scroll={{ x: 1500, y: 500 }}
-                        // footer={() => "Footer"}
-                    />
-                </Form>
-            </Content>
-        </Layout>
+            <Table
+                key={indexTable}
+                bordered
+                dataSource={productsFilter}
+                columns={
+                    productType === "laptop"
+                        ? columnsLaptop
+                        : productType === "drive"
+                        ? columnsDrive
+                        : []
+                }
+                pagination={{
+                    defaultPageSize: 10,
+                    showSizeChanger: true,
+                    pageSizeOptions: ["10", "20", "30"]
+                }}
+                scroll={{ x: 1500, y: 500 }}
+                // footer={() => "Footer"}
+            />
+
+            <Modal
+                title="Mô tả sản phẩm"
+                width={"80%"}
+                visible={isModalVisible}
+                okText="Xem trực tiếp tại website"
+                cancelText="Thoát"
+                onOk={() =>
+                    window.open(`${PATH.HOME}/${productType}/${productId}`)
+                }
+                onCancel={() => setIsModalVisible(false)}
+            >
+                <Markup content={description} />
+            </Modal>
+        </>
     )
 }
 export default DossierData

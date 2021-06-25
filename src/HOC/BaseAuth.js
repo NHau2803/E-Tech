@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { notification } from "antd"
 import { PATH } from "Constants/Path"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -7,7 +8,7 @@ import { getAuthCookie } from "Redux/User/User.thunk"
 
 const Authentication = (SpecificComponent, option, adminRoute = null) => {
     function AuthenticationCheck(props) {
-        const account = useSelector(state => state.UserReducer.user)
+        // const account = useSelector(state => state.UserReducer.user)
         const dispatch = useDispatch()
         const history = useHistory()
 
@@ -15,13 +16,27 @@ const Authentication = (SpecificComponent, option, adminRoute = null) => {
             const res = await dispatch(getAuthCookie())
 
             if (res && !res.isLogin) {
-                //true => bat dang nhap
+                //true => LOGIN
                 if (option) {
                     history.push(PATH.LOGIN)
                 }
             } else {
                 if (adminRoute && res && !res.isAdmin) {
-                    //Kiểm tra khong phai admin
+                    //NOT ADMIN
+                    history.push(PATH.HOME)
+                }
+                if (
+                    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                        navigator.userAgent
+                    )
+                ) {
+                    console.log("MOBILE")
+                    //MOBILE NOT ACCESS
+                    notification.warning({
+                        message: "Thông báo",
+                        description:
+                            "Bạn không nên truy cập trang quản trị bằng điện thoại"
+                    })
                     history.push(PATH.HOME)
                 } else {
                     if (option === false) {
@@ -34,7 +49,7 @@ const Authentication = (SpecificComponent, option, adminRoute = null) => {
             fetchAuth()
             //To know my current status, send Auth request
         }, [])
-        //Đã có login
+        //Is login
         return <SpecificComponent {...props} />
     }
     return AuthenticationCheck

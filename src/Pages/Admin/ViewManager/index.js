@@ -83,47 +83,62 @@ const ViewManager = () => {
 
     const columns = [
         {
-            id: 1,
+            title: "Mã HĐ",
+            key: "billId",
+            width: 120,
+            sorter: (a, b) => a.billId - b.billId,
+            defaultSortOrder: "descend",
+            render: (index, record) => record.bill.billId && record.bill.billId,
+            fixed: "left"
+        },
+        {
             key: "userId",
             title: "Mã KH",
             dataIndex: "userId",
-            width: 150,
+            width: 120,
             sorter: (a, b) => a.userId - b.userId,
             fixed: "left"
         },
         {
-            id: 2,
             key: "name",
-            title: "Tên khách hàng",
+            title: "Tên KH",
             dataIndex: "name",
-            sorter: (a, b) => a.name.localeCompare(b.name)
+            width: 180,
+            sorter: (a, b) => a.name.localeCompare(b.name),
+            fixed: "left"
         },
         {
-            id: 3,
             key: "email",
             title: "Email",
             dataIndex: "email"
         },
         {
-            id: 4,
             key: "address",
             title: "Địa chỉ",
-            dataIndex: "address"
-            // width: 220,
+            dataIndex: "address",
+            width: 450
         },
         {
-            id: 5,
             key: "phone",
             title: "Số điện thoại",
             dataIndex: "phone",
-            width: 150
+            width: 180
         },
         {
-            id: 6,
+            key: "timeBuy",
+            title: "Thời gian mua",
+            dataIndex: "bill",
+            width: 250,
+            render: bill => new Date(bill.timeBuy).toLocaleString("en-GB")
+        },
+        {
             key: "status",
-            title: "Trạng thái đơn hàng",
+            title: "Tình trạng đơn",
             dataIndex: "status",
             filters: STATUS,
+            width: 150,
+            fixed: "right",
+            defaultFilteredValue: ["AWAIT_FOR_CONFIRMATION"],
             onFilter: (value, record) => record.status.includes(value),
             render: status => (
                 <Tag
@@ -145,12 +160,12 @@ const ViewManager = () => {
             // fixed: "left"
         },
         {
-            id: 7,
             key: "bill",
             title: "Chi tiết",
             dataIndex: "bill",
-            width: 100,
+            width: 80,
             align: "center",
+            fixed: "right",
             render: bill => (
                 <Button
                     type="primary"
@@ -163,15 +178,13 @@ const ViewManager = () => {
 
     const columnsProduct = [
         {
-            id: 10,
             title: "Mã sản phẩm",
             dataIndex: "id",
             key: "id",
-            width: 160,
+            width: 180,
             align: "center"
         },
         {
-            id: 11,
             title: "Tên sản phẩm",
             dataIndex: "name",
             key: "name",
@@ -179,7 +192,6 @@ const ViewManager = () => {
             align: "center"
         },
         {
-            id: 12,
             title: "Ảnh",
             dataIndex: "image",
             key: "image",
@@ -188,7 +200,6 @@ const ViewManager = () => {
             align: "center"
         },
         {
-            id: 13,
             title: "Giá",
             dataIndex: "price",
             key: "price",
@@ -196,7 +207,6 @@ const ViewManager = () => {
             align: "center"
         },
         {
-            id: 14,
             title: "Số lượng",
             dataIndex: "qty",
             key: "qty",
@@ -216,7 +226,7 @@ const ViewManager = () => {
                 onClick={() => dispatch(getBillListApi())}
             />
             <Search
-                placeholder="Tìm kiếm tên sản phẩm"
+                placeholder="Tìm kiếm tên khách hàng"
                 style={{ width: 200, marginLeft: 5 }}
                 onChange={e => {
                     dispatch(handleSearchByName(e.target.value))
@@ -232,7 +242,7 @@ const ViewManager = () => {
                     showSizeChanger: true,
                     pageSizeOptions: ["10", "20", "30"]
                 }}
-                scroll={{ y: 500 }}
+                scroll={{ x: 1800, y: 500 }}
             />
             <Modal
                 title={"Chi tiết hóa đơn"}

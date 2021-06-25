@@ -1,5 +1,13 @@
-import { CloseOutlined, LinkOutlined, SaveOutlined } from "@ant-design/icons"
+import {
+    CloseOutlined,
+    EditOutlined,
+    LinkOutlined,
+    SaveOutlined
+} from "@ant-design/icons"
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import CKEditor from "@ckeditor/ckeditor5-react"
 import { Button, Col, Form, notification, Row, Space } from "antd"
+import Modal from "antd/lib/modal/Modal"
 import BreadcrumbField from "Components/Admin/CustomFields/BreadcrumbField"
 import InputField from "Components/Admin/CustomFields/InputField"
 import SelectField from "Components/Admin/CustomFields/SelectField"
@@ -16,7 +24,6 @@ import {
     createProductsApi,
     getSpecListApi
 } from "Redux/Admin/Product/ProductAdmin.thunk"
-import "../AddEditPage.css"
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 12 }
@@ -34,6 +41,9 @@ const AddProductPage = () => {
         state => state.ProductAdminReducer.isSSDForCreateDrive
     )
     const [cancel, setCancel] = useState(false)
+    const [ckeditorOutput, setCkeditorOutput] = useState(null)
+    const [isModalVisible, setIsModalVisible] = useState(false)
+
     //----------------------GET DATA SHOW SELECT FIELDS----------
     useEffect(() => {
         dispatch(getSpecListApi())
@@ -63,7 +73,7 @@ const AddProductPage = () => {
                 const bodyLaptop = {
                     info: {
                         name: values.name,
-                        description: values.description,
+                        description: ckeditorOutput,
                         guarantee: Number(values.guarantee),
                         price: Number(values.price),
                         brand_id: Number(values.brand_id),
@@ -81,7 +91,7 @@ const AddProductPage = () => {
                         battery_id: Number(values.battery_id),
                         weight_id: Number(values.weight_id)
                     },
-                    images: {
+                    image: {
                         img1: values.img1,
                         img2: values.img2,
                         img3: values.img3
@@ -91,12 +101,13 @@ const AddProductPage = () => {
                 dispatch(createProductsApi("laptop", bodyLaptop)).then(notify =>
                     openNotify(notify.type, notify.title, notify.message)
                 )
+                window.history.back()
             }
             if (productTypeIdForCreate === 2) {
                 const bodyDrive = {
                     info: {
                         name: values.name,
-                        description: values.description,
+                        description: ckeditorOutput,
                         guarantee: Number(values.guarantee),
                         price: Number(values.price),
                         brand_id: Number(values.brand_id),
@@ -125,12 +136,9 @@ const AddProductPage = () => {
                 dispatch(createProductsApi("drive", bodyDrive)).then(notify =>
                     openNotify(notify.type, notify.title, notify.message)
                 )
-            } else {
-                openNotify(
-                    "info",
-                    "Thêm chưa thành công!",
-                    "Tính năng đang cập nhật"
-                )
+            }
+            if (!productTypeIdForCreate === 1 || productTypeIdForCreate === 2) {
+                openNotify("info", "Thông báo", "Sản phẩm chưa được thêm")
             }
         }
     }
@@ -407,11 +415,37 @@ const AddProductPage = () => {
                             rules={[{ required: true }]}
                         />
                         <InputField
-                            typeInput={TYPE_CUSTOM_FIELD.TEXTAREA}
+                            typeInput={TYPE_CUSTOM_FIELD.BUTTON}
                             name={"description"}
+                            button={
+                                <Button
+                                    type="primary"
+                                    icon={<EditOutlined />}
+                                    onClick={() => setIsModalVisible(true)}
+                                ></Button>
+                            }
                             label={"Mô tả sản phẩm"}
-                            rules={[{ required: true }]}
+                            //rules={[{ required: true }]}
                         />
+                        <Modal
+                            title="Mô tả sản phẩm"
+                            width={"80%"}
+                            visible={isModalVisible}
+                            okText="Lưu"
+                            cancelText="Thoát"
+                            onOk={() => setIsModalVisible(false)}
+                            onCancel={() => setIsModalVisible(false)}
+                        >
+                            <div>
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    onChange={(event, editor) =>
+                                        setCkeditorOutput(editor.getData())
+                                    }
+                                />
+                            </div>
+                        </Modal>
+
                         <InputField
                             typeInput={TYPE_CUSTOM_FIELD.INPUT}
                             name={"price"}
@@ -433,13 +467,16 @@ const AddProductPage = () => {
                             ]}
                         />
                     </Col>
+
                     {/* render col right */}
                     {handleRenderSpec()}
+
                     <Row
                         style={{
                             width: "100%",
                             display: "flex",
-                            justifyContent: "center"
+                            justifyContent: "center",
+                            marginTop: "24px"
                         }}
                     >
                         <Space size={"small"}>

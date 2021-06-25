@@ -67,6 +67,10 @@ const getProduct = async (type, id) => {
 const createProduct = async (type, body) => {
     try {
         const resApi = await axiosClient.post(`${url}${type}/create`, body)
+        console.log(
+            "🚀 ~ file: ProductAdmin.Api.js ~ line 70 ~ createProduct ~ resApi",
+            resApi
+        )
 
         if (resApi && resApi.notify)
             return {

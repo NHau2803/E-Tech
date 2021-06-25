@@ -1,3 +1,6 @@
+import { notification } from "antd"
+import BenefitComponent from "Components/Web/Benefit"
+import BreadcrumbComponent from "Components/Web/Breadcrumb"
 import HeaderBanner from "Components/Web/Common/Header/HeaderBanner"
 // import SelectBlock from "Components/Web/Product/ProductShow/SelectBlock"
 import React, { useEffect } from "react"
@@ -18,6 +21,17 @@ const HomePage = () => {
         }
         dispatch(getCartLS())
         dispatch(getProductsApi())
+        if (
+            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                navigator.userAgent
+            )
+        ) {
+            //DRIVE = MOBILE
+            notification.warning({
+                message: "Thông báo",
+                description: "Xin lỗi, web chưa được tối ưu trên điện thoại"
+            })
+        }
     }, [])
     const products = useSelector(state => state.ProductReducer.products)
 

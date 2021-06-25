@@ -3,7 +3,8 @@
 exports.TYPE_CUSTOM_FIELD = {
     INPUT: "Input",
     TEXTAREA: "TextArea",
-    INPUT_NUMBER: "InputNumber"
+    INPUT_NUMBER: "InputNumber",
+    BUTTON: "Button"
 }
 
 exports.TYPE_PRODUCT = {

@@ -8,13 +8,14 @@ import { useHistory } from "react-router-dom"
 import AddProductPage from "./AddPage"
 import "./AdminPage.css"
 import DossierData from "./Dossier"
+import ManagerRender from "./ManagerRender"
 import MyAccount from "./MyAccount"
 import StatisticPage from "./Statistic"
 import UpdatePage from "./UpadatePage"
 import ViewManager from "./ViewManager"
-
 const { Header, Content } = Layout
 
+//-------------------RENDER FRAME ADMIN PAGE------------------------------------------
 const AdminPage = () => {
     const { productId, productType, page } = useParams()
     const history = useHistory()
@@ -36,6 +37,9 @@ const AdminPage = () => {
         }
         if (isAddMode && !productType && page === "my-account") {
             return <MyAccount />
+        }
+        if (isAddMode && !productType && page === "manager-render-index") {
+            return <ManagerRender />
         }
         if (
             !isAddMode &&
@@ -76,7 +80,7 @@ const AdminPage = () => {
             <Layout className="site-layout">
                 <Header
                     className="site-layout-background"
-                    style={{ padding: 0 }}
+                    style={{ padding: 0, height: "40px  " }}
                 >
                     {React.createElement(
                         toggle ? MenuUnfoldOutlined : MenuFoldOutlined,

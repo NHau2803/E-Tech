@@ -50,6 +50,7 @@ const StatisticPage = () => {
     return (
         <>
             <BreadcrumbField list={["Admin", "Thống kê"]} />
+            <br />
             <Row gutter={16}>
                 <Col span={12}>
                     <Card>

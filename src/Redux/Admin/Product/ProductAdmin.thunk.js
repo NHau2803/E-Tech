@@ -78,6 +78,10 @@ export const createProductsApi = (type, body) => async dispatch => {
     try {
         dispatch(changeLoading(true))
         const resApi = await ProductApi.createProduct(type, body)
+        console.log(
+            "🚀 ~ file: ProductAdmin.thunk.js ~ line 81 ~ resApi",
+            resApi
+        )
 
         if (resApi.success) {
             dispatch(changeLoading(false))

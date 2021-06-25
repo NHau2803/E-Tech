@@ -4,6 +4,7 @@ import { TYPE_CUSTOM_FIELD } from "Constants/Data"
 const InputField = props => {
     const {
         typeInput,
+        button,
         name,
         label,
         initialValue,
@@ -19,7 +20,9 @@ const InputField = props => {
             rules={rules}
             initialValue={initialValue}
         >
-            {typeInput === TYPE_CUSTOM_FIELD.INPUT_NUMBER ? (
+            {typeInput === TYPE_CUSTOM_FIELD.BUTTON ? (
+                button
+            ) : typeInput === TYPE_CUSTOM_FIELD.INPUT_NUMBER ? (
                 <InputNumber />
             ) : typeInput === TYPE_CUSTOM_FIELD.TEXTAREA ? (
                 <Input.TextArea />
